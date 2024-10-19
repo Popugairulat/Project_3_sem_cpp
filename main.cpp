@@ -1,27 +1,43 @@
 #include <SFML/Graphics.hpp>
-#include "functions.h"
-#include "buttons.h"
 #include "visual.h"
+#include "buttons.h"
+#include "functions.h"
+
 
 int main() {
-    sf::RenderWindow window(sf::VideoMode(800, 600), "Simple Game");
+    sf::RenderWindow window; // Объявляем окно
+    createWindow(window, 1000, 800, "XYI"); // Инициализируем окно
 
-    // Инициализация игрока - хз нужно ли?
-    sf::RectangleShape player = createPlayer();
+    sf::RectangleShape square(sf::Vector2f(50.0f, 50.0f)); // Объявление переменной square
+    square.setFillColor(sf::Color::Green);
+    square.setPosition(375.0f, 275.0f); // Начальная позиция квадрата в центре окна
 
-    // Основной игровой цикл
+    // Главный игровой цикл
     while (window.isOpen()) {
         sf::Event event;
         while (window.pollEvent(event)) {
-            if (event.type == sf::Event::Closed)
+            if (event.type == sf::Event::Closed) {
                 window.close();
+            }
         }
 
-        // Обновление состояния игры updatePlayerPosition(player);
+        // Обновление позиции квадрата
+        const float speed = 0.08;
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
+            square.move(-speed, 0.0f);
+        }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
+            square.move(speed, 0.0f);
+        }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
+            square.move(0.0f, -speed);
+        }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
+            square.move(0.0f, speed);
+        }
 
-        window.clear(sf::Color::Black);
-        window.draw(player);
-        window.display();
+        // Отрисовка квадрата
+        drawSquare(window, square);
     }
 
     return 0;

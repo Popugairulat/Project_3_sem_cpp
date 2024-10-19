@@ -2,7 +2,12 @@
 #define VISUAL_H
 
 #include <SFML/Graphics.hpp>
+#include <string>
 
-// Здесь будут функции для работы с изображениями
+// Функция для инициализации окна
+void createWindow(sf::RenderWindow& window, int width, int height, const std::string& title);
+
+// Функция для отрисовки квадрата
+void drawSquare(sf::RenderWindow& window, sf::RectangleShape& circle);
 
 #endif // VISUAL_H
