@@ -2,6 +2,7 @@
 #include "visual.h"
 #include "buttons.h"
 #include "functions.h"
+#include "class.h"
 
 
 int main() {
