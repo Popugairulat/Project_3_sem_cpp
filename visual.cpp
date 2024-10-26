@@ -2,11 +2,17 @@
 #include "visual.h"
 
 // Функция для отрисовки квадрата
-void drawSquare(sf::RenderWindow& window, sf::RectangleShape& circle) {
-    window.draw(circle); // Рисуем квадрат
+void drawSquare(sf::RenderWindow& window,  int x, int y) {
+    sf::RectangleShape square(sf::Vector2f(50.0f, 50.0f)); // Объявление переменной square
+    square.setFillColor(sf::Color::Green);
+    square.setPosition(x, y);
+    window.draw(square); // Рисуем квадрат
 }
 
-void drawCircle(sf::RenderWindow& window, sf::CircleShape& circle) {
+void drawCircle(sf::RenderWindow& window,  int x, int y) {
+    sf::CircleShape circle(10); // Radius of 50 pixels circle.setFillColor(sf::Color::Green); // Fill color
+    circle.setOutlineThickness(5); // Outline thickness circle.setOutlineColor(sf::Color::Red); // Outline color
+    circle.setPosition(x, y);
     window.draw(circle); // Рисуем круг
 }
 
