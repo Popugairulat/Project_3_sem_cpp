@@ -6,7 +6,7 @@
 
 
 int main() {
-    int WIDTH = 1080, HEIGHT = 720;
+    int WIDTH = 1880, HEIGHT = 943;
 
     sf::RenderWindow window(sf::VideoMode(WIDTH, HEIGHT), "XYI");
     GameState currentState = GameState::Start;
@@ -36,23 +36,21 @@ int main() {
         // Отрисовка в зависимости от текущего состояния
         if (currentState == GameState::Start) {
             renderStart(window);
-            drawSquare(window, 200, 300 );
+            drawImage(window, "Pictures\\coin_3.png", 50, 50, 300, 300);
+            drawPopup(window, "Menu");
+
         }
         else if (currentState == GameState::Level) {
             renderGame(window);
-            drawSquare(window, 200, 300);
         }
         else if (currentState == GameState::Game) {
             renderGame(window);
-            drawSquare(window, 200, 300);
         }
         else if (currentState == GameState::Final) {
             renderGame(window);
-            drawSquare(window, 200, 300);
         }
         else if (currentState == GameState::Rating) {
             renderGame(window);
-            drawSquare(window, 200, 300);
         }
 
 
