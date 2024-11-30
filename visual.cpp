@@ -57,7 +57,7 @@ void renderStart(sf::RenderWindow& window) {
 
     // Загружаем текстуру из файла
     sf::Texture backgroundTexture;
-    backgroundTexture.loadFromFile("Pictures\\start.png");
+    backgroundTexture.loadFromFile("Pictures//start.png");
     
     // Создаем спрайт и устанавливаем текстуру
     sf::Sprite backgroundSprite;
@@ -85,7 +85,7 @@ void renderLevel(sf::RenderWindow& window) {
     window.clear();
     // Загружаем текстуру из файла
     sf::Texture backgroundTexture;
-    backgroundTexture.loadFromFile("Pictures\\level.png");
+    backgroundTexture.loadFromFile("Pictures//level.png");
 
     // Создаем спрайт и устанавливаем текстуру
     sf::Sprite backgroundSprite;
@@ -109,7 +109,7 @@ void renderGame(sf::RenderWindow& window) {
 
     // Загружаем текстуру из файла
     sf::Texture backgroundTexture;
-    backgroundTexture.loadFromFile("Pictures\\game.png");
+    backgroundTexture.loadFromFile("Pictures//game.png");
 
     // Создаем спрайт и устанавливаем текстуру
     sf::Sprite backgroundSprite;
@@ -133,7 +133,7 @@ void renderFinal(sf::RenderWindow& window) {
 
     // Загружаем текстуру из файла
     sf::Texture backgroundTexture;
-    backgroundTexture.loadFromFile("Pictures\\final.png");
+    backgroundTexture.loadFromFile("Pictures//final.png");
 
     // Создаем спрайт и устанавливаем текстуру
     sf::Sprite backgroundSprite;
@@ -157,7 +157,7 @@ void renderDefeat(sf::RenderWindow& window) {
 
     // Загружаем текстуру из файла
     sf::Texture backgroundTexture;
-    backgroundTexture.loadFromFile("Pictures\\defeat.png");
+    backgroundTexture.loadFromFile("Pictures//defeat.png");
 
     // Создаем спрайт и устанавливаем текстуру
     sf::Sprite backgroundSprite;

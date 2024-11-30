@@ -1,3 +1,4 @@
+#include <iostream>
 #include <SFML/Graphics.hpp>
 #include "visual.h"
 #include "buttons.h"
@@ -18,9 +19,9 @@ int main() {
     sf::RectangleShape square(sf::Vector2f(50.0f, 50.0f)); // Объявление переменной square
     square.setFillColor(sf::Color::Green);
     square.setPosition(375.0f, 275.0f); // Начальная позиция квадрата в центре окна
-    window.draw(square);
+    //window.draw(square);
     Button button(200.f, 200.f,100.f, 100.f, "cccc");
-    button.draw_button(window);
+    
     while (window.isOpen()) {
         sf::Event event;
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
@@ -31,8 +32,20 @@ int main() {
             if (event.type == sf::Event::Closed) {
                 window.close();
             } 
+            button.get_pressed(event);
+            std::cout<<button.pressed;
+            
             // Переключение состояния
             if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Q) {
+                if (currentState == GameState::Start) {
+                    currentState = GameState::Game;
+                }
+                else {
+                    currentState = GameState::Start;
+                }
+            }
+            
+            if (button.pressed) {
                 if (currentState == GameState::Start) {
                     currentState = GameState::Game;
                 }
@@ -45,8 +58,10 @@ int main() {
         // Отрисовка в зависимости от текущего состояния
         if (currentState == GameState::Start) {
             renderStart(window);
-            drawImage(window, "Pictures\\coin_3.png", 50, 50, 300, 300);
-            drawPopup(window, "Menu");
+            //drawImage(window, "Pictures//coin_3.png", 50, 50, 300, 300);
+            //drawPopup(window, "Menu");
+            button.draw_button(window);
+            
 
         }
         else if (currentState == GameState::Level) {

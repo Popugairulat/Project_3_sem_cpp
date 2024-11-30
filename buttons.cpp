@@ -3,16 +3,22 @@
 #include "buttons.h"
 
 // Реализация функций, связанных с кнопками
-Button::Button(float x, float y, float width, float height,const std::string& text): x(x), y(y), height(height), width(width), text(text) {}
+Button::Button(float x, float y, float width, float height,const std::string& text): x(x), y(y), height(height), width(width), text(text), pressed(false) {}
 sf::RectangleShape Button::createSquare() {
+    /*
+    вспомогательный метод для отрисовки кнопки
+    */
         sf::RectangleShape rectangle(sf::Vector2f(width, height));
         rectangle.setPosition(x, y);
-        rectangle.setFillColor(sf::Color::Green);
+        rectangle.setFillColor(sf::Color::Red);
         return rectangle;
     }
 void Button::draw_button(sf::RenderWindow& window) {
+    /*
+    метод для отрисовки кнопки
+    */
         sf::RectangleShape body = Button::createSquare();
-        body.setFillColor(sf::Color::Green);
+        body.setFillColor(sf::Color::Red);
 
         // Можно добавить текст на кнопку
         // sf::Font font; // Не забудьте загрузить шрифт!
@@ -34,3 +40,15 @@ void Button::draw_button(sf::RenderWindow& window) {
         window.draw(body);
         //window.draw(bodyText);
     }
+void Button::get_pressed(sf::Event event){
+    if (event.type == sf::Event::MouseButtonPressed){
+        if (event.mouseButton.x>=x && event.mouseButton.x<=x+width){
+            if(event.mouseButton.y>=y && event.mouseButton.y<=y+height){
+                pressed = true;
+        }
+    }
+    if (event.type == sf::Event::MouseButtonReleased){
+        pressed = false;
+    }
+}
+}
