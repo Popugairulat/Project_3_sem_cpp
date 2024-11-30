@@ -19,7 +19,7 @@ int main() {
     square.setFillColor(sf::Color::Green);
     square.setPosition(375.0f, 275.0f); // Начальная позиция квадрата в центре окна
     window.draw(square);
-    Button button(200.f, 200.f,100.f, 100.f, "cccc");
+    Button button(200.f, 200.f,1000.f, 1000.f, "cccc");
     button.draw_button(window);
     while (window.isOpen()) {
         sf::Event event;
@@ -45,8 +45,14 @@ int main() {
         // Отрисовка в зависимости от текущего состояния
         if (currentState == GameState::Start) {
             renderStart(window);
-            drawImage(window, "Pictures\\coin_3.png", 50, 50, 300, 300);
+            int width = 1700/2.5;
+            drawImage(window, "Pictures\\Buttons\\button_close.png", 1770, 10, 100, 100);
+            drawImage(window, "Pictures\\Buttons\\button_close.png", 1770-100-100, 10, 100, 100);
+            drawImage(window, "Pictures\\Buttons\\button_menu.png", 1770-100, 10, 100, 100);
+
             drawPopup(window, "Menu");
+            Button button(200.f, 200.f, 100.f, 100.f, "cccc");
+            button.draw_button(window);
 
         }
         else if (currentState == GameState::Level) {
