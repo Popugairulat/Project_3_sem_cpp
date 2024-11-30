@@ -9,10 +9,13 @@ private:
     float x, y;
     float height, width;
     const std::string text;
+    
 
 public:
+    bool pressed;
     Button(float x, float y, float width, float height,const std::string& text);
     sf::RectangleShape createSquare();
     void draw_button(sf::RenderWindow& window);
+    void get_pressed(sf::Event event);
 };
 #endif // BUTTONS_H
