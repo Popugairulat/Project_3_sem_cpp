@@ -9,15 +9,13 @@ void drawSquare(sf::RenderWindow& window, sf::RectangleShape& circle) {
 void drawCircle(sf::RenderWindow& window, sf::CircleShape& circle) {
     window.draw(circle); // Рисуем круг
 }
-
-
 void renderStart(sf::RenderWindow& window) {
     window.clear(sf::Color::Red); // Цвет фона для заставки // Здесь можно добавить текст или графику для заставки
     sf::Font font;
     font.loadFromFile("arial.ttf"); // Убедитесь, что у вас есть шрифт
     sf::Text text("Заставка", font, 50);
     text.setFillColor(sf::Color::Green);
-    text.setPosition(400, 300);
+   text.setPosition(400, 300);
     window.draw(text);
 }
 
