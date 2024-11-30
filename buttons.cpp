@@ -21,20 +21,20 @@ void Button::draw_button(sf::RenderWindow& window) {
         body.setFillColor(sf::Color::Red);
 
         // Можно добавить текст на кнопку
-        // sf::Font font; // Не забудьте загрузить шрифт!
-        // if (!font.loadFromFile("path/to/font.ttf")) {
+        sf::Font font; // Не забудьте загрузить шрифт!
+        if (!font.loadFromFile("path/to/font.ttf")) {
         //     // Обработка ошибки загрузки шрифта
-        // }
+        }
         
-        // sf::Text bodyText;
-        // bodyText.setFont(font);
-        // bodyText.setString(text);
-        // bodyText.setCharacterSize(24); // Размер текста
-        // bodyText.setFillColor(sf::Color::White); // Цвет текста
+        sf::Text bodyText;
+        bodyText.setFont(font);
+        bodyText.setString(text);
+        bodyText.setCharacterSize(24); // Размер текста
+        bodyText.setFillColor(sf::Color::White); // Цвет текста
         
         // Центрируем текст
-        // bodyText.setPosition(x + (width - bodyText.getGlobalBounds().width) / 2,
-        //                      y + (height - bodyText.getGlobalBounds().height) / 2);
+        bodyText.setPosition(x + (width - bodyText.getGlobalBounds().width) / 2,
+                              y + (height - bodyText.getGlobalBounds().height) / 2);
 
         // Рисуем кнопку и текст
         window.draw(body);
