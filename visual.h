@@ -11,7 +11,8 @@ enum class GameState {
     Level,
     Game,
     Final,
-    Rating
+    Rating,
+    Settings
 };
 void renderStart(sf::RenderWindow& window);
 void renderLevel(sf::RenderWindow& window);

@@ -1,9 +1,18 @@
 #include <SFML/Graphics.hpp>
 #include <string> 
+#include <filesystem>
 #include "buttons.h"
 
 // Реализация функций, связанных с кнопками
-Button::Button(float x, float y, float width, float height,const std::string& text): x(x), y(y), height(height), width(width), text(text), pressed(false) {}
+
+//FIX предупреждение про порядок инициализации
+
+
+// Button::Button(float x, float y, float width, float height, const std::string& text, std::filesystem::path file)
+//     : x(x), y(y), height(height), width(width), text(text), pressed(false), file(file) {}
+Button::Button(float x, float y, float width, float height, const std::string& text, const std::filesystem::path& file)
+        : x(x), y(y), width(width), height(height), text(text), file(file), pressed(false) {}
+//FIXME Юля предупреждение про порядок инициализации
 sf::RectangleShape Button::createSquare() {
     /*
     вспомогательный метод для отрисовки кнопки
@@ -21,7 +30,7 @@ void Button::draw_button(sf::RenderWindow& window) {
         body.setFillColor(sf::Color::Red);
 
         // Можно добавить текст на кнопку
-        sf::Font font; // Не забудьте загрузить шрифт!
+        sf::Font font; 
         if (!font.loadFromFile("path/to/font.ttf")) {
         //     // Обработка ошибки загрузки шрифта
         }
@@ -40,15 +49,15 @@ void Button::draw_button(sf::RenderWindow& window) {
         window.draw(body);
         //window.draw(bodyText);
     }
-void Button::get_pressed(sf::Event event){
-    if (event.type == sf::Event::MouseButtonPressed){
-        if (event.mouseButton.x>=x && event.mouseButton.x<=x+width){
-            if(event.mouseButton.y>=y && event.mouseButton.y<=y+height){
+void Button::get_pressed(sf::Event event) {
+    if (event.type == sf::Event::MouseButtonPressed) {
+        if (event.mouseButton.x >= x && event.mouseButton.x <= x + width) {
+            if (event.mouseButton.y >= y && event.mouseButton.y <= y + height) {
                 pressed = true;
+            }
         }
-    }
-    if (event.type == sf::Event::MouseButtonReleased){
+    } 
+    else if (event.type == sf::Event::MouseButtonReleased) {
         pressed = false;
     }
-}
 }

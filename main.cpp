@@ -4,11 +4,14 @@
 #include "buttons.h"
 #include "functions.h"
 #include "class.h"
-
+#include <filesystem>
 
 int main() {
-    int WIDTH = 1880, HEIGHT = 943;
-
+    sf::VideoMode desktop = sf::VideoMode::getDesktopMode();
+    int WIDTH = static_cast<int>(desktop.width * 0.8);
+    int HEIGHT = static_cast<int>(desktop.height * 0.8);
+    //int WIDTH = 1880, HEIGHT = 943;
+    std::filesystem::path folder="Pictures";
     sf::RenderWindow window(sf::VideoMode(WIDTH, HEIGHT), "XY");
     GameState currentState = GameState::Start;
     // Create a circle shape
@@ -21,9 +24,8 @@ int main() {
     square.setPosition(375.0f, 275.0f); // Начальная позиция квадрата в центре окна
 
     //window.draw(square);
-    Button button(200.f, 200.f,100.f, 100.f, "cccc");
-    
-
+    Button button_settings(500.f, 500.f,200.f, 100.f, "cccc", "base_for_buttons");
+    Button button_back(100.f, 100.f,200.f, 100.f, "cccc", "base_for_buttons");
     while (window.isOpen()) {
         sf::Event event;
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
@@ -34,8 +36,8 @@ int main() {
             if (event.type == sf::Event::Closed) {
                 window.close();
             } 
-            button.get_pressed(event);
-            std::cout<<button.pressed;
+
+            
             
             // Переключение состояния
             if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Q) {
@@ -47,27 +49,35 @@ int main() {
                 }
             }
             
-            if (button.pressed) {
-                if (currentState == GameState::Start) {
-                    currentState = GameState::Game;
-                }
-                else {
-                    currentState = GameState::Start;
-                }
-            }
+            
         }
        
         // Отрисовка в зависимости от текущего состояния
         if (currentState == GameState::Start) {
             renderStart(window);
 
-            //drawImage(window, "Pictures//coin_3.png", 50, 50, 300, 300);
+            drawImage(window, folder/"coin_3.png", 50, 50, 300, 300);
             //drawPopup(window, "Menu");
-            button.draw_button(window);
-            
-
-
+            button_settings.draw_button(window);
+            button_settings.get_pressed(event);
+            if (button_settings.pressed) {
+                if (currentState == GameState::Start) {
+                    currentState = GameState::Settings;
+                }
+                
+            }
         }
+        else if (currentState == GameState::Settings) {
+            renderGame(window);
+            button_back.draw_button(window);
+            button_back.get_pressed(event);
+            if (button_back.pressed) {
+                if (currentState == GameState::Settings) {
+                    currentState = GameState::Game;
+                }
+                
+            }
+        }  
         else if (currentState == GameState::Level) {
             renderGame(window);
         }

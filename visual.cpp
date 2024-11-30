@@ -1,6 +1,7 @@
 #include <SFML/Graphics.hpp>
 #include "visual.h"
 #include <iostream>
+#include <filesystem>
 // Функция для отрисовки квадрата
 void drawSquare(sf::RenderWindow& window,  int x, int y) {
     sf::RectangleShape square(sf::Vector2f(50.0f, 50.0f)); // Объявление переменной square
@@ -54,10 +55,10 @@ void drawPopup(sf::RenderWindow& window, const std::string& message) {
 }
 
 void renderStart(sf::RenderWindow& window) {
-
+    std::filesystem::path folder="Pictures";
     // Загружаем текстуру из файла
     sf::Texture backgroundTexture;
-    backgroundTexture.loadFromFile("Pictures//start.png");
+    backgroundTexture.loadFromFile(folder/"start.png");
     
     // Создаем спрайт и устанавливаем текстуру
     sf::Sprite backgroundSprite;
@@ -85,7 +86,8 @@ void renderLevel(sf::RenderWindow& window) {
     window.clear();
     // Загружаем текстуру из файла
     sf::Texture backgroundTexture;
-    backgroundTexture.loadFromFile("Pictures//level.png");
+    std::filesystem::path folder="Pictures";
+    backgroundTexture.loadFromFile(folder/"level.png");
 
     // Создаем спрайт и устанавливаем текстуру
     sf::Sprite backgroundSprite;
@@ -109,7 +111,8 @@ void renderGame(sf::RenderWindow& window) {
 
     // Загружаем текстуру из файла
     sf::Texture backgroundTexture;
-    backgroundTexture.loadFromFile("Pictures//game.png");
+    std::filesystem::path folder="Pictures";
+    backgroundTexture.loadFromFile(folder/"game.png");
 
     // Создаем спрайт и устанавливаем текстуру
     sf::Sprite backgroundSprite;
@@ -130,10 +133,10 @@ void renderGame(sf::RenderWindow& window) {
 
 void renderFinal(sf::RenderWindow& window) {
     window.clear();
-
+    std::filesystem::path folder="Pictures";
     // Загружаем текстуру из файла
     sf::Texture backgroundTexture;
-    backgroundTexture.loadFromFile("Pictures//final.png");
+    backgroundTexture.loadFromFile(folder/"final.png");
 
     // Создаем спрайт и устанавливаем текстуру
     sf::Sprite backgroundSprite;
@@ -154,10 +157,10 @@ void renderFinal(sf::RenderWindow& window) {
 
 void renderDefeat(sf::RenderWindow& window) {
     window.clear();
-
+    std::filesystem::path folder="Pictures";
     // Загружаем текстуру из файла
     sf::Texture backgroundTexture;
-    backgroundTexture.loadFromFile("Pictures//defeat.png");
+    backgroundTexture.loadFromFile(folder/"defeat.png");
 
     // Создаем спрайт и устанавливаем текстуру
     sf::Sprite backgroundSprite;
