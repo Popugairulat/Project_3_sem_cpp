@@ -1,8 +1,10 @@
 #ifndef VISUAL_H
 #define VISUAL_H
 // Функция для отрисовки квадрата
-void drawSquare(sf::RenderWindow& window, sf::RectangleShape& circle);
-void drawCircle(sf::RenderWindow& window, sf::CircleShape& circle);
+void drawSquare(sf::RenderWindow& window, int x, int y);
+void drawCircle(sf::RenderWindow& window, int x, int y);
+void drawImage(sf::RenderWindow& window, const std::string& filename, int x, int y, float scaleX, float scaleY);
+void drawPopup(sf::RenderWindow& window, const std::string& message);
 
 enum class GameState {
     Start,

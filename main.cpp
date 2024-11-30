@@ -6,7 +6,7 @@
 
 
 int main() {
-    int WIDTH = 1080, HEIGHT = 720;
+    int WIDTH = 1880, HEIGHT = 943;
 
     sf::RenderWindow window(sf::VideoMode(WIDTH, HEIGHT), "XY");
     GameState currentState = GameState::Start;
@@ -41,45 +41,25 @@ int main() {
                 }
             }
         }
-        const float speed = 0.08;
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
-            square.move(-speed, 0.0f);
-        }
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
-            square.move(speed, 0.0f);
-        }
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
-            square.move(0.0f, -speed);
-        }
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
-            square.move(0.0f, speed);
-        }
-
+       
         // Отрисовка в зависимости от текущего состояния
         if (currentState == GameState::Start) {
             renderStart(window);
-            drawSquare(window, square);
-            button.draw_button(window);
+            drawImage(window, "Pictures\\coin_3.png", 50, 50, 300, 300);
+            drawPopup(window, "Menu");
+
         }
         else if (currentState == GameState::Level) {
             renderGame(window);
-            drawSquare(window, square);
-            button.draw_button(window);
         }
         else if (currentState == GameState::Game) {
             renderGame(window);
-            window.draw(square);
-            button.draw_button(window);
         }
         else if (currentState == GameState::Final) {
             renderGame(window);
-            window.draw(square);
-            button.draw_button(window);
         }
         else if (currentState == GameState::Rating) {
             renderGame(window);
-            window.draw(circle);
-            button.draw_button(window);
         }
 
 
