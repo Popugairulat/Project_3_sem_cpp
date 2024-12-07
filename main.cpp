@@ -24,8 +24,31 @@ int main() {
     square.setPosition(375.0f, 275.0f); // Начальная позиция квадрата в центре окна
 
     //window.draw(square);
-    Button button_settings(500.f, 500.f,200.f, 100.f, "cccc", "base_for_buttons");
-    Button button_back(100.f, 100.f,200.f, 100.f, "cccc", "base_for_buttons");
+    
+    
+    
+    //массивы с кнопками
+    std::vector<Button> buttons_start;
+
+    buttons_start.emplace_back(WIDTH/2-100.0, HEIGHT/2+50.0, 200, 50, "Start new game", "base_for_buttons");
+    buttons_start.emplace_back(WIDTH/2-100.0, HEIGHT/2+150.0, 200, 50, "Continue the game", "base_for_buttons");
+    buttons_start.emplace_back(WIDTH/2-100.0, HEIGHT/2+250.0, 200, 50, "Settings", "base_for_buttons");
+
+    std::vector<Button> buttons_settings;
+
+    buttons_settings.emplace_back(WIDTH/2-100.0, 150.0, 200, 50, "Sound", "base_for_buttons");
+    buttons_settings.emplace_back(WIDTH/2-100.0, 250.0, 200, 50, "Music", "base_for_buttons");
+    buttons_settings.emplace_back(WIDTH/2-100.0, 350.0, 200, 50, "Start menu", "base_for_buttons");
+    buttons_settings.emplace_back(WIDTH/2-100.0, 450.0, 200, 50, "Level", "base_for_buttons");
+    buttons_settings.emplace_back(WIDTH/2-100.0, 550.0, 200, 50, "Rating", "base_for_buttons");
+    buttons_settings.emplace_back(WIDTH-100.0, 0.0, 100, 100, "Back", "base_for_buttons");
+
+    std::vector<Button> buttons_game;
+
+    buttons_game.emplace_back(WIDTH-100.0, 0.0, 100, 100, "Back", "base_for_buttons");
+    
+    
+    
     while (window.isOpen()) {
         sf::Event event;
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
@@ -58,24 +81,64 @@ int main() {
 
             drawImage(window, folder/"coin_3.png", 50, 50, 300, 300);
             //drawPopup(window, "Menu");
-            button_settings.draw_button(window);
-            button_settings.get_pressed(event);
-            if (button_settings.pressed) {
-                if (currentState == GameState::Start) {
-                    currentState = GameState::Settings;
-                }
-                
-            }
+            for (auto& button : buttons_start) {
+            button.draw_button(window);
+            button.get_pressed(event);
         }
-        else if (currentState == GameState::Settings) {
-            renderGame(window);
-            button_back.draw_button(window);
-            button_back.get_pressed(event);
-            if (button_back.pressed) {
-                if (currentState == GameState::Settings) {
+            if(buttons_start[0].pressed){
+                if(currentState == GameState::Start){
                     currentState = GameState::Game;
                 }
-                
+            }
+            if(buttons_start[1].pressed){
+                if(currentState == GameState::Start){
+                    currentState = GameState::Game;
+                }
+            }
+            if(buttons_start[2].pressed){
+                if(currentState == GameState::Start){
+                    currentState = GameState::Settings;
+                }
+            }
+
+        }
+        else if (currentState == GameState::Settings) {
+
+            renderGame(window);
+
+            for (auto& button : buttons_settings) {
+            button.draw_button(window);
+            button.get_pressed(event);
+        }
+            if(buttons_settings[0].pressed){
+                if(currentState == GameState::Settings){
+                    currentState = GameState::Game;
+                }
+            }
+            if(buttons_settings[1].pressed){
+                if(currentState == GameState::Settings){
+                    currentState = GameState::Game;
+                }
+            }
+            if(buttons_settings[2].pressed){
+                if(currentState == GameState::Settings){
+                    currentState = GameState::Start;
+                }
+            }
+            if(buttons_settings[3].pressed){
+                if(currentState == GameState::Settings){
+                    currentState = GameState::Level;
+                }
+            }
+            if(buttons_settings[4].pressed){
+                if(currentState == GameState::Settings){
+                    currentState = GameState::Rating;
+                }
+            }
+            if(buttons_settings[5].pressed){
+                if(currentState == GameState::Settings){
+                    currentState = GameState::Game;
+                }
             }
         }  
         else if (currentState == GameState::Level) {
@@ -83,6 +146,15 @@ int main() {
         }
         else if (currentState == GameState::Game) {
             renderGame(window);
+            for (auto& button : buttons_game) {
+            button.draw_button(window);
+            button.get_pressed(event);
+        }
+            if(buttons_game[0].pressed){
+                if(currentState == GameState::Game){
+                    currentState = GameState::Start;
+                }
+            }
         }
         else if (currentState == GameState::Final) {
             renderGame(window);

@@ -19,4 +19,5 @@ void renderLevel(sf::RenderWindow& window);
 void renderGame(sf::RenderWindow& window);
 void renderFinal(sf::RenderWindow& window);
 void renderRating(sf::RenderWindow& window);
+void renderSettings(sf::RenderWindow& window);
 #endif // VISUAL_H

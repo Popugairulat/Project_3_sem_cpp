@@ -12,7 +12,7 @@
 //     : x(x), y(y), height(height), width(width), text(text), pressed(false), file(file) {}
 Button::Button(float x, float y, float width, float height, const std::string& text, const std::filesystem::path& file)
         : x(x), y(y), width(width), height(height), text(text), file(file), pressed(false) {}
-//FIXME Юля предупреждение про порядок инициализации
+
 sf::RectangleShape Button::createSquare() {
     /*
     вспомогательный метод для отрисовки кнопки
@@ -31,15 +31,15 @@ void Button::draw_button(sf::RenderWindow& window) {
 
         // Можно добавить текст на кнопку
         sf::Font font; 
-        if (!font.loadFromFile("path/to/font.ttf")) {
+        if (!font.loadFromFile("Roboto-Black.ttf")) {
         //     // Обработка ошибки загрузки шрифта
         }
         
         sf::Text bodyText;
         bodyText.setFont(font);
         bodyText.setString(text);
-        bodyText.setCharacterSize(24); // Размер текста
-        bodyText.setFillColor(sf::Color::White); // Цвет текста
+        bodyText.setCharacterSize(40); // Размер текста
+        bodyText.setFillColor(sf::Color::Black); // Цвет текста
         
         // Центрируем текст
         bodyText.setPosition(x + (width - bodyText.getGlobalBounds().width) / 2,
@@ -47,7 +47,7 @@ void Button::draw_button(sf::RenderWindow& window) {
 
         // Рисуем кнопку и текст
         window.draw(body);
-        //window.draw(bodyText);
+        window.draw(bodyText);
     }
 void Button::get_pressed(sf::Event event) {
     if (event.type == sf::Event::MouseButtonPressed) {
