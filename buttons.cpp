@@ -2,16 +2,18 @@
 #include <string> 
 #include <filesystem>
 #include "buttons.h"
+#include "visual.h"
 
 // Реализация функций, связанных с кнопками
 
 //FIX предупреждение про порядок инициализации
 
 
+
 // Button::Button(float x, float y, float width, float height, const std::string& text, std::filesystem::path file)
 //     : x(x), y(y), height(height), width(width), text(text), pressed(false), file(file) {}
-Button::Button(float x, float y, float width, float height, const std::string& text, const std::filesystem::path& file)
-        : x(x), y(y), width(width), height(height), text(text), file(file), pressed(false) {}
+Button::Button(sf::RenderWindow& window, float x, float y, float width, float height, const std::string& text, const std::filesystem::path& folder, const std::filesystem::path& file)
+        : window(window), x(x), y(y), width(width), height(height), text(text), folder(folder), file(file), pressed(false) {}
 
 sf::RectangleShape Button::createSquare() {
     /*
@@ -22,7 +24,7 @@ sf::RectangleShape Button::createSquare() {
         rectangle.setFillColor(sf::Color::Red);
         return rectangle;
     }
-void Button::draw_button(sf::RenderWindow& window) {
+void Button::draw_button() {
     /*
     метод для отрисовки кнопки
     */
@@ -56,8 +58,10 @@ void Button::get_pressed(sf::Event event) {
                 pressed = true;
             }
         }
+
     } 
     else if (event.type == sf::Event::MouseButtonReleased) {
-        pressed = false;
+        pressed = false; // Сбрасываем состояние нажатия
     }
+
 }

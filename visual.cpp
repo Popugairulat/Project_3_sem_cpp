@@ -58,7 +58,7 @@ void renderStart(sf::RenderWindow& window) {
     std::filesystem::path folder="Pictures";
     // Загружаем текстуру из файла
     sf::Texture backgroundTexture;
-    backgroundTexture.loadFromFile(folder/"start.png");
+    backgroundTexture.loadFromFile((folder/"start.png").string());
     
     // Создаем спрайт и устанавливаем текстуру
     sf::Sprite backgroundSprite;
@@ -77,17 +77,12 @@ void renderStart(sf::RenderWindow& window) {
     window.draw(backgroundSprite);
 }
 
-
-
-
-
-
 void renderLevel(sf::RenderWindow& window) {
     window.clear();
     // Загружаем текстуру из файла
     sf::Texture backgroundTexture;
     std::filesystem::path folder="Pictures";
-    backgroundTexture.loadFromFile(folder/"level.png");
+    backgroundTexture.loadFromFile((folder / "level.png").string());
 
     // Создаем спрайт и устанавливаем текстуру
     sf::Sprite backgroundSprite;
@@ -112,7 +107,7 @@ void renderGame(sf::RenderWindow& window) {
     // Загружаем текстуру из файла
     sf::Texture backgroundTexture;
     std::filesystem::path folder="Pictures";
-    backgroundTexture.loadFromFile(folder/"game.png");
+    backgroundTexture.loadFromFile( (folder / "game.png").string());
 
     // Создаем спрайт и устанавливаем текстуру
     sf::Sprite backgroundSprite;
@@ -136,7 +131,7 @@ void renderFinal(sf::RenderWindow& window) {
     std::filesystem::path folder="Pictures";
     // Загружаем текстуру из файла
     sf::Texture backgroundTexture;
-    backgroundTexture.loadFromFile(folder/"final.png");
+    backgroundTexture.loadFromFile((folder/"final.png").string());
 
     // Создаем спрайт и устанавливаем текстуру
     sf::Sprite backgroundSprite;
@@ -160,7 +155,7 @@ void renderDefeat(sf::RenderWindow& window) {
     std::filesystem::path folder="Pictures";
     // Загружаем текстуру из файла
     sf::Texture backgroundTexture;
-    backgroundTexture.loadFromFile(folder/"defeat.png");
+    backgroundTexture.loadFromFile((folder/"defeat.png").string());
 
     // Создаем спрайт и устанавливаем текстуру
     sf::Sprite backgroundSprite;
