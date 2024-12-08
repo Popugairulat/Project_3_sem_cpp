@@ -1,8 +1,29 @@
 #include <SFML/Graphics.hpp>
 #include "visual.h"
 #include <iostream>
+#include <string>
+#include <unordered_map>
 #include <filesystem>
 // Функция для отрисовки квадрата
+bool TextureManager::loadTexture(const std::string& name, const std::string& filename) {
+    sf::Texture texture;
+    // Загружаем текстуру из файла
+    if (!texture.loadFromFile(filename)) {
+        std::cerr << "Error loading texture from file: " << filename << std::endl;
+        return false; // Возвращаем false, если загрузка не удалась
+    }
+
+    // Сохраняем текстуру в контейнере
+    textures[name] = std::move(texture); // Используем std::move для перемещения объекта
+    return true;
+}
+
+// Получение текстуры по имени
+const sf::Texture& TextureManager::getTexture(const std::string& name) {
+    return textures.at(name); // Используйте at() для безопасного доступа
+}
+
+
 void drawSquare(sf::RenderWindow& window,  int x, int y) {
     sf::RectangleShape square(sf::Vector2f(50.0f, 50.0f)); // Объявление переменной square
     square.setFillColor(sf::Color::Green);
@@ -17,26 +38,13 @@ void drawCircle(sf::RenderWindow& window,  int x, int y) {
     window.draw(circle); // Рисуем круг
 }
 
-
-void drawImage(sf::RenderWindow& window, const std::string& filename, int x, int y, float width, float length) {
-
-    // Создаем текстуру и загружаем изображение
-    sf::Texture texture;
-    texture.loadFromFile(filename);
-
-    // Создаем спрайт и устанавливаем текстуру
+void drawImage(sf::RenderWindow& window, const std::string& textureName, float x, float y, float width, float height, TextureManager& textureManager) {
     sf::Sprite sprite;
-    sprite.setTexture(texture);
-
-    // Устанавливаем позицию спрайта
-    sprite.setPosition(static_cast<float>(x), static_cast<float>(y));
-    sprite.setScale(width /texture.getSize().x, length / texture.getSize().y);
-
-    // Рисуем спрайт
+    sprite.setTexture(textureManager.getTexture(textureName));
+    sprite.setPosition(x, y);
+    sprite.setScale(width / sprite.getLocalBounds().width, height / sprite.getLocalBounds().height); // Масштабируем спрайт
     window.draw(sprite);
-
 }
-
 void drawPopup(sf::RenderWindow& window, const std::string& message) {
     // Создаем прямоугольник для всплывающего окна
     sf::RectangleShape popup(sf::Vector2f(300.0f, 200.0f));
@@ -102,12 +110,10 @@ void renderLevel(sf::RenderWindow& window) {
 }
 
 void renderGame(sf::RenderWindow& window) {
-    window.clear();
-
+    std::filesystem::path folder = "Pictures";
     // Загружаем текстуру из файла
     sf::Texture backgroundTexture;
-    std::filesystem::path folder="Pictures";
-    backgroundTexture.loadFromFile( (folder / "game.png").string());
+    backgroundTexture.loadFromFile((folder / "game.png").string());
 
     // Создаем спрайт и устанавливаем текстуру
     sf::Sprite backgroundSprite;
@@ -125,6 +131,7 @@ void renderGame(sf::RenderWindow& window) {
     // Рисуем фон
     window.draw(backgroundSprite);
 }
+
 
 void renderFinal(sf::RenderWindow& window) {
     window.clear();

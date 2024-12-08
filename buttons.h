@@ -2,21 +2,17 @@
 #define BUTTONS_H
 #include <filesystem>
 #include <SFML/Graphics.hpp>
+#include "visual.h"
 // Здесь будут функции, связанные с кнопками
 class Button {
 public:
-    Button(sf::RenderWindow& window, float x, float y, float width, float height, const std::string& text, const std::filesystem::path& folder, const std::filesystem::path& file);
+    Button( float x, float y, float width, float height, const std::string& text);
 
-    void draw_button();
+    void draw_button(sf::RenderWindow& window, TextureManager& textureManager);
     void get_pressed(sf::Event event);
 
-    sf::RenderWindow& window;
     float x, y, width, height;
     std::string text;
-    std::filesystem::path folder;
-    std::filesystem::path file;
     bool pressed;
-
-    sf::RectangleShape createSquare();
 };
 #endif // BUTTONS_H
