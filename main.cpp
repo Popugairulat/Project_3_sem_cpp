@@ -13,6 +13,7 @@ int main() {
     int WIDTH = static_cast<const int>(desktop.width * 0.9);
     const int HEIGHT = (WIDTH * 943 - WIDTH * 943 % 1880) / 1880;
     //int WIDTH = 1880, HEIGHT = 943;
+
     int x = WIDTH / 7;
 int y = HEIGHT / 7;
 int Coord[32][2] = { {x, y},{2 * x, y + 10},{3 * x, y + 20}, {4 * x, y + 30},{5 * x, y + 40},{6 * x, y + 50},{7 * x, y + 60},{8 * x, y + 70},
@@ -49,6 +50,7 @@ Player Other_Player;
 
 Submarine Submarine;
     
+
     sf::RenderWindow window(sf::VideoMode(WIDTH, HEIGHT), "XY");
     GameState currentState = GameState::Start;
     // ЗАГРУЗКА ТЕКСТУР
@@ -237,4 +239,4 @@ Submarine Submarine;
 
 
     return 0;
-}
+
