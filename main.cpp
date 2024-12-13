@@ -7,13 +7,15 @@
 #include <filesystem>
 
 int main() {
+
+    std::vector<Ripple> ripples;
     sf::VideoMode desktop = sf::VideoMode::getDesktopMode();
-    const int WIDTH = static_cast<const int>(desktop.width * 0.9);
-    const int HEIGHT = (WIDTH * 943-WIDTH*943%1880)/1880;
+    int WIDTH = static_cast<const int>(desktop.width * 0.9);
+    const int HEIGHT = (WIDTH * 943 - WIDTH * 943 % 1880) / 1880;
     //int WIDTH = 1880, HEIGHT = 943;
+   
     sf::RenderWindow window(sf::VideoMode(WIDTH, HEIGHT), "XY");
     GameState currentState = GameState::Start;
-
     // ЗАГРУЗКА ТЕКСТУР
     std::filesystem::path folder = "Pictures";
     TextureManager textureManager;
@@ -52,12 +54,18 @@ int main() {
     while (window.isOpen()) {
         sf::Event event;
 
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {}
         while (window.pollEvent(event)) {
             if (event.type == sf::Event::Closed) {
                 window.close();
-            }    
+            }  
+            if (event.type == sf::Event::MouseButtonPressed) {
+                if (event.mouseButton.button == sf::Mouse::Left) {
+                    // Добавляем новый Ripple на позицию курсора
+                    ripples.emplace_back(sf::Vector2f(event.mouseButton.x, event.mouseButton.y));
+                }
+            }
         }
+
        
         // Отрисовка в зависимости от текущего состояния
         if (currentState == GameState::Start) {
@@ -166,6 +174,16 @@ int main() {
             renderGame(window);
         }
 
+        for (auto& ripple : ripples) {
+            ripple.update();
+        }
+        // Удаляем завершенные ряды
+        ripples.erase(std::remove_if(ripples.begin(), ripples.end(),
+            [](const Ripple& ripple) { return ripple.isFinished(); }), ripples.end());
+        // Отрисовка
+        for (auto& ripple : ripples) {
+            ripple.draw(window);
+        }
 
         window.display();
      }

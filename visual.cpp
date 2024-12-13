@@ -18,7 +18,40 @@ bool TextureManager::loadTexture(const std::string& name, const std::string& fil
     return true;
 }
 
-// Получение текстуры по имени
+
+Ripple::Ripple(sf::Vector2f position)
+    : radius(0), maxRadius(25), growing(true) {
+    circle.setRadius(radius); // Устанавливаем начальный радиус
+    circle.setFillColor(sf::Color(255, 255, 255, 128)); // Полупрозрачный белый
+    circle.setOrigin(maxRadius, maxRadius); // Устанавливаем центр круга в его центр
+    circle.setPosition(position); // Устанавливаем позицию круга
+}
+
+void Ripple::update() {
+    if (growing) {
+        radius += 2; // Увеличиваем радиус
+        if (radius >= maxRadius) {
+            growing = false; // Останавливаем рост
+        }
+    }
+
+    circle.setRadius(radius); // Устанавливаем радиус
+
+    // Обновляем центр круга в зависимости от нового радиуса
+    circle.setOrigin(radius, radius);
+
+    // Увеличиваем прозрачность в зависимости от радиуса
+    int alpha = static_cast<int>(255-(radius / maxRadius) * 255); // Прозрачность от 0 до 255
+    circle.setFillColor(sf::Color(255, 255, 255, alpha)); // Устанавливаем цвет с изменяющейся прозрачностью
+}
+
+void Ripple::draw(sf::RenderWindow& window) {
+    window.draw(circle);
+}
+
+bool Ripple::isFinished() const {
+    return !growing && radius >= maxRadius;
+}
 const sf::Texture& TextureManager::getTexture(const std::string& name) {
     return textures.at(name); // Используйте at() для безопасного доступа
 }

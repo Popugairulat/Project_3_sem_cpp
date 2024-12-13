@@ -16,6 +16,19 @@ private:
 };
 
 
+class Ripple {
+public:
+    Ripple(sf::Vector2f position);
+    void update();
+    void draw(sf::RenderWindow& window);
+    bool isFinished() const;
+
+private:
+    sf::CircleShape circle;
+    float radius;
+    float maxRadius;
+    bool growing;
+};
 
 void drawSquare(sf::RenderWindow& window, int x, int y);
 void drawCircle(sf::RenderWindow& window, int x, int y);
