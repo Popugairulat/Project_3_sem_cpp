@@ -8,16 +8,13 @@ using namespace std;
 
 
 // класс Сокровища
-Coin::Coin(const std::string& type, int price) : Type(type), Price(price) {}
+Coin::Coin(const std::string& type, int price, int x, int y) : Type(type), Price(price), x(x), y(y) {}
 Coin::~Coin() {}
 std::string Coin::get_Type() const { return Type; }
 int Coin::get_Price() const { return Price; }
+int Coin::get_x() const { return x; }
+int Coin::get_y() const { return y; }
 
-Triangle_Coin::Triangle_Coin(int P) : Coin("Triangle", P) {}
-Square_Coin::Square_Coin(int P) : Coin("Square", P) {}
-Pentagon_Coin::Pentagon_Coin(int P) : Coin("Pentagon", P) {}
-Hexagon_Coin::Hexagon_Coin(int P) : Coin("Hexagon", P) {}
-No_Coin::No_Coin(int P) : Coin("No", P) {}
 
 Bunch_Of_Coins::Bunch_Of_Coins() {}
 Bunch_Of_Coins::~Bunch_Of_Coins()
@@ -42,9 +39,11 @@ void Bunch_Of_Coins::Print_Coins() const
 
 Player::Player() : My_Index(0), Napravlenie(0), Number_Of_Coins(0) {}
 
+
+
 void Player::Take_Coin(const std::string& type, int price)
 {
-    My_Coins.emplace_back(type, price);
+    My_Coins.emplace_back(type, price, 0, 0); // предварительно, нужны координаты деревяшки
     Number_Of_Coins++;
 }
 
