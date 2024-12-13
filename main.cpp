@@ -7,7 +7,6 @@
 #include <filesystem>
 
 int main() {
-
     std::vector<Ripple> ripples;
     sf::VideoMode desktop = sf::VideoMode::getDesktopMode();
     int WIDTH = static_cast<const int>(desktop.width * 0.9);
@@ -27,8 +26,6 @@ int main() {
     textureManager.loadTexture("Back", (folder / "button_back.png").string());
     textureManager.loadTexture("Question", (folder / "button_question.png").string());
 
-
-
     //массивы с кнопками
     std::vector<Button> buttons_start;
     buttons_start.emplace_back( WIDTH/2- WIDTH / 8, HEIGHT/2+ HEIGHT / 14, WIDTH/4, HEIGHT/7, "Start new game");
@@ -36,7 +33,6 @@ int main() {
     buttons_start.emplace_back(WIDTH - WIDTH / 20 - WIDTH / 200, WIDTH / 200, WIDTH / 20, WIDTH / 20, "Settings");
     buttons_start.emplace_back(WIDTH - 2 * (WIDTH / 20 + WIDTH / 200), WIDTH / 200, WIDTH / 20, WIDTH / 20, "Question");
     buttons_start.emplace_back(WIDTH - 3 * (WIDTH / 20 + WIDTH / 200), WIDTH / 200, WIDTH / 20, WIDTH / 20, "Back");
-
 
     std::vector<Button> buttons_settings;
     buttons_settings.emplace_back(WIDTH / 2 - 100.0, 150.0, 200, 50, "Back");

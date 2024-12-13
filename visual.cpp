@@ -18,7 +18,7 @@ bool TextureManager::loadTexture(const std::string& name, const std::string& fil
     return true;
 }
 
-
+//
 Ripple::Ripple(sf::Vector2f position)
     : radius(0), maxRadius(25), growing(true) {
     circle.setRadius(radius); // Устанавливаем начальный радиус
