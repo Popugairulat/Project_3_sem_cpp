@@ -6,13 +6,14 @@
 #include "class.h"
 #include <filesystem>
 
-int main() {
+int main()
+{
 
     std::vector<Ripple> ripples;
     sf::VideoMode desktop = sf::VideoMode::getDesktopMode();
-    int WIDTH = static_cast<const int>(desktop.width * 0.9);
+    int WIDTH = static_cast<int>(desktop.width * 0.9);
     const int HEIGHT = (WIDTH * 943 - WIDTH * 943 % 1880) / 1880;
-    //int WIDTH = 1880, HEIGHT = 943;
+    // int WIDTH = 1880, HEIGHT = 943;
 
     int x = WIDTH / 7;
     int y = HEIGHT / 7;
@@ -64,10 +65,10 @@ int main() {
     textureManager.loadTexture("Back", (folder / "button_back.png").string());
     textureManager.loadTexture("Question", (folder / "button_question.png").string());
 
-    textureManager.loadTexture("Triangle", (folder / "Coin_3.png").string());
-    textureManager.loadTexture("Square", (folder / "Coin_4.png").string());
-    textureManager.loadTexture("Pentagon", (folder / "Coin_5.png").string());
-    textureManager.loadTexture("Hexagon", (folder / "Coin_6.png").string());
+    textureManager.loadTexture("Triangle", (folder/"coin_3.png").string());
+    textureManager.loadTexture("Square", (folder /"coin_4.png").string());
+    textureManager.loadTexture("Pentagon", (folder/"coin_5.png").string());
+    textureManager.loadTexture("Hexagon", (folder/"coin_6.png").string());
 
     textureManager.loadTexture("Player", (folder / "button_back.png").string());
     textureManager.loadTexture("f1", (folder / "f1.png").string());
@@ -92,7 +93,6 @@ int main() {
     buttons_start.emplace_back(WIDTH - 2 * (WIDTH / 20 + WIDTH / 200), WIDTH / 200, WIDTH / 20, WIDTH / 20, "Question");
     buttons_start.emplace_back(WIDTH - 3 * (WIDTH / 20 + WIDTH / 200), WIDTH / 200, WIDTH / 20, WIDTH / 20, "Back");
 
-
     std::vector<Button> buttons_settings;
     buttons_settings.emplace_back(WIDTH / 2 - 100.0, 150.0, 200, 50, "Back");
     buttons_settings.emplace_back(WIDTH / 2 - 100.0, 250.0, 200, 50, "Back");
@@ -105,16 +105,21 @@ int main() {
     buttons_game.emplace_back(WIDTH - WIDTH / 20 - WIDTH / 200, WIDTH / 200, WIDTH / 20, WIDTH / 20, "Settings");
     buttons_game.emplace_back(WIDTH - 2 * (WIDTH / 20 + WIDTH / 200), WIDTH / 200, WIDTH / 20, WIDTH / 20, "Question");
     buttons_game.emplace_back(WIDTH - 3 * (WIDTH / 20 + WIDTH / 200), WIDTH / 200, WIDTH / 20, WIDTH / 20, "Back");
+    buttons_game.emplace_back(WIDTH/2 - WIDTH / 40, HEIGHT*3 / 4, WIDTH / 20, WIDTH / 20, "Back");
+    buttons_game.emplace_back(WIDTH/2 + WIDTH / 40, HEIGHT*3 / 4, WIDTH / 20, WIDTH / 20, "Forward");
 
-    while (window.isOpen()) {
+    while (window.isOpen())
+    {
         sf::Event event;
  
         while (window.pollEvent(event)) {
             if (event.type == sf::Event::Closed) {
                 window.close();
             }
-            if (event.type == sf::Event::MouseButtonPressed) {
-                if (event.mouseButton.button == sf::Mouse::Left) {
+            if (event.type == sf::Event::MouseButtonPressed)
+            {
+                if (event.mouseButton.button == sf::Mouse::Left)
+                {
                     // Добавляем новый Ripple на позицию курсора
                     ripples.emplace_back(sf::Vector2f(event.mouseButton.x, event.mouseButton.y));
                 }
@@ -122,96 +127,124 @@ int main() {
         }
 
         // Отрисовка в зависимости от текущего состояния
-        if (currentState == GameState::Start) {
+        if (currentState == GameState::Start)
+        {
             renderStart(window);
-
-            for (auto& button : buttons_start) {
+            //std::filesystem::path folder = "Pictures";
+            //drawImage(window, "Triangle", 100.0, 100.0, 50.0, 50.0, textureManager);
+            for (auto &button : buttons_start)
+            {
                 button.draw_button(window, textureManager);
                 button.get_pressed(event);
             }
-            if (buttons_start[0].pressed) {
-                if (currentState == GameState::Start) {
+            if (buttons_start[0].pressed)
+            {
+                if (currentState == GameState::Start)
+                {
                     currentState = GameState::Game;
                     buttons_start[0].pressed = false;
                 }
             }
-            if (buttons_start[1].pressed) {
-                if (currentState == GameState::Start) {
+            if (buttons_start[1].pressed)
+            {
+                if (currentState == GameState::Start)
+                {
                     currentState = GameState::Game;
                     buttons_start[1].pressed = false;
                 }
             }
-            if (buttons_start[2].pressed) {
-                if (currentState == GameState::Start) {
+            if (buttons_start[2].pressed)
+            {
+                if (currentState == GameState::Start)
+                {
                     currentState = GameState::Settings;
                     buttons_start[2].pressed = false;
                 }
             }
-            if (buttons_start[3].pressed) {
-                if (currentState == GameState::Start) {
+            if (buttons_start[3].pressed)
+            {
+                if (currentState == GameState::Start)
+                {
                     currentState = GameState::Game;
                     buttons_start[3].pressed = false;
                 }
             }
-            if (buttons_start[4].pressed) {
-                if (currentState == GameState::Start) {
+            if (buttons_start[4].pressed)
+            {
+                if (currentState == GameState::Start)
+                {
                     currentState = GameState::Settings;
                     buttons_start[4].pressed = false;
                 }
             }
-
         }
 
         else if (currentState == GameState::Settings) {
             renderGame(window);
 
-            for (auto& button : buttons_settings) {
+            for (auto &button : buttons_settings)
+            {
                 button.draw_button(window, textureManager);
                 button.get_pressed(event);
             }
-            if (buttons_settings[0].pressed) {
-                if (currentState == GameState::Settings) {
+            if (buttons_settings[0].pressed)
+            {
+                if (currentState == GameState::Settings)
+                {
                     currentState = GameState::Game;
                     buttons_settings[0].pressed = false;
                 }
             }
-            if (buttons_settings[1].pressed) {
-                if (currentState == GameState::Settings) {
+            if (buttons_settings[1].pressed)
+            {
+                if (currentState == GameState::Settings)
+                {
                     currentState = GameState::Game;
                     buttons_settings[1].pressed = false;
                 }
             }
-            if (buttons_settings[2].pressed) {
-                if (currentState == GameState::Settings) {
+            if (buttons_settings[2].pressed)
+            {
+                if (currentState == GameState::Settings)
+                {
                     currentState = GameState::Start;
                     buttons_settings[2].pressed = false;
                 }
             }
-            if (buttons_settings[3].pressed) {
-                if (currentState == GameState::Settings) {
+            if (buttons_settings[3].pressed)
+            {
+                if (currentState == GameState::Settings)
+                {
                     currentState = GameState::Level;
                     buttons_settings[3].pressed = false;
                 }
             }
-            if (buttons_settings[4].pressed) {
-                if (currentState == GameState::Settings) {
+            if (buttons_settings[4].pressed)
+            {
+                if (currentState == GameState::Settings)
+                {
                     currentState = GameState::Rating;
                     buttons_settings[4].pressed = false;
                 }
             }
-            if (buttons_settings[5].pressed) {
-                if (currentState == GameState::Settings) {
+            if (buttons_settings[5].pressed)
+            {
+                if (currentState == GameState::Settings)
+                {
                     currentState = GameState::Game;
                     buttons_settings[5].pressed = false;
                 }
             }
+            
         }
 
-        else if (currentState == GameState::Level) {
+        else if (currentState == GameState::Level)
+        {
             renderGame(window);
         }
 
-        else if (currentState == GameState::Game) {
+        else if (currentState == GameState::Game)
+        {
             renderGame(window);
             for (int i = 0; i < 32; i++)
             {
@@ -223,12 +256,56 @@ int main() {
                 button.draw_button(window, textureManager);
                 button.get_pressed(event);
             }
+            
+            if (buttons_game[0].pressed)
+            {
+                if (currentState == GameState::Game)
+                {
+                    currentState = GameState::Settings;
+                    buttons_game[0].pressed = false;
+                }
+            }
+            if (buttons_game[1].pressed)
+            {
+                if (currentState == GameState::Game)
+                {
+                    currentState = GameState::Settings;
+                    buttons_game[1].pressed = false;
+                }
+            }
+            if (buttons_game[2].pressed)
+            {
+                if (currentState == GameState::Game)
+                {
+                    currentState = GameState::Start;
+                    buttons_game[2].pressed = false;
+                }
+            }
+            if (buttons_game[3].pressed)
+            {
+                if (currentState == GameState::Game)
+                {
+                    My_Player.Direction=1;   
+                    buttons_game[3].pressed = false;
+                }
+            }
+            if (buttons_game[4].pressed)
+            {
+                if (currentState == GameState::Game)
+                {
+                    //вызов функции движения игрока
+                }
+            }
+            
+        
         }
 
-        else if (currentState == GameState::Final) {
+        else if (currentState == GameState::Final)
+        {
             renderGame(window);
         }
-        else if (currentState == GameState::Rating) {
+        else if (currentState == GameState::Rating)
+        {
             renderGame(window);
         }
          
@@ -241,15 +318,17 @@ int main() {
 
         // Удаляем завершенные ряды
         ripples.erase(std::remove_if(ripples.begin(), ripples.end(),
-            [](const Ripple& ripple) { return ripple.isFinished(); }), ripples.end());
+                                     [](const Ripple &ripple)
+                                     { return ripple.isFinished(); }),
+                      ripples.end());
         // Отрисовка
-        for (auto& ripple : ripples) {
+        for (auto &ripple : ripples)
+        {
             ripple.draw(window);
         }
 
         window.display();
     }
-
 
     return 0;
 }
