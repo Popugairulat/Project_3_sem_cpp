@@ -17,7 +17,10 @@ int main()
 
     int x = WIDTH / 7;
     int y = HEIGHT / 7;
-    int Coord[32][2] = {{x, y}, {2 * x, y + 10}, {3 * x, y + 20}, {4 * x, y + 30}, {5 * x, y + 40}, {6 * x, y + 50}, {7 * x, y + 60}, {8 * x, y + 70}, {8 * x, 2 * y}, {7 * x, 2 * y + 10}, {6 * x, 2 * y + 20}, {5 * x, 2 * y + 30}, {4 * x, 2 * y + 40}, {3 * x, 2 * y + 50}, {2 * x, 2 * y + 60}, {x, 2 * y + 70}, {x, 3 * y}, {2 * x, 3 * y + 10}, {3 * x, 3 * y + 20}, {4 * x, 3 * y + 30}, {5 * x, 3 * y + 40}, {6 * x, 3 * y + 50}, {7 * x, 3 * y + 60}, {8 * x, 3 * y + 70}, {8 * x, 4 * y}, {7 * x, 4 * y + 10}, {6 * x, 4 * y + 20}, {5 * x, 4 * y + 30}, {4 * x, 4 * y + 40}, {3 * x, 4 * y + 50}, {2 * x, 4 * y + 60}, {x, 4 * y + 70}};
+    int Coord[32][2] = { {x, y},{2 * x, y + 10},{3 * x, y + 20}, {4 * x, y + 30},{5 * x, y + 40},{6 * x, y + 50},{7 * x, y + 60},{8 * x, y + 70},
+{8 * x, 2 * y},{7 * x, 2 * y + 10},{6 * x, 2 * y + 20},{5 * x, 2 * y + 30},{4 * x, 2 * y + 40},{3 * x, 2 * y + 50},{2 * x, 2 * y + 60}, {x, 2 * y + 70},
+{x, 3 * y},{2 * x, 3 * y + 10},{3 * x, 3 * y + 20}, {4 * x, 3 * y + 30},{5 * x, 3 * y + 40},{6 * x, 3 * y + 50},{7 * x, 3 * y + 60},{8 * x, 3 * y + 70},
+{8 * x, 4 * y},{7 * x, 4 * y + 10},{6 * x, 4 * y + 20},{5 * x, 4 * y + 30},{4 * x, 4 * y + 40},{3 * x, 4 * y + 50},{2 * x, 4 * y + 60}, {x, 4 * y + 70} };
 
     // Заведем переменные
 
@@ -48,6 +51,7 @@ int main()
 
     Submarine Submarine;
 
+
     sf::RenderWindow window(sf::VideoMode(WIDTH, HEIGHT), "XY");
     GameState currentState = GameState::Start;
     // ЗАГРУЗКА ТЕКСТУР
@@ -67,8 +71,21 @@ int main()
     textureManager.loadTexture("Hexagon", (folder / "сoin_6.png").string());
 
     textureManager.loadTexture("Player", (folder / "button_back.png").string());
+    textureManager.loadTexture("f1", (folder / "f1.png").string());
+    textureManager.loadTexture("f2", (folder / "f2.png").string());
+    textureManager.loadTexture("f3", (folder / "f3.png").string());
+    textureManager.loadTexture("f4", (folder / "f4.png").string());
+    textureManager.loadTexture("f5", (folder / "f5.png").string());
+    textureManager.loadTexture("f6", (folder / "f6.png").string());
+    textureManager.loadTexture("f7", (folder / "f7.png").string());
+    textureManager.loadTexture("f8", (folder / "f8.png").string());
+    textureManager.loadTexture("f9", (folder / "f9.png").string());
 
-    // массивы с кнопками
+    std::vector<std::string> textureNames = {"f1", "f2", "f3", "f4", "f5", "f6", "f7", "f8", "f9"};
+    Animation animation(textureManager, textureNames, 0.1f);
+
+
+    //массивы с кнопками
     std::vector<Button> buttons_start;
     buttons_start.emplace_back(WIDTH / 2 - WIDTH / 8, HEIGHT / 2 + HEIGHT / 14, WIDTH / 4, HEIGHT / 7, "Start new game");
     buttons_start.emplace_back(WIDTH / 2 - WIDTH / 8, HEIGHT / 2 + 3 * HEIGHT / 14, WIDTH / 4, HEIGHT / 7, "Continue the game");
@@ -92,11 +109,9 @@ int main()
     while (window.isOpen())
     {
         sf::Event event;
-
-        while (window.pollEvent(event))
-        {
-            if (event.type == sf::Event::Closed)
-            {
+ 
+        while (window.pollEvent(event)) {
+            if (event.type == sf::Event::Closed) {
                 window.close();
             }
             if (event.type == sf::Event::MouseButtonPressed)
@@ -162,9 +177,7 @@ int main()
             }
         }
 
-        else if (currentState == GameState::Settings)
-        {
-
+        else if (currentState == GameState::Settings) {
             renderGame(window);
 
             for (auto &button : buttons_settings)
@@ -232,13 +245,11 @@ int main()
             renderGame(window);
             for (int i = 0; i < 32; i++)
             {
-                //drawImage(window, All_Coins[i].get_Type(), All_Coins[i].get_x(), All_Coins[i].get_y(), x / 2, x / 2, textureManager);
+                drawImage(window, All_Coins[i].get_Type(), All_Coins[i].get_x(), All_Coins[i].get_y(), x / 2, x / 2, textureManager);
             }
-            drawImage(window, "Triangle", All_Coins[0].get_x(), All_Coins[0].get_y(), 10.0, 20.0, textureManager);
             drawImage(window, "Player", Coord[My_Player.get_Index()][0], Coord[My_Player.get_Index()][1], x / 2, x / 2, textureManager);
             drawImage(window, "Player", Coord[Other_Player.get_Index()][0] + x / 10, Coord[Other_Player.get_Index()][0], 100, 100, textureManager);
-            for (auto &button : buttons_game)
-            {
+            for (auto& button : buttons_game) {
                 button.draw_button(window, textureManager);
                 button.get_pressed(event);
             }
@@ -252,11 +263,14 @@ int main()
         {
             renderGame(window);
         }
-
-        for (auto &ripple : ripples)
-        {
+         
+        animation.update(200.0f); // Примерное время между кадрами (60 FPS
+        animation.draw(window, 100, 100); // Отображаем анимацию в координатах (100, 100)
+        
+        for (auto& ripple : ripples) {
             ripple.update();
         }
+
         // Удаляем завершенные ряды
         ripples.erase(std::remove_if(ripples.begin(), ripples.end(),
                                      [](const Ripple &ripple)
@@ -273,3 +287,4 @@ int main()
 
     return 0;
 }
+

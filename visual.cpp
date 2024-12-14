@@ -4,7 +4,7 @@
 #include <string>
 #include <unordered_map>
 #include <filesystem>
-// Функция для отрисовки квадрата
+// Загрузка картинок
 bool TextureManager::loadTexture(const std::string& name, const std::string& filename) {
     sf::Texture texture;
     // Загружаем текстуру из файла
@@ -12,13 +12,43 @@ bool TextureManager::loadTexture(const std::string& name, const std::string& fil
         std::cerr << "Error loading texture from file: " << filename << std::endl;
         return false; // Возвращаем false, если загрузка не удалась
     }
-
     // Сохраняем текстуру в контейнере
     textures[name] = std::move(texture); // Используем std::move для перемещения объекта
     return true;
 }
+const sf::Texture& TextureManager::getTexture(const std::string& name) {
+    return textures.at(name); // Используйте at() для безопасного доступа
+}
 
-//
+//Класс для анимации изображений (смены картинок с определенной частотой)
+Animation::Animation(TextureManager& textureManager, const std::vector<std::string>& textureNames, float frameTime)
+    : frameTime(frameTime), currentFrame(0), elapsedTime(0.0f), isAnimating(true) {
+    for (const auto& name : textureNames) {
+        textures.push_back(&textureManager.getTexture(name)); // Сохраняем указатели на текстуры
+    }
+}
+void Animation::update(float deltaTime) {
+    if (isAnimating) {
+        elapsedTime += deltaTime;
+        if (elapsedTime >= frameTime) {
+            currentFrame = (currentFrame + 1) % textures.size();
+            elapsedTime = 0.0f;
+        }
+    }
+}
+void Animation::draw(sf::RenderWindow& window, float x, float y) {
+    if (!textures.empty()) {
+        sf::Sprite sprite;
+        sprite.setTexture(*textures[currentFrame]); // Разыменовываем указатель
+        sprite.setPosition(x, y);
+        window.draw(sprite);
+    }
+}
+void Animation::setAnimating(bool animating) {
+    isAnimating = animating;
+}
+
+// Класс для анимации касания (смены кружочков разного радиуса разной прозрачности)
 Ripple::Ripple(sf::Vector2f position)
     : radius(0), maxRadius(25), growing(true) {
     circle.setRadius(radius); // Устанавливаем начальный радиус
@@ -26,7 +56,6 @@ Ripple::Ripple(sf::Vector2f position)
     circle.setOrigin(maxRadius, maxRadius); // Устанавливаем центр круга в его центр
     circle.setPosition(position); // Устанавливаем позицию круга
 }
-
 void Ripple::update() {
     if (growing) {
         radius += 2; // Увеличиваем радиус
@@ -34,45 +63,21 @@ void Ripple::update() {
             growing = false; // Останавливаем рост
         }
     }
-
     circle.setRadius(radius); // Устанавливаем радиус
-
     // Обновляем центр круга в зависимости от нового радиуса
     circle.setOrigin(radius, radius);
-
     // Увеличиваем прозрачность в зависимости от радиуса
     int alpha = static_cast<int>(255-(radius / maxRadius) * 255); // Прозрачность от 0 до 255
     circle.setFillColor(sf::Color(255, 255, 255, alpha)); // Устанавливаем цвет с изменяющейся прозрачностью
 }
-
 void Ripple::draw(sf::RenderWindow& window) {
     window.draw(circle);
 }
-
 bool Ripple::isFinished() const {
     return !growing && radius >= maxRadius;
 }
 
-//ошибка использования метода at
-const sf::Texture& TextureManager::getTexture(const std::string& name) {
-    return textures.at(name); // Используйте at() для безопасного доступа
-}
-
-
-void drawSquare(sf::RenderWindow& window,  int x, int y) {
-    sf::RectangleShape square(sf::Vector2f(50.0f, 50.0f)); // Объявление переменной square
-    square.setFillColor(sf::Color::Green);
-    square.setPosition(x, y);
-    window.draw(square); // Рисуем квадрат
-}
-
-void drawCircle(sf::RenderWindow& window,  int x, int y) {
-    sf::CircleShape circle(10); // Radius of 50 pixels circle.setFillColor(sf::Color::Green); // Fill color
-    circle.setOutlineThickness(5); // Outline thickness circle.setOutlineColor(sf::Color::Red); // Outline color
-    circle.setPosition(x, y);
-    window.draw(circle); // Рисуем круг
-}
-
+//Отрисовка картинки с нужными параметрами
 void drawImage(sf::RenderWindow& window, const std::string& textureName, float x, float y, float width, float height, TextureManager& textureManager) {
     sf::Sprite sprite;
     sprite.setTexture(textureManager.getTexture(textureName));
@@ -80,23 +85,8 @@ void drawImage(sf::RenderWindow& window, const std::string& textureName, float x
     sprite.setScale(width / sprite.getLocalBounds().width, height / sprite.getLocalBounds().height); // Масштабируем спрайт
     window.draw(sprite);
 }
-void drawPopup(sf::RenderWindow& window, const std::string& message) {
-    // Создаем прямоугольник для всплывающего окна
-    sf::RectangleShape popup(sf::Vector2f(300.0f, 200.0f));
-    popup.setFillColor(sf::Color(100, 100, 100, 200)); // Полупрозрачный цвет
-    popup.setPosition(250.0f, 200.0f); // Позиция всплывающего окна
 
-    // Создаем текст для сообщения
-    sf::Font font;
-    sf::Text text(message, font, 20);
-    text.setFillColor(sf::Color::White);
-    text.setPosition(260.0f, 250.0f); // Позиция текста
-
-    // Рисуем всплывающее окно и текст
-    window.draw(popup);
-    window.draw(text);
-}
-
+//Отрисовка экранов
 void renderStart(sf::RenderWindow& window) {
     std::filesystem::path folder="Pictures";
     // Загружаем текстуру из файла
@@ -214,4 +204,21 @@ void renderDefeat(sf::RenderWindow& window) {
 
     // Рисуем фон
     window.draw(backgroundSprite);
+}
+
+void drawPopup(sf::RenderWindow& window, const std::string& message) {
+    // Создаем прямоугольник для всплывающего окна
+    sf::RectangleShape popup(sf::Vector2f(300.0f, 200.0f));
+    popup.setFillColor(sf::Color(100, 100, 100, 200)); // Полупрозрачный цвет
+    popup.setPosition(250.0f, 200.0f); // Позиция всплывающего окна
+
+    // Создаем текст для сообщения
+    sf::Font font;
+    sf::Text text(message, font, 20);
+    text.setFillColor(sf::Color::White);
+    text.setPosition(260.0f, 250.0f); // Позиция текста
+
+    // Рисуем всплывающее окно и текст
+    window.draw(popup);
+    window.draw(text);
 }
