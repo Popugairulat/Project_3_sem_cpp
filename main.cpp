@@ -65,10 +65,10 @@ int main()
     textureManager.loadTexture("Back", (folder / "button_back.png").string());
     textureManager.loadTexture("Question", (folder / "button_question.png").string());
 
-    textureManager.loadTexture("Triangle", (folder / "сoin_3.png").string());
-    textureManager.loadTexture("Square", (folder / "сoin_4.png").string());
-    textureManager.loadTexture("Pentagon", (folder / "сoin_5.png").string());
-    textureManager.loadTexture("Hexagon", (folder / "сoin_6.png").string());
+    textureManager.loadTexture("Triangle", (folder/"coin_3.png").string());
+    textureManager.loadTexture("Square", (folder /"coin_4.png").string());
+    textureManager.loadTexture("Pentagon", (folder/"coin_5.png").string());
+    textureManager.loadTexture("Hexagon", (folder/"coin_6.png").string());
 
     textureManager.loadTexture("Player", (folder / "button_back.png").string());
     textureManager.loadTexture("f1", (folder / "f1.png").string());
@@ -105,6 +105,8 @@ int main()
     buttons_game.emplace_back(WIDTH - WIDTH / 20 - WIDTH / 200, WIDTH / 200, WIDTH / 20, WIDTH / 20, "Settings");
     buttons_game.emplace_back(WIDTH - 2 * (WIDTH / 20 + WIDTH / 200), WIDTH / 200, WIDTH / 20, WIDTH / 20, "Question");
     buttons_game.emplace_back(WIDTH - 3 * (WIDTH / 20 + WIDTH / 200), WIDTH / 200, WIDTH / 20, WIDTH / 20, "Back");
+    buttons_game.emplace_back(WIDTH/2 - WIDTH / 40, HEIGHT*3 / 4, WIDTH / 20, WIDTH / 20, "Back");
+    buttons_game.emplace_back(WIDTH/2 + WIDTH / 40, HEIGHT*3 / 4, WIDTH / 20, WIDTH / 20, "Forward");
 
     while (window.isOpen())
     {
@@ -233,6 +235,7 @@ int main()
                     buttons_settings[5].pressed = false;
                 }
             }
+            
         }
 
         else if (currentState == GameState::Level)
@@ -253,6 +256,48 @@ int main()
                 button.draw_button(window, textureManager);
                 button.get_pressed(event);
             }
+            
+            if (buttons_game[0].pressed)
+            {
+                if (currentState == GameState::Game)
+                {
+                    currentState = GameState::Settings;
+                    buttons_game[0].pressed = false;
+                }
+            }
+            if (buttons_game[1].pressed)
+            {
+                if (currentState == GameState::Game)
+                {
+                    currentState = GameState::Settings;
+                    buttons_game[1].pressed = false;
+                }
+            }
+            if (buttons_game[2].pressed)
+            {
+                if (currentState == GameState::Game)
+                {
+                    currentState = GameState::Start;
+                    buttons_game[2].pressed = false;
+                }
+            }
+            if (buttons_game[3].pressed)
+            {
+                if (currentState == GameState::Game)
+                {
+                    My_Player.Direction=1;   
+                    buttons_game[3].pressed = false;
+                }
+            }
+            if (buttons_game[4].pressed)
+            {
+                if (currentState == GameState::Game)
+                {
+                    //вызов функции движения игрока
+                }
+            }
+            
+        
         }
 
         else if (currentState == GameState::Final)
