@@ -36,8 +36,8 @@ void Bunch_Of_Coins::Print_Coins() const
         std::cout << "Type: " << coin->get_Type() << ", Price: " << coin->get_Price() << std::endl;
     }
 }
-
-Player::Player() : My_Index(0), Napravlenie(0), Number_Of_Coins(0) {}
+//СОФА НЕПРАВИЛЬНЫЙ ПОРЯДОК ИНИЦИАЛИЗАЦИИ
+Player::Player() : Number_Of_Coins(0), My_Index(0), Direction(0) {}
 
 
 

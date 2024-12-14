@@ -52,6 +52,8 @@ void Ripple::draw(sf::RenderWindow& window) {
 bool Ripple::isFinished() const {
     return !growing && radius >= maxRadius;
 }
+
+//ошибка использования метода at
 const sf::Texture& TextureManager::getTexture(const std::string& name) {
     return textures.at(name); // Используйте at() для безопасного доступа
 }

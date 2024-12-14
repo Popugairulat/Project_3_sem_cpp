@@ -36,7 +36,7 @@ private:
     int Number_Of_Coins;
     int My_Index;
     std::vector<Coin> My_Coins;
-    int Napravlenie;
+    int Direction;
 
 public:
     Player();

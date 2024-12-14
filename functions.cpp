@@ -17,7 +17,7 @@ int Roll_Dice() // страшно, наверно можно проще силь
 }
 
 // Функция, поределяющая новое положение игрока, вызывается как: New_Index=Move_Player(...)
-int Move_Player(int roll, int Coord[32][2], int My_Index, int Other_Index, int Napravlenie) // индекс - это от 1 до 32 - номер позиции игрока, Нулевой индекс - это подводная лодка
+int Move_Player(int roll, int My_Index, int Other_Index, int Napravlenie) // индекс - это от 1 до 32 - номер позиции игрока, Нулевой индекс - это подводная лодка
 {
     if (Napravlenie < 1)
     {
