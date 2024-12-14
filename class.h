@@ -8,41 +8,17 @@ class Coin
 private:
     std::string Type;
     int Price;
+    int x;
+    int y;
 public:
-    Coin(const std::string& type, int price);
+    Coin(const std::string& type, int price, int x, int y);
     virtual ~Coin();
     std::string get_Type() const;
     int get_Price() const;
-};
-
-class Triangle_Coin : public Coin
-{
-public:
-    Triangle_Coin(int P);
-};
-
-class Square_Coin : public Coin
-{
-public:
-    Square_Coin(int P);
-};
-
-class Pentagon_Coin : public Coin
-{
-public:
-    Pentagon_Coin(int P);
-};
-
-class Hexagon_Coin : public Coin
-{
-public:
-    Hexagon_Coin(int P);
-};
-
-class No_Coin : public Coin
-{
-public:
-    No_Coin(int P);
+    int get_x() const;
+    int get_y() const;
+    void set_x(int newX);
+    void set_y(int newY);
 };
 
 class Bunch_Of_Coins
@@ -58,18 +34,20 @@ public:
 
 class Player
 {
-private:
-    int Number_Of_Coins;
+public:
     int My_Index;
     std::vector<Coin> My_Coins;
-    int Napravlenie;
+    int Direction;
+    int Number_Of_Coins;
 
-public:
     Player();
-    void Take_Coin(const std::string& type, int price);
-    void Leave_Coin(const std::string& type);
+    void Take_Coin(const Coin& coin);
+    void Player::set_Number_Of_Coins(int Plus);
     int get_Number_Of_Coins() const;
     int get_Index() const;
+    void set_Index(int Index);
+    std::vector<Coin>& Player::get_My_Coins();
+    void Leave_Coin(int coinIndex);
 };
 
 class Submarine
