@@ -21,7 +21,7 @@ const sf::Texture& TextureManager::getTexture(const std::string& name) {
 }
 
 //Класс для анимации изображений (смены картинок с определенной частотой)
-Animation::Animation(TextureManager& textureManager, const std::vector<std::string>& textureNames, float frameTime)
+Animation::Animation(TextureManager& textureManager, const std::vector<std::string>& textureNames, float frameTime )
     : frameTime(frameTime), currentFrame(0), elapsedTime(0.0f), isAnimating(true) {
     for (const auto& name : textureNames) {
         textures.push_back(&textureManager.getTexture(name)); // Сохраняем указатели на текстуры
@@ -36,11 +36,12 @@ void Animation::update(float deltaTime) {
         }
     }
 }
-void Animation::draw(sf::RenderWindow& window, float x, float y) {
+void Animation::draw(sf::RenderWindow& window, float x, float y, float width, float height) {
     if (!textures.empty()) {
         sf::Sprite sprite;
         sprite.setTexture(*textures[currentFrame]); // Разыменовываем указатель
         sprite.setPosition(x, y);
+        sprite.setScale(width / sprite.getLocalBounds().width, height / sprite.getLocalBounds().height);
         window.draw(sprite);
     }
 }
