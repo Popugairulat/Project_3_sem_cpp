@@ -15,10 +15,37 @@ private:
     std::unordered_map<std::string, sf::Texture> textures; // Хранение текстур
 };
 
+class Animation {
+public:
+    Animation(TextureManager& textureManager, const std::vector<std::string>& textureNames, float frameTime);
+
+    void update(float deltaTime);
+    void draw(sf::RenderWindow& window, float x, float y);
+    void setAnimating(bool animating);
+
+private:
+    std::vector<const sf::Texture*> textures; // Используем указатели на текстуры
+    float frameTime; // Время между кадрами
+    int currentFrame;
+    float elapsedTime;
+    bool isAnimating;
+};
+
+class Ripple {
+public:
+    Ripple(sf::Vector2f position);
+    void update();
+    void draw(sf::RenderWindow& window);
+    bool isFinished() const;
+
+private:
+    sf::CircleShape circle;
+    float radius;
+    float maxRadius;
+    bool growing;
+};
 
 
-void drawSquare(sf::RenderWindow& window, int x, int y);
-void drawCircle(sf::RenderWindow& window, int x, int y);
 void drawImage(sf::RenderWindow& window, const std::string& textureName, float x, float y, float width, float height, TextureManager& textureManager);
 void drawPopup(sf::RenderWindow& window, const std::string& message);
 

@@ -14,8 +14,10 @@ std::string Coin::get_Type() const { return Type; }
 int Coin::get_Price() const { return Price; }
 int Coin::get_x() const { return x; }
 int Coin::get_y() const { return y; }
+
 void Coin::set_x(int newX) { x = newX; }
 void Coin::set_y(int newY) { y = newY; }
+
 
 Bunch_Of_Coins::Bunch_Of_Coins() {}
 Bunch_Of_Coins::~Bunch_Of_Coins()
@@ -37,6 +39,10 @@ void Bunch_Of_Coins::Print_Coins() const
         std::cout << "Type: " << coin->get_Type() << ", Price: " << coin->get_Price() << std::endl;
     }
 }
+//СОФА НЕПРАВИЛЬНЫЙ ПОРЯДОК ИНИЦИАЛИЗАЦИИ
+Player::Player() : Number_Of_Coins(0), My_Index(0), Direction(0) {}
+
+
 
 Player::Player() : My_Index(0), Direction(0), Number_Of_Coins(0) {}
 
@@ -49,8 +55,10 @@ void Player::set_Number_Of_Coins(int Plus) { Number_Of_Coins += Plus; }
 int Player::get_Index() const { return My_Index; }
 
 
+
 void Player::Take_Coin(const Coin& Coin)
 {
+
     My_Coins.emplace_back(Coin.get_Type(), Coin.get_Price(), Coin.get_x(), Coin.get_y());
     Number_Of_Coins++;
 }

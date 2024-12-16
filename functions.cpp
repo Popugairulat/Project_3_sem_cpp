@@ -27,8 +27,12 @@ int Roll_Random(int f, int s)
     return dis(gen);
 }
 
+
 // Передаем например от 4 до 8 - значение Price у монеток
 std::vector<int> Generate_Random_Array(int f, int s)
+
+// Функция, поределяющая новое положение игрока, вызывается как: New_Index=Move_Player(...)
+
 {
     std::vector<int> result;
 
