@@ -6,44 +6,55 @@
 #include "class.h"
 #include <filesystem>
 
-int main()
+
+int main() 
 {
-
-    std::vector<Ripple> ripples;
     sf::VideoMode desktop = sf::VideoMode::getDesktopMode();
-    int WIDTH = static_cast<int>(desktop.width * 0.9);
-    const int HEIGHT = (WIDTH * 943 - WIDTH * 943 % 1880) / 1880;
-    // int WIDTH = 1880, HEIGHT = 943;
-
+    int WIDTH = static_cast<const int>(desktop.width * 0.9);
+    int HEIGHT = (WIDTH * 943-WIDTH*943%1880)/1880;
+    //int WIDTH = 1880, HEIGHT = 943;
     int x = WIDTH / 7;
     int y = HEIGHT / 7;
+    int x1 = WIDTH / 25;
+    int y1 = HEIGHT / 10;
     int Coord[32][2] = { {x, y},{2 * x, y + 10},{3 * x, y + 20}, {4 * x, y + 30},{5 * x, y + 40},{6 * x, y + 50},{7 * x, y + 60},{8 * x, y + 70},
-{8 * x, 2 * y},{7 * x, 2 * y + 10},{6 * x, 2 * y + 20},{5 * x, 2 * y + 30},{4 * x, 2 * y + 40},{3 * x, 2 * y + 50},{2 * x, 2 * y + 60}, {x, 2 * y + 70},
-{x, 3 * y},{2 * x, 3 * y + 10},{3 * x, 3 * y + 20}, {4 * x, 3 * y + 30},{5 * x, 3 * y + 40},{6 * x, 3 * y + 50},{7 * x, 3 * y + 60},{8 * x, 3 * y + 70},
-{8 * x, 4 * y},{7 * x, 4 * y + 10},{6 * x, 4 * y + 20},{5 * x, 4 * y + 30},{4 * x, 4 * y + 40},{3 * x, 4 * y + 50},{2 * x, 4 * y + 60}, {x, 4 * y + 70} };
-
+    {8 * x, 2 * y},{7 * x, 2 * y + 10},{6 * x, 2 * y + 20},{5 * x, 2 * y + 30},{4 * x, 2 * y + 40},{3 * x, 2 * y + 50},{2 * x, 2 * y + 60}, {x, 2 * y + 70},
+    {x, 3 * y},{2 * x, 3 * y + 10},{3 * x, 3 * y + 20}, {4 * x, 3 * y + 30},{5 * x, 3 * y + 40},{6 * x, 3 * y + 50},{7 * x, 3 * y + 60},{8 * x, 3 * y + 70},
+    {8 * x, 4 * y},{7 * x, 4 * y + 10},{6 * x, 4 * y + 20},{5 * x, 4 * y + 30},{4 * x, 4 * y + 40},{3 * x, 4 * y + 50},{2 * x, 4 * y + 60}, {x, 4 * y + 70} };
+    
     // Заведем переменные
+    int My_Coins_Coord[4][2] = { {x1, y1}, {x1, 2 * y1}, {x1, 3 * y1}, {x1, 4 * y1} };
+    int Other_Coins_Coord[4][2] = { {x1, 6 * y1}, { x1, 7 * y1}, {x1, 8 * y1}, {x1, 9 * y1} };
+
+    std::vector<Coin> My_Coins;
+    std::vector<Coin> Other_Coins;
+
+
+    std::vector<int> Triangle = Generate_Random_Array(0, 3);
+    std::vector<int> Square = Generate_Random_Array(4, 7);
+    std::vector<int> Pentagon = Generate_Random_Array(8, 11);
+    std::vector<int> Hexagon = Generate_Random_Array(12, 15);
+
+
 
     std::vector<Coin> All_Coins;
     for (int i = 0; i < 8; i++)
     {
-        int res = i / 2;
-        All_Coins.emplace_back("Triangle", res, Coord[i][0], Coord[i][1]);
+
+        All_Coins.emplace_back("Triangle", Triangle[i], Coord[i][0], Coord[i][1]);
     }
     for (int i = 8; i < 16; i++)
     {
-        int res = i / 2;
-        All_Coins.emplace_back("Square", res, Coord[i][0], Coord[i][1]);
+        All_Coins.emplace_back("Square", Square[i-8], Coord[i][0], Coord[i][1]);
     }
     for (int i = 16; i < 24; i++)
     {
-        int res = i / 2;
-        All_Coins.emplace_back("Pentagon", res, Coord[i][0], Coord[i][1]);
+        All_Coins.emplace_back("Pentagon", Pentagon[i-16], Coord[i][0], Coord[i][1]);
     }
     for (int i = 24; i < 32; i++)
     {
-        int res = i / 2;
-        All_Coins.emplace_back("Hexagon", res, Coord[i][0], Coord[i][1]);
+        All_Coins.emplace_back("Hexagon", Hexagon[i-24], Coord[i][0], Coord[i][1]);
+
     }
 
     Player My_Player;
@@ -83,6 +94,7 @@ int main()
 
     std::vector<std::string> textureNames = {"f1", "f2", "f3", "f4", "f5", "f6", "f7", "f8", "f9"};
     Animation animation(textureManager, textureNames, 0.1f);
+
 
 
     //массивы с кнопками
@@ -248,6 +260,7 @@ int main()
             renderGame(window);
             for (int i = 0; i < 32; i++)
             {
+
                 drawImage(window, All_Coins[i].get_Type(), All_Coins[i].get_x(), All_Coins[i].get_y(), x / 2, x / 2, textureManager);
             }
             drawImage(window, "Player", Coord[My_Player.get_Index()][0], Coord[My_Player.get_Index()][1], x / 2, x / 2, textureManager);

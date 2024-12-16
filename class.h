@@ -17,6 +17,10 @@ public:
     int get_Price() const;
     int get_x() const;
     int get_y() const;
+
+    void set_x(int newX);
+    void set_y(int newY);
+
 };
 
 class Bunch_Of_Coins
@@ -32,19 +36,23 @@ public:
 
 class Player
 {
-private:
-    int Number_Of_Coins;
+public:
     int My_Index;
     std::vector<Coin> My_Coins;
-    
-
-public:
-    Player();
     int Direction;
-    void Take_Coin(const std::string& type, int price);
-    void Leave_Coin(const std::string& type);
+    int Number_Of_Coins;
+
+
+    Player();
+
+    void Take_Coin(const Coin& coin);
+    void Player::set_Number_Of_Coins(int Plus);
+
     int get_Number_Of_Coins() const;
     int get_Index() const;
+    void set_Index(int Index);
+    std::vector<Coin>& Player::get_My_Coins();
+    void Leave_Coin(int coinIndex);
 };
 
 class Submarine
