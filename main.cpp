@@ -23,6 +23,7 @@ int main()
 {WIDTH / 3.5 + 13 * s,  29 * s},{WIDTH / 3.5 + 22 * s,  30 * s},{WIDTH / 3.5 + 31* s,  31* s}, {WIDTH / 3.5 + 40 * s,  32 * s},{WIDTH / 3.5 + 48 * s,  36 * s},{WIDTH / 3.5 + 43 * s,  43 * s},{WIDTH / 3.5 + 34 * s,  42 * s},{WIDTH / 3.5 + 25 * s,  41 * s},
 {WIDTH / 3.5 + 16 * s,  40 * s},{WIDTH / 3.5 + 7 * s,  39 * s},{WIDTH / 3.5 -2 * s,  38 * s},{WIDTH / 3.5 - 9 * s,  44 * s},{WIDTH / 3.5 ,  47 * s}, {WIDTH / 3.5+9*s ,  48 * s}, {WIDTH / 3.5 +18  * s,  49 * s} };
 
+
     // Заведем переменные
     int My_Coins_Coord[4][2] = { {x1, y1}, {x1, 2 * y1}, {x1, 3 * y1}, {x1, 4 * y1} };
     int Other_Coins_Coord[4][2] = { {x1, 6 * y1}, { x1, 7 * y1}, {x1, 8 * y1}, {x1, 9 * y1} };
