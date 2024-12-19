@@ -362,7 +362,7 @@ int main()
                     // Ход 2ого игрока
                     // поворот с в-тью 0,25
                     int roll_2 = Roll_Random(1, 3) + Roll_Random(1, 3);
-                    Other_Player.set_Index(Move_Player(1, Other_Player.get_Index(), My_Player.get_Index(), Other_Player.get_Direction()));
+                    Other_Player.set_Index(Move_Player(roll_2, Other_Player.get_Index(), My_Player.get_Index(), Other_Player.get_Direction()));
                     
                     buttons_game[4].pressed = false;
                 }
