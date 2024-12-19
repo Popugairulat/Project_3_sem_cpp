@@ -91,7 +91,7 @@ void renderStart(sf::RenderWindow& window) {
     std::filesystem::path folder = "Pictures";
     // Загружаем текстуру из файла
     sf::Texture backgroundTexture;
-    backgroundTexture.loadFromFile((folder / "game.png").string());
+    backgroundTexture.loadFromFile((folder / "start.png").string());
 
     // Создаем спрайт и устанавливаем текстуру
     sf::Sprite backgroundSprite;
