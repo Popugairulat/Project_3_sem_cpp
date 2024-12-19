@@ -46,12 +46,12 @@ public:
     Player();
 
     void Take_Coin(const Coin& coin);
-    void Player::set_Number_Of_Coins(int Plus);
+    void set_Number_Of_Coins(int Plus);
 
     int get_Number_Of_Coins() const;
     int get_Index() const;
     void set_Index(int Index);
-    std::vector<Coin>& Player::get_My_Coins();
+    std::vector<Coin>& get_My_Coins();
     void Leave_Coin(int coinIndex);
 };
 
