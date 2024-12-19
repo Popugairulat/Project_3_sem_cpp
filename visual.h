@@ -20,7 +20,7 @@ public:
     Animation(TextureManager& textureManager, const std::vector<std::string>& textureNames, float frameTime);
 
     void update(float deltaTime);
-    void draw(sf::RenderWindow& window, float x, float y, float width, float height);
+    void draw(sf::RenderWindow& window, float x, float y);
     void setAnimating(bool animating);
 
 private:

@@ -17,8 +17,8 @@ int Roll_Dice() // страшно, наверно можно проще силь
     return dis(gen) + dis(gen);
 }
 */
- // Ф-ция, возвращающая рандомное число от f до s
-int Roll_Random(int f, int s) 
+// Ф-ция, возвращающая рандомное число от f до s
+int Roll_Random(int f, int s)
 {
     std::random_device rd;
     std::mt19937 gen(rd());

@@ -11,4 +11,3 @@ void Take_Coin(Player& Player, int Coin_Index, int newX, int newY, std::vector<C
 
 #endif // FUNCTIONS_H
 
-

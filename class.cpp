@@ -44,7 +44,6 @@ Player::Player() : Number_Of_Coins(0), My_Index(0), Direction(0) {}
 
 
 
-Player::Player() : My_Index(0), Direction(0), Number_Of_Coins(0) {}
 
 void Player::set_Index(int Index) { My_Index = Index; }
 
@@ -78,4 +77,3 @@ void Submarine::Change_Level(int m)
 {
     Level_Of_Oxygen -= m;
 }
-

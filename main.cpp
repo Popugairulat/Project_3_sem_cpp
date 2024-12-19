@@ -7,22 +7,20 @@
 #include <filesystem>
 
 
-int main() 
+int main()
 {
     sf::VideoMode desktop = sf::VideoMode::getDesktopMode();
-    int WIDTH = static_cast<int>(desktop.width * 0.9);
-    const int HEIGHT = (WIDTH * 943 - WIDTH * 943 % 1880) / 1880;
+    int WIDTH = static_cast<const int>(desktop.width * 0.9);
+    int HEIGHT = (WIDTH * 943 - WIDTH * 943 % 1880) / 1880;
     //int WIDTH = 1880, HEIGHT = 943;
-    int i = 100;
     int x = WIDTH / 7;
     int y = HEIGHT / 7;
-    int s = WIDTH / 110;
-    int Coord[32][2] = { {WIDTH / 3.5, 8*s},{WIDTH / 3.5+9*s, 9*s},{WIDTH / 3.5 + 18 * s, 10*s}, {WIDTH / 3.5 + 27 * s, 11*s},{WIDTH / 3.5 + 36 * s, 12*s},
-        {WIDTH / 3.5 + 45 * s, 13*s},{WIDTH / 3.5 + 53 * s, 18 * s},{WIDTH / 3.5 + 48 * s, 25 * s},{WIDTH / 3.5 + 40 * s, 22 * s}, {WIDTH / 3.5 + 31 * s, 21 * s},{WIDTH / 3.5 + 22 * s, 20 * s},
-        {WIDTH / 3.5 + 13 * s, 19 * s},{WIDTH / 3.5 + 4 * s, 18 * s},{WIDTH / 3.5 -5 * s, 17 * s},{WIDTH / 3.5 - 12 * s,  22 * s},{WIDTH / 3.5 - 5 * s,  27 * s}, {WIDTH / 3.5 +4 * s,  28 * s},
-{WIDTH / 3.5 + 13 * s,  29 * s},{WIDTH / 3.5 + 22 * s,  30 * s},{WIDTH / 3.5 + 31* s,  31* s}, {WIDTH / 3.5 + 40 * s,  32 * s},{WIDTH / 3.5 + 48 * s,  36 * s},{WIDTH / 3.5 + 43 * s,  43 * s},{WIDTH / 3.5 + 34 * s,  42 * s},{WIDTH / 3.5 + 25 * s,  41 * s},
-{WIDTH / 3.5 + 16 * s,  40 * s},{WIDTH / 3.5 + 7 * s,  39 * s},{WIDTH / 3.5 -2 * s,  38 * s},{WIDTH / 3.5 - 9 * s,  44 * s},{WIDTH / 3.5 ,  47 * s}, {WIDTH / 3.5+9*s ,  48 * s}, {WIDTH / 3.5 +18  * s,  49 * s} };
-
+    int x1 = WIDTH / 25;
+    int y1 = HEIGHT / 10;
+    int Coord[32][2] = { {x, y},{2 * x, y + 10},{3 * x, y + 20}, {4 * x, y + 30},{5 * x, y + 40},{6 * x, y + 50},{7 * x, y + 60},{8 * x, y + 70},
+    {8 * x, 2 * y},{7 * x, 2 * y + 10},{6 * x, 2 * y + 20},{5 * x, 2 * y + 30},{4 * x, 2 * y + 40},{3 * x, 2 * y + 50},{2 * x, 2 * y + 60}, {x, 2 * y + 70},
+    {x, 3 * y},{2 * x, 3 * y + 10},{3 * x, 3 * y + 20}, {4 * x, 3 * y + 30},{5 * x, 3 * y + 40},{6 * x, 3 * y + 50},{7 * x, 3 * y + 60},{8 * x, 3 * y + 70},
+    {8 * x, 4 * y},{7 * x, 4 * y + 10},{6 * x, 4 * y + 20},{5 * x, 4 * y + 30},{4 * x, 4 * y + 40},{3 * x, 4 * y + 50},{2 * x, 4 * y + 60}, {x, 4 * y + 70} };
 
     // Заведем переменные
     int My_Coins_Coord[4][2] = { {x1, y1}, {x1, 2 * y1}, {x1, 3 * y1}, {x1, 4 * y1} };
@@ -47,15 +45,15 @@ int main()
     }
     for (int i = 8; i < 16; i++)
     {
-        All_Coins.emplace_back("Square", Square[i-8], Coord[i][0], Coord[i][1]);
+        All_Coins.emplace_back("Square", Square[i - 8], Coord[i][0], Coord[i][1]);
     }
     for (int i = 16; i < 24; i++)
     {
-        All_Coins.emplace_back("Pentagon", Pentagon[i-16], Coord[i][0], Coord[i][1]);
+        All_Coins.emplace_back("Pentagon", Pentagon[i - 16], Coord[i][0], Coord[i][1]);
     }
     for (int i = 24; i < 32; i++)
     {
-        All_Coins.emplace_back("Hexagon", Hexagon[i-24], Coord[i][0], Coord[i][1]);
+        All_Coins.emplace_back("Hexagon", Hexagon[i - 24], Coord[i][0], Coord[i][1]);
 
     }
 
@@ -66,7 +64,7 @@ int main()
 
 
     sf::RenderWindow window(sf::VideoMode(WIDTH, HEIGHT), "XY");
-    GameState currentState = GameState::Game;
+    GameState currentState = GameState::Start;
     // ЗАГРУЗКА ТЕКСТУР
     std::filesystem::path folder = "Pictures";
     TextureManager textureManager;
@@ -78,10 +76,10 @@ int main()
     textureManager.loadTexture("Back", (folder / "button_back.png").string());
     textureManager.loadTexture("Question", (folder / "button_question.png").string());
 
-    textureManager.loadTexture("Triangle", (folder/"coin_3.png").string());
-    textureManager.loadTexture("Square", (folder /"coin_4.png").string());
-    textureManager.loadTexture("Pentagon", (folder/"coin_5.png").string());
-    textureManager.loadTexture("Hexagon", (folder/"coin_6.png").string());
+    textureManager.loadTexture("Triangle", (folder / "coin_3.png").string());
+    textureManager.loadTexture("Square", (folder / "coin_4.png").string());
+    textureManager.loadTexture("Pentagon", (folder / "coin_5.png").string());
+    textureManager.loadTexture("Hexagon", (folder / "coin_6.png").string());
 
     textureManager.loadTexture("Player", (folder / "button_back.png").string());
     textureManager.loadTexture("f1", (folder / "f1.png").string());
@@ -93,17 +91,8 @@ int main()
     textureManager.loadTexture("f7", (folder / "f7.png").string());
     textureManager.loadTexture("f8", (folder / "f8.png").string());
     textureManager.loadTexture("f9", (folder / "f9.png").string());
-    textureManager.loadTexture("f10", (folder / "f10.png").string());
-    textureManager.loadTexture("f11", (folder / "f11.png").string());
-    textureManager.loadTexture("f12", (folder / "f12.png").string());
-    textureManager.loadTexture("f13", (folder / "f13.png").string());
-    textureManager.loadTexture("f14", (folder / "f14.png").string());
-    textureManager.loadTexture("f15", (folder / "f15.png").string());
-    textureManager.loadTexture("f16", (folder / "f16.png").string());
-    textureManager.loadTexture("f17", (folder / "f17.png").string());
-    textureManager.loadTexture("f18", (folder / "f18.png").string());
 
-    std::vector<std::string> textureNames = {"f1", "f2", "f3", "f4", "f5", "f6", "f7", "f8", "f9", "f10", "f11" ,"f12", "f13", "f14", "f15", "f16", "f17", "f18"};
+    std::vector<std::string> textureNames = { "f1", "f2", "f3", "f4", "f5", "f6", "f7", "f8", "f9" };
     Animation animation(textureManager, textureNames, 0.1f);
 
 
@@ -128,13 +117,13 @@ int main()
     buttons_game.emplace_back(WIDTH - WIDTH / 20 - WIDTH / 200, WIDTH / 200, WIDTH / 20, WIDTH / 20, "Settings");
     buttons_game.emplace_back(WIDTH - 2 * (WIDTH / 20 + WIDTH / 200), WIDTH / 200, WIDTH / 20, WIDTH / 20, "Question");
     buttons_game.emplace_back(WIDTH - 3 * (WIDTH / 20 + WIDTH / 200), WIDTH / 200, WIDTH / 20, WIDTH / 20, "Back");
-    buttons_game.emplace_back(WIDTH/2 - WIDTH / 40, HEIGHT*3 / 4, WIDTH / 20, WIDTH / 20, "Back");
-    buttons_game.emplace_back(WIDTH/2 + WIDTH / 40, HEIGHT*3 / 4, WIDTH / 20, WIDTH / 20, "Forward");
+    buttons_game.emplace_back(WIDTH / 2 - WIDTH / 40, HEIGHT * 3 / 4, WIDTH / 20, WIDTH / 20, "Back");
+    buttons_game.emplace_back(WIDTH / 2 + WIDTH / 40, HEIGHT * 3 / 4, WIDTH / 20, WIDTH / 20, "Forward");
 
     while (window.isOpen())
     {
         sf::Event event;
- 
+
         while (window.pollEvent(event)) {
             if (event.type == sf::Event::Closed) {
                 window.close();
@@ -144,7 +133,6 @@ int main()
                 if (event.mouseButton.button == sf::Mouse::Left)
                 {
                     // Добавляем новый Ripple на позицию курсора
-                    ripples.emplace_back(sf::Vector2f(event.mouseButton.x, event.mouseButton.y));
                 }
             }
         }
@@ -155,7 +143,7 @@ int main()
             renderStart(window);
             //std::filesystem::path folder = "Pictures";
             //drawImage(window, "Triangle", 100.0, 100.0, 50.0, 50.0, textureManager);
-            for (auto &button : buttons_start)
+            for (auto& button : buttons_start)
             {
                 button.draw_button(window, textureManager);
                 button.get_pressed(event);
@@ -205,7 +193,7 @@ int main()
         else if (currentState == GameState::Settings) {
             renderGame(window);
 
-            for (auto &button : buttons_settings)
+            for (auto& button : buttons_settings)
             {
                 button.draw_button(window, textureManager);
                 button.get_pressed(event);
@@ -258,7 +246,7 @@ int main()
                     buttons_settings[5].pressed = false;
                 }
             }
-            
+
         }
 
         else if (currentState == GameState::Level)
@@ -280,7 +268,7 @@ int main()
                 button.draw_button(window, textureManager);
                 button.get_pressed(event);
             }
-            
+
             if (buttons_game[0].pressed)
             {
                 if (currentState == GameState::Game)
@@ -309,7 +297,7 @@ int main()
             {
                 if (currentState == GameState::Game)
                 {
-                    My_Player.Direction=1;   
+                    My_Player.Direction = 1;
                     buttons_game[3].pressed = false;
                 }
             }
@@ -320,8 +308,8 @@ int main()
                     //вызов функции движения игрока
                 }
             }
-            
-        
+
+
         }
 
         else if (currentState == GameState::Final)
@@ -332,29 +320,18 @@ int main()
         {
             renderGame(window);
         }
-         
-        animation.update(10000.0f); // Примерное время между кадрами (60 FPS
-        i += 10;
-        animation.draw(window, i, 100, 200, 200); // Отображаем анимацию в координатах (100, 100)
-        
-        for (auto& ripple : ripples) {
-            ripple.update();
-        }
+
+        animation.update(200.0f); // Примерное время между кадрами (60 FPS
+        animation.draw(window, 100, 100); // Отображаем анимацию в координатах (100, 100)
+
+
 
         // Удаляем завершенные ряды
-        ripples.erase(std::remove_if(ripples.begin(), ripples.end(),
-                                     [](const Ripple &ripple)
-                                     { return ripple.isFinished(); }),
-                      ripples.end());
-        // Отрисовка
-        for (auto &ripple : ripples)
-        {
-            ripple.draw(window);
-        }
 
+        // Отрисовка
+        
         window.display();
     }
 
     return 0;
 }
-

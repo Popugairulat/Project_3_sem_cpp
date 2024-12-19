@@ -21,7 +21,7 @@ const sf::Texture& TextureManager::getTexture(const std::string& name) {
 }
 
 //Класс для анимации изображений (смены картинок с определенной частотой)
-Animation::Animation(TextureManager& textureManager, const std::vector<std::string>& textureNames, float frameTime )
+Animation::Animation(TextureManager& textureManager, const std::vector<std::string>& textureNames, float frameTime)
     : frameTime(frameTime), currentFrame(0), elapsedTime(0.0f), isAnimating(true) {
     for (const auto& name : textureNames) {
         textures.push_back(&textureManager.getTexture(name)); // Сохраняем указатели на текстуры
@@ -36,12 +36,11 @@ void Animation::update(float deltaTime) {
         }
     }
 }
-void Animation::draw(sf::RenderWindow& window, float x, float y, float width, float height) {
+void Animation::draw(sf::RenderWindow& window, float x, float y) {
     if (!textures.empty()) {
         sf::Sprite sprite;
         sprite.setTexture(*textures[currentFrame]); // Разыменовываем указатель
         sprite.setPosition(x, y);
-        sprite.setScale(width / sprite.getLocalBounds().width, height / sprite.getLocalBounds().height);
         window.draw(sprite);
     }
 }
@@ -68,7 +67,7 @@ void Ripple::update() {
     // Обновляем центр круга в зависимости от нового радиуса
     circle.setOrigin(radius, radius);
     // Увеличиваем прозрачность в зависимости от радиуса
-    int alpha = static_cast<int>(255-(radius / maxRadius) * 255); // Прозрачность от 0 до 255
+    int alpha = static_cast<int>(255 - (radius / maxRadius) * 255); // Прозрачность от 0 до 255
     circle.setFillColor(sf::Color(255, 255, 255, alpha)); // Устанавливаем цвет с изменяющейся прозрачностью
 }
 void Ripple::draw(sf::RenderWindow& window) {
@@ -89,11 +88,11 @@ void drawImage(sf::RenderWindow& window, const std::string& textureName, float x
 
 //Отрисовка экранов
 void renderStart(sf::RenderWindow& window) {
-    std::filesystem::path folder="Pictures";
+    std::filesystem::path folder = "Pictures";
     // Загружаем текстуру из файла
     sf::Texture backgroundTexture;
-    backgroundTexture.loadFromFile((folder/"start.png").string());
-    
+    backgroundTexture.loadFromFile((folder / "start.png").string());
+
     // Создаем спрайт и устанавливаем текстуру
     sf::Sprite backgroundSprite;
     backgroundSprite.setTexture(backgroundTexture);
@@ -115,7 +114,7 @@ void renderLevel(sf::RenderWindow& window) {
     window.clear();
     // Загружаем текстуру из файла
     sf::Texture backgroundTexture;
-    std::filesystem::path folder="Pictures";
+    std::filesystem::path folder = "Pictures";
     backgroundTexture.loadFromFile((folder / "level.png").string());
 
     // Создаем спрайт и устанавливаем текстуру
@@ -161,10 +160,10 @@ void renderGame(sf::RenderWindow& window) {
 
 void renderFinal(sf::RenderWindow& window) {
     window.clear();
-    std::filesystem::path folder="Pictures";
+    std::filesystem::path folder = "Pictures";
     // Загружаем текстуру из файла
     sf::Texture backgroundTexture;
-    backgroundTexture.loadFromFile((folder/"final.png").string());
+    backgroundTexture.loadFromFile((folder / "final.png").string());
 
     // Создаем спрайт и устанавливаем текстуру
     sf::Sprite backgroundSprite;
@@ -185,10 +184,10 @@ void renderFinal(sf::RenderWindow& window) {
 
 void renderDefeat(sf::RenderWindow& window) {
     window.clear();
-    std::filesystem::path folder="Pictures";
+    std::filesystem::path folder = "Pictures";
     // Загружаем текстуру из файла
     sf::Texture backgroundTexture;
-    backgroundTexture.loadFromFile((folder/"defeat.png").string());
+    backgroundTexture.loadFromFile((folder / "defeat.png").string());
 
     // Создаем спрайт и устанавливаем текстуру
     sf::Sprite backgroundSprite;
