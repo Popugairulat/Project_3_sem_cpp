@@ -130,6 +130,7 @@ int main()
     buttons_game.emplace_back(WIDTH - 3 * (WIDTH / 20 + WIDTH / 200), WIDTH / 200, WIDTH / 20, WIDTH / 20, "Back");
     buttons_game.emplace_back(WIDTH / 2 - WIDTH / 40, HEIGHT * 3 / 4, WIDTH / 20, WIDTH / 20, "Back");
     buttons_game.emplace_back(WIDTH / 2 + WIDTH / 40, HEIGHT * 3 / 4, WIDTH / 20, WIDTH / 20, "Back");
+    buttons_game.emplace_back(WIDTH * 4 / 5, HEIGHT * 3 / 4, WIDTH / 20, WIDTH / 20, "Back");
 
     std::vector<Button> buttons_level;
     buttons_level.emplace_back(WIDTH - WIDTH / 20 - WIDTH / 200, WIDTH / 200, WIDTH / 20, WIDTH / 20, "Settings");
@@ -138,6 +139,7 @@ int main()
     buttons_level.emplace_back(WIDTH / 2 - WIDTH / 20, HEIGHT * 3 / 4, WIDTH / 20, WIDTH / 20, "Back");
     buttons_level.emplace_back(WIDTH / 2 + WIDTH / 20, HEIGHT * 3 / 4, WIDTH / 20, WIDTH / 20, "Back");
 
+    Button button_rules=Button(WIDTH - WIDTH / 20 - WIDTH / 200, WIDTH / 200, WIDTH / 20, WIDTH / 20, "Back");
     while (window.isOpen())
     {
         sf::Event event;
@@ -168,42 +170,28 @@ int main()
             }
             if (buttons_start[0].pressed)
             {
-                if (currentState == GameState::Start)
-                {
                     currentState = GameState::Level;
                     buttons_start[0].pressed = false;
-                }
             }
             if (buttons_start[1].pressed)
             {
-                if (currentState == GameState::Start)
-                {
                     currentState = GameState::Game;
                     buttons_start[1].pressed = false;
-                }
             }
             if (buttons_start[2].pressed)
             {
-                if (currentState == GameState::Start)
-                {
                     currentState = GameState::Settings;
                     buttons_start[2].pressed = false;
-                }
             }
             if (buttons_start[3].pressed)
             {
-                if (currentState == GameState::Start)
-                {
                     buttons_start[3].pressed = false;
                 }
-            }
             if (buttons_start[4].pressed)
             {
-                if (currentState == GameState::Start)
-                {
                     currentState = GameState::Start;
                     buttons_start[4].pressed = false;
-                }
+
             }
         }
 
@@ -217,51 +205,33 @@ int main()
             }
             if (buttons_settings[0].pressed)
             {
-                if (currentState == GameState::Settings)
-                {
                     currentState = GameState::Game;
                     buttons_settings[0].pressed = false;
-                }
             }
             if (buttons_settings[1].pressed)
             {
-                if (currentState == GameState::Settings)
-                {
                     currentState = GameState::Game;
                     buttons_settings[1].pressed = false;
-                }
             }
             if (buttons_settings[2].pressed)
             {
-                if (currentState == GameState::Settings)
-                {
                     currentState = GameState::Start;
                     buttons_settings[2].pressed = false;
-                }
             }
             if (buttons_settings[3].pressed)
             {
-                if (currentState == GameState::Settings)
-                {
                     currentState = GameState::Level;
                     buttons_settings[3].pressed = false;
-                }
             }
             if (buttons_settings[4].pressed)
             {
-                if (currentState == GameState::Settings)
-                {
                     currentState = GameState::Rating;
                     buttons_settings[4].pressed = false;
-                }
             }
             if (buttons_settings[5].pressed)
             {
-                if (currentState == GameState::Settings)
-                {
                     currentState = GameState::Game;
                     buttons_settings[5].pressed = false;
-                }
             }
 
         }
@@ -319,40 +289,26 @@ int main()
             }
             if (buttons_game[0].pressed)
             {
-                if (currentState == GameState::Game)
-                {
                     currentState = GameState::Settings;
                     buttons_game[0].pressed = false;
-                }
             }
             if (buttons_game[1].pressed)
             {
-                if (currentState == GameState::Game)
-                {
                     currentState = GameState::Settings;
                     buttons_game[1].pressed = false;
-                }
             }
             if (buttons_game[2].pressed)
             {
-                if (currentState == GameState::Game)
-                {
                     currentState = GameState::Start;
                     buttons_game[2].pressed = false;
-                }
             }
             if (buttons_game[3].pressed)
             {
-                if (currentState == GameState::Game)
-                {
                     My_Player.set_Direction(1);
                     buttons_game[3].pressed = false;
-                }
             }
             if (buttons_game[4].pressed)
             {
-                if (currentState == GameState::Game)
-                {
                     // анимация Штурвала Лера
                     int roll_1 = Roll_Random(1, 3)+Roll_Random(1, 3);
                     My_Player.set_Index(Move_Player(roll_1, My_Player.get_Index(), Other_Player.get_Index(), My_Player.get_Direction()));
@@ -365,9 +321,12 @@ int main()
                     Other_Player.set_Index(Move_Player(roll_2, Other_Player.get_Index(), My_Player.get_Index(), Other_Player.get_Direction()));
                     
                     buttons_game[4].pressed = false;
-                }
             }
-
+            if (buttons_game[5].pressed)
+            {
+                //БЕРЕМ МОНЕТКУ
+                buttons_game[5].pressed = false;
+            }
 
         }
 
