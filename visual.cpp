@@ -67,7 +67,7 @@ void Ripple::update() {
     // Обновляем центр круга в зависимости от нового радиуса
     circle.setOrigin(radius, radius);
     // Увеличиваем прозрачность в зависимости от радиуса
-    int alpha = static_cast<int>(255-(radius / maxRadius) * 255); // Прозрачность от 0 до 255
+    int alpha = static_cast<int>(255 - (radius / maxRadius) * 255); // Прозрачность от 0 до 255
     circle.setFillColor(sf::Color(255, 255, 255, alpha)); // Устанавливаем цвет с изменяющейся прозрачностью
 }
 void Ripple::draw(sf::RenderWindow& window) {
@@ -88,11 +88,11 @@ void drawImage(sf::RenderWindow& window, const std::string& textureName, float x
 
 //Отрисовка экранов
 void renderStart(sf::RenderWindow& window) {
-    std::filesystem::path folder="Pictures";
+    std::filesystem::path folder = "Pictures";
     // Загружаем текстуру из файла
     sf::Texture backgroundTexture;
-    backgroundTexture.loadFromFile((folder/"start.png").string());
-    
+    backgroundTexture.loadFromFile((folder / "start.png").string());
+
     // Создаем спрайт и устанавливаем текстуру
     sf::Sprite backgroundSprite;
     backgroundSprite.setTexture(backgroundTexture);
@@ -114,7 +114,7 @@ void renderLevel(sf::RenderWindow& window) {
     window.clear();
     // Загружаем текстуру из файла
     sf::Texture backgroundTexture;
-    std::filesystem::path folder="Pictures";
+    std::filesystem::path folder = "Pictures";
     backgroundTexture.loadFromFile((folder / "level.png").string());
 
     // Создаем спрайт и устанавливаем текстуру
@@ -160,10 +160,10 @@ void renderGame(sf::RenderWindow& window) {
 
 void renderFinal(sf::RenderWindow& window) {
     window.clear();
-    std::filesystem::path folder="Pictures";
+    std::filesystem::path folder = "Pictures";
     // Загружаем текстуру из файла
     sf::Texture backgroundTexture;
-    backgroundTexture.loadFromFile((folder/"final.png").string());
+    backgroundTexture.loadFromFile((folder / "final.png").string());
 
     // Создаем спрайт и устанавливаем текстуру
     sf::Sprite backgroundSprite;
@@ -184,10 +184,10 @@ void renderFinal(sf::RenderWindow& window) {
 
 void renderDefeat(sf::RenderWindow& window) {
     window.clear();
-    std::filesystem::path folder="Pictures";
+    std::filesystem::path folder = "Pictures";
     // Загружаем текстуру из файла
     sf::Texture backgroundTexture;
-    backgroundTexture.loadFromFile((folder/"defeat.png").string());
+    backgroundTexture.loadFromFile((folder / "defeat.png").string());
 
     // Создаем спрайт и устанавливаем текстуру
     sf::Sprite backgroundSprite;

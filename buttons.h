@@ -8,6 +8,8 @@ class Button {
 public:
     Button( float x, float y, float width, float height, const std::string& text);
     //virtual ~Button();
+    Button(float x, float y, float width, float height, const std::string& text);
+    //virtual ~Button();
     void draw_button(sf::RenderWindow& window, TextureManager& textureManager);
     void get_pressed(sf::Event event);
 
