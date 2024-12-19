@@ -10,7 +10,7 @@
                 "-O2",//оптимизация компилятора
                 "-Wall",//много чего
                 "-Wextra",
-                "${workspaceFolder}/*.cpp",
+                //"${workspaceFolder}/*.cpp",
                 "-o",
                 "${fileDirname}/${fileBasenameNoExtension}",
                 

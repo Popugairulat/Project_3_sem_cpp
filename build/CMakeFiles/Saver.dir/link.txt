@@ -1,0 +1,1 @@
+/usr/bin/c++ CMakeFiles/Saver.dir/main.cpp.o CMakeFiles/Saver.dir/buttons.cpp.o CMakeFiles/Saver.dir/class.cpp.o CMakeFiles/Saver.dir/functions.cpp.o CMakeFiles/Saver.dir/visual.cpp.o -o Saver  /usr/lib/x86_64-linux-gnu/libsfml-graphics.so.2.5.1 /usr/lib/x86_64-linux-gnu/libsfml-window.so.2.5.1 /usr/lib/x86_64-linux-gnu/libsfml-system.so.2.5.1 

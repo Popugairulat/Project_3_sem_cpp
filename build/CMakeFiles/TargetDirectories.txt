@@ -1,0 +1,3 @@
+/home/julia/prog/tasks/project/final_project/Project_3_sem_cpp/build/CMakeFiles/Saver.dir
+/home/julia/prog/tasks/project/final_project/Project_3_sem_cpp/build/CMakeFiles/edit_cache.dir
+/home/julia/prog/tasks/project/final_project/Project_3_sem_cpp/build/CMakeFiles/rebuild_cache.dir
