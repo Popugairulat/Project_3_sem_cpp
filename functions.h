@@ -3,7 +3,7 @@
 
 #include <SFML/Graphics.hpp>
 #include "class.h"
-
+int Roll_Dice();
 int Roll_Random(int f, int s);
 std::vector<int> Generate_Random_Array(int f, int s);
 int Move_Player(int roll, int MyIndex, int OtherIndex, int Napravlenie);

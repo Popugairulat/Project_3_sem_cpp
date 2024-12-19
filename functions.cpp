@@ -6,7 +6,7 @@
 #include <iostream>
 #include <random>
 
-/*
+
 int Roll_Dice() // страшно, наверно можно проще сильно
 {
     static std::random_device rd; // Получаем случайное число от устройства
@@ -16,7 +16,7 @@ int Roll_Dice() // страшно, наверно можно проще силь
     // Генерируем и возвращаем сумму двух случайных чисел от 1 до 3
     return dis(gen) + dis(gen);
 }
-*/
+
 // Ф-ция, возвращающая рандомное число от f до s
 int Roll_Random(int f, int s)
 {

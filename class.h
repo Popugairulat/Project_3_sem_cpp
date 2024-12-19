@@ -36,13 +36,13 @@ public:
 
 class Player
 {
-public:
+private:
     int My_Index;
     std::vector<Coin> My_Coins;
     int Direction;
     int Number_Of_Coins;
 
-
+public:
     Player();
 
     void Take_Coin(const Coin& coin);
@@ -53,6 +53,8 @@ public:
     void set_Index(int Index);
     std::vector<Coin>& get_My_Coins();
     void Leave_Coin(int coinIndex);
+    int get_Direction();
+    void set_Direction(int new_Index);
 };
 
 class Submarine

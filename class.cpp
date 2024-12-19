@@ -39,11 +39,8 @@ void Bunch_Of_Coins::Print_Coins() const
         std::cout << "Type: " << coin->get_Type() << ", Price: " << coin->get_Price() << std::endl;
     }
 }
-//СОФА НЕПРАВИЛЬНЫЙ ПОРЯДОК ИНИЦИАЛИЗАЦИИ
+
 Player::Player() : Number_Of_Coins(0), My_Index(0), Direction(0) {}
-
-
-
 
 void Player::set_Index(int Index) { My_Index = Index; }
 
@@ -52,7 +49,8 @@ std::vector<Coin>& Player::get_My_Coins() { return My_Coins; }
 int Player::get_Number_Of_Coins() const { return Number_Of_Coins; }
 void Player::set_Number_Of_Coins(int Plus) { Number_Of_Coins += Plus; }
 int Player::get_Index() const { return My_Index; }
-
+int Player::get_Direction() { return Direction; }
+void Player::set_Direction(int new_Direction) { Direction = new_Direction; }
 
 
 void Player::Take_Coin(const Coin& Coin)

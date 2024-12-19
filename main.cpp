@@ -5,7 +5,9 @@
 #include "functions.h"
 #include "class.h"
 #include <filesystem>
-
+//ввела Софа
+#include <chrono>
+#include <thread>
 
 int main()
 {
@@ -309,7 +311,7 @@ int main()
                 drawImage(window, All_Coins[i].get_Type(), All_Coins[i].get_x(), All_Coins[i].get_y(), x / 2, x / 2, textureManager);
             }
             drawImage(window, "f1", Coord[My_Player.get_Index()][0], Coord[My_Player.get_Index()][1], x / 2, x / 2, textureManager);
-            drawImage(window, "f1", Coord[Other_Player.get_Index()][0] + x / 10, Coord[Other_Player.get_Index()][0], 100, 100, textureManager);
+            drawImage(window, "f1", Coord[Other_Player.get_Index()][0], Coord[Other_Player.get_Index()][1], x/3, x/3, textureManager);
             
             for (auto& button : buttons_game) {
                 button.draw_button(window, textureManager);
@@ -343,7 +345,7 @@ int main()
             {
                 if (currentState == GameState::Game)
                 {
-                    My_Player.Direction = 1;
+                    My_Player.set_Direction(1);
                     buttons_game[3].pressed = false;
                 }
             }
@@ -351,7 +353,18 @@ int main()
             {
                 if (currentState == GameState::Game)
                 {
-                    //вызов функции движения игрока
+                    // анимация Штурвала Лера
+                    int roll_1 = Roll_Random(1, 3)+Roll_Random(1, 3);
+                    My_Player.set_Index(Move_Player(roll_1, My_Player.get_Index(), Other_Player.get_Index(), My_Player.get_Direction()));
+                    
+                    // пауза
+                    sf::sleep(sf::milliseconds(1000));
+                    // Ход 2ого игрока
+                    // поворот с в-тью 0,25
+                    int roll_2 = Roll_Random(1, 3) + Roll_Random(1, 3);
+                    Other_Player.set_Index(Move_Player(1, Other_Player.get_Index(), My_Player.get_Index(), Other_Player.get_Direction()));
+                    
+                    buttons_game[4].pressed = false;
                 }
             }
 
@@ -368,7 +381,7 @@ int main()
             renderGame(window);
         }
 
-        animation.update(200.0f); // Примерное время между кадрами (60 FPS
+        animation.update(200.0f); // Примерное время между кадрами (60 FPS)
         animation.draw(window, 100, 100); // Отображаем анимацию в координатах (100, 100)
 
 
@@ -376,6 +389,8 @@ int main()
         // Удаляем завершенные ряды
 
         // Отрисовка
+        drawImage(window, "f1", Coord[My_Player.get_Index()][0], Coord[My_Player.get_Index()][1], x / 2, x / 2, textureManager);
+        drawImage(window, "f1", Coord[Other_Player.get_Index()][0], Coord[Other_Player.get_Index()][1], x / 3, x / 3, textureManager);
         
         window.display();
     }
