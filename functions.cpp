@@ -51,43 +51,43 @@ std::vector<int> Generate_Random_Array(int f, int s)
 }
 
 
-// Функция, определяющая новое положение игрока, вызывается как: Player.set_New_Index=Move_Player(...)
-int Move_Player(int roll, int My_Index, int Other_Index, int Direction) // индекс - это от 1 до 32 - номер позиции игрока, Нулевой индекс - это подводная лодка
+// Функция, определяющая новое положение игрока, вызывается как: Player.set_new_Index=Move_Player(...)
+int Move_Player(int roll, int My_Index, int Other_Index, int Direction)
 {
-    if (Direction < 1)
+    int Final_Index = My_Index; 
+    if (Direction < 1) 
     {
-        int Final_Index = My_Index + roll;
-        if (Other_Index <= Final_Index && Other_Index >= My_Index)
+        for (int i = 0; i < roll; ++i)
         {
-            if (Final_Index > 32)
+            Final_Index++;
+            if (Final_Index == Other_Index)
             {
-                Final_Index = 32;
+                Final_Index++;  
             }
-            return Final_Index + 1; // Т к одну монету он перепрыгнет
         }
-        if (Final_Index > 32)
-        {
-            Final_Index = 32;
-        }
-        return Final_Index;
     }
-    else
+    else 
     {
-        int Final_Index = My_Index - roll;
-        if (Other_Index >= Final_Index && Other_Index <= My_Index)
+        for (int i = 0; i < roll; ++i)
         {
-            if (Final_Index < 0)
+            Final_Index--;
+            if (Final_Index == Other_Index)
             {
-                Final_Index = 0;
+                Final_Index--; 
             }
-            return Final_Index - 1; // Т к одну монету он перепрыгнет, значит будет на 1 ближе к началу
         }
-        if (Final_Index < 0)
-        {
-            Final_Index = 0;
-        }
-        return Final_Index;
     }
+
+    if (Final_Index < 0)
+    {
+        Final_Index = 0;
+    }
+    if (Final_Index > 32)
+    {
+        Final_Index = 32;
+    }
+
+    return Final_Index;
 }
 
 // Вызывается так: Take_Coin(My_Player, My_Player.get_Index(), newX, newY, All_Coins)
@@ -98,4 +98,25 @@ void Take_Coin(Player& Player, int Coin_Index, int newX, int newY, std::vector<C
     //Лера тебе сюда
     All_Coins[Coin_Index].set_x(newX); // Меняем координаты монетки в All_Coins
     All_Coins[Coin_Index].set_y(newY);
+}
+
+
+int Number_Of_Type(std::string Type)
+{
+    if (Type == "Triangle")
+    {
+        return 0;
+    }
+    if (Type == "Square")
+    {
+        return 1;
+    }
+    if (Type == "Pentagon")
+    {
+        return 2;
+    }
+    if (Type == "Hexagon")
+    {
+        return 3;
+    }
 }

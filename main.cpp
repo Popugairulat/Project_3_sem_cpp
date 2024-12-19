@@ -310,7 +310,7 @@ int main()
             if (buttons_game[4].pressed)
             {
                     // анимация Штурвала Лера
-                    int roll_1 = Roll_Random(1, 3)+Roll_Random(1, 3);
+                    int roll_1 = Roll_Random(1, 3) + Roll_Random(1, 3);
                     My_Player.set_Index(Move_Player(roll_1, My_Player.get_Index(), Other_Player.get_Index(), My_Player.get_Direction()));
                     
                     // пауза
@@ -320,11 +320,16 @@ int main()
                     int roll_2 = Roll_Random(1, 3) + Roll_Random(1, 3);
                     Other_Player.set_Index(Move_Player(roll_2, Other_Player.get_Index(), My_Player.get_Index(), Other_Player.get_Direction()));
                     
+                    // берет монетку
+                    int Type = Number_Of_Type(All_Coins[Other_Player.get_Index()].get_Type());
+                    Take_Coin(Other_Player, Other_Player.get_Index(), Other_Coins_Coord[Type][0], Other_Coins_Coord[Type][1], All_Coins);
                     buttons_game[4].pressed = false;
             }
             if (buttons_game[5].pressed)
             {
                 //БЕРЕМ МОНЕТКУ
+                int Type = Number_Of_Type(All_Coins[My_Player.get_Index()].get_Type());
+                Take_Coin(My_Player, My_Player.get_Index(), My_Coins_Coord[Type][0], My_Coins_Coord[Type][1], All_Coins);
                 buttons_game[5].pressed = false;
             }
 
@@ -348,6 +353,10 @@ int main()
         // Удаляем завершенные ряды
 
         // Отрисовка
+        for (int i = 0; i < 32; i++)
+        {
+            drawImage(window, All_Coins[i].get_Type(), All_Coins[i].get_x(), All_Coins[i].get_y(), x / 2, x / 2, textureManager);
+        }
         drawImage(window, "f1", Coord[My_Player.get_Index()][0], Coord[My_Player.get_Index()][1], x / 2, x / 2, textureManager);
         drawImage(window, "f1", Coord[Other_Player.get_Index()][0], Coord[Other_Player.get_Index()][1], x / 3, x / 3, textureManager);
         
