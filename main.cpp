@@ -308,8 +308,8 @@ int main()
 
                 drawImage(window, All_Coins[i].get_Type(), All_Coins[i].get_x(), All_Coins[i].get_y(), x / 2, x / 2, textureManager);
             }
-            drawImage(window, "Player", Coord[My_Player.get_Index()][0], Coord[My_Player.get_Index()][1], x / 2, x / 2, textureManager);
-            drawImage(window, "Player", Coord[Other_Player.get_Index()][0] + x / 10, Coord[Other_Player.get_Index()][0], 100, 100, textureManager);
+            drawImage(window, "f1", Coord[My_Player.get_Index()][0], Coord[My_Player.get_Index()][1], x / 2, x / 2, textureManager);
+            drawImage(window, "f1", Coord[Other_Player.get_Index()][0] + x / 10, Coord[Other_Player.get_Index()][0], 100, 100, textureManager);
             
             for (auto& button : buttons_game) {
                 button.draw_button(window, textureManager);
