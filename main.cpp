@@ -5,7 +5,6 @@
 #include "functions.h"
 #include "class.h"
 #include <filesystem>
-//ввела Софа
 #include <chrono>
 #include <thread>
 
@@ -380,7 +379,7 @@ int main()
                 Take_Coin(My_Player, My_Player.get_Index(), My_Coins_Coord[Type][0], My_Coins_Coord[Type][1], All_Coins);
                 buttons_game[5].pressed = false;
             }
-            if (My_Player.get_Index() < new_my_player_index) {
+            if (My_Player.get_Index() != new_my_player_index) {
                 fish.setAnimating(true);
                 int l = (Coord[My_Player.get_Index() + 1][0] - Coord[My_Player.get_Index()][0]) / 10;
                 int h = (Coord[My_Player.get_Index() + 1][1] - Coord[My_Player.get_Index()][1]) / 10;
@@ -401,7 +400,8 @@ int main()
                 fish.setAnimating(false);
                 fish.draw(window, my_player_x, my_player_y);
             }
-            if (Other_Player.get_Index() < new_other_player_index && My_Player.get_Index() == new_my_player_index) {
+
+            if (Other_Player.get_Index() != new_other_player_index && My_Player.get_Index() == new_my_player_index) {
                 crocodile.setAnimating(true);
                 int l = (Coord[Other_Player.get_Index() + 1][0] - Coord[Other_Player.get_Index()][0]) / 10;
                 int h = (Coord[Other_Player.get_Index() + 1][1] - Coord[Other_Player.get_Index()][1]) / 10;
@@ -447,12 +447,9 @@ int main()
         {
             renderGame(window);
         }
-
-
         for (auto& ripple : ripples) {
             ripple.update();
         }
-
         // Удаляем завершенные ряды
         ripples.erase(std::remove_if(ripples.begin(), ripples.end(),
             [](const Ripple& ripple) { return ripple.isFinished(); }), ripples.end());
