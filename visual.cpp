@@ -223,3 +223,18 @@ void drawPopup(sf::RenderWindow& window, const std::string& message) {
     window.draw(popup);
     window.draw(text);
 }
+TextRenderer::TextRenderer(const std::string& fontFile) {
+    if (!font.loadFromFile(fontFile)) {
+        std::cerr << "Ошибка загрузки шрифта из файла: " << fontFile << std::endl;
+    }
+}
+
+void TextRenderer::drawText(sf::RenderWindow& window, const std::string& text, float x, float y, unsigned int size, sf::Color color) {
+    sf::Text sfText;
+    sfText.setFont(font);
+    sfText.setString(text);
+    sfText.setCharacterSize(size);
+    sfText.setFillColor(color);
+    sfText.setPosition(x, y);
+    window.draw(sfText);
+}

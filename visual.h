@@ -63,4 +63,12 @@ void renderGame(sf::RenderWindow& window);
 void renderFinal(sf::RenderWindow& window);
 void renderRating(sf::RenderWindow& window);
 void renderSettings(sf::RenderWindow& window);
+class TextRenderer {
+public:
+    TextRenderer(const std::string& fontFile);
+    void drawText(sf::RenderWindow& window, const std::string& text, float x, float y, unsigned int size, sf::Color color);
+
+private:
+    sf::Font font;
+};
 #endif // VISUAL_H

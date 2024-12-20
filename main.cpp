@@ -11,6 +11,8 @@
 
 int main()
 {
+    TextRenderer textRenderer("Roboto-Black.ttf"); // Убедитесь, что файл шрифта доступен
+
     sf::VideoMode desktop = sf::VideoMode::getDesktopMode();
     int WIDTH = static_cast<const int>(desktop.width * 0.9);
     int HEIGHT = (WIDTH * 943 - WIDTH * 943 % 1880) / 1880;
@@ -410,7 +412,8 @@ int main()
                 crocodile.setAnimating(false);
                 crocodile.draw(window, other_player_x+10, other_player_y+5);
             }
-
+            //СОФА ФУНКЦИЯ КОТОРАЯ СЧИТАЕТ КОЛИЧЕСТВО МОНЕТ ПРИ СЕБЕ РАЗНЫХ ТИПОВ
+            textRenderer.drawText(window, "X0", WIDTH / 8, WIDTH / 6, 30, sf::Color::White);
 
 
         }
@@ -438,7 +441,6 @@ int main()
         for (auto& ripple : ripples) {
             ripple.draw(window);
         }
-        
         window.display();
     }
 
