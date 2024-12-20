@@ -19,27 +19,6 @@ void Coin::set_x(int newX) { x = newX; }
 void Coin::set_y(int newY) { y = newY; }
 
 
-Bunch_Of_Coins::Bunch_Of_Coins() {}
-Bunch_Of_Coins::~Bunch_Of_Coins()
-{
-    for (Coin* coin : Coins)
-    {
-        delete coin;
-    }
-    Coins.clear();
-}
-void Bunch_Of_Coins::Add_Coin(Coin* coin)
-{
-    Coins.push_back(coin);
-}
-void Bunch_Of_Coins::Print_Coins() const
-{
-    for (const Coin* coin : Coins)
-    {
-        std::cout << "Type: " << coin->get_Type() << ", Price: " << coin->get_Price() << std::endl;
-    }
-}
-
 Player::Player() : Number_Of_Coins(0), My_Index(0), Direction(0) {}
 
 void Player::set_Index(int Index) { My_Index = Index; }
@@ -68,10 +47,3 @@ void Player::Leave_Coin(int Сoin_Index)
 
 
 
-// класс подводная лодка
-Submarine::Submarine() : Level_Of_Oxygen(0) {}
-
-void Submarine::Change_Level(int m)
-{
-    Level_Of_Oxygen -= m;
-}

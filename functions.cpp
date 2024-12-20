@@ -82,9 +82,9 @@ int Move_Player(int roll, int My_Index, int Other_Index, int Direction)
     {
         Final_Index = 0;
     }
-    if (Final_Index > 32)
+    if (Final_Index > 33)
     {
-        Final_Index = 32;
+        Final_Index = 33;
     }
 
     return Final_Index;
@@ -107,6 +107,10 @@ int Number_Of_Type(std::string Type)
     {
         return 0;
     }
+    if (Type == "Invisible")
+    {
+        return 0;
+    }
     if (Type == "Square")
     {
         return 1;
@@ -119,4 +123,11 @@ int Number_Of_Type(std::string Type)
     {
         return 3;
     }
+}
+ 
+bool Possibility(int Probability) 
+{
+    int Result = Roll_Random(1, Probability);
+
+    return Result < Probability;
 }

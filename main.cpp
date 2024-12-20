@@ -24,7 +24,7 @@ int main()
     int i = 100;
 
     int s = WIDTH / 110;
-    int Coord[32][2] = { {WIDTH / 3.5, 8 * s},{WIDTH / 3.5 + 9 * s, 9 * s},{WIDTH / 3.5 + 18 * s, 10 * s}, {WIDTH / 3.5 + 27 * s, 11 * s},{WIDTH / 3.5 + 36 * s, 12 * s},
+    int Coord[33][2] = { {WIDTH/4, 8*s}, {WIDTH / 3.5, 8 * s},{WIDTH / 3.5 + 9 * s, 9 * s},{WIDTH / 3.5 + 18 * s, 10 * s}, {WIDTH / 3.5 + 27 * s, 11 * s},{WIDTH / 3.5 + 36 * s, 12 * s},
         {WIDTH / 3.5 + 45 * s, 13 * s},{WIDTH / 3.5 + 53 * s, 18 * s},{WIDTH / 3.5 + 48 * s, 25 * s},{WIDTH / 3.5 + 40 * s, 22 * s}, {WIDTH / 3.5 + 31 * s, 21 * s},{WIDTH / 3.5 + 22 * s, 20 * s},
         {WIDTH / 3.5 + 13 * s, 19 * s},{WIDTH / 3.5 + 4 * s, 18 * s},{WIDTH / 3.5 - 5 * s, 17 * s},{WIDTH / 3.5 - 12 * s,  22 * s},{WIDTH / 3.5 - 5 * s,  27 * s}, {WIDTH / 3.5 + 4 * s,  28 * s},
 {WIDTH / 3.5 + 13 * s,  29 * s},{WIDTH / 3.5 + 22 * s,  30 * s},{WIDTH / 3.5 + 31 * s,  31 * s}, {WIDTH / 3.5 + 40 * s,  32 * s},{WIDTH / 3.5 + 48 * s,  36 * s},{WIDTH / 3.5 + 43 * s,  43 * s},{WIDTH / 3.5 + 34 * s,  42 * s},{WIDTH / 3.5 + 25 * s,  41 * s},
@@ -36,7 +36,7 @@ int main()
     std::vector<Coin> My_Coins;
     std::vector<Coin> Other_Coins;
     std::string Numbers_of_coins[8] = { {"0"},{"0"},{"0"},{"0"},{"0"},{"0"},{"0"},{"0"} };
-
+    int Number_Of_Coins[8] = { 0,0,0,0,-1,0,0,0 };
 
     std::vector<int> Triangle = Generate_Random_Array(0, 3);
     std::vector<int> Square = Generate_Random_Array(4, 7);
@@ -46,35 +46,31 @@ int main()
 
 
     std::vector<Coin> All_Coins;
+    All_Coins.emplace_back("Invisible", 0, Coord[0][0], Coord[0][1]);
+
     for (int i = 0; i < 8; i++)
     {
 
-        All_Coins.emplace_back("Triangle", Triangle[i], Coord[i][0], Coord[i][1]);
+        All_Coins.emplace_back("Triangle", Triangle[i], Coord[i+1][0], Coord[i+1][1]);
     }
     for (int i = 8; i < 16; i++)
     {
-        All_Coins.emplace_back("Square", Square[i - 8], Coord[i][0], Coord[i][1]);
+        All_Coins.emplace_back("Square", Square[i - 8], Coord[i+1][0], Coord[i+1][1]);
     }
     for (int i = 16; i < 24; i++)
     {
-        All_Coins.emplace_back("Pentagon", Pentagon[i - 16], Coord[i][0], Coord[i][1]);
+        All_Coins.emplace_back("Pentagon", Pentagon[i - 16], Coord[i+1][0], Coord[i+1][1]);
     }
     for (int i = 24; i < 32; i++)
     {
-        All_Coins.emplace_back("Hexagon", Hexagon[i - 24], Coord[i][0], Coord[i][1]);
+        All_Coins.emplace_back("Hexagon", Hexagon[i - 24], Coord[i+1][0], Coord[i+1][1]);
 
     }
-
-    for (int i = 0; i < 32; i++)
-    {
-        std::cout<<All_Coins[i].get_Type();
-    }
-
 
     Player My_Player;
     Player Other_Player;
 
-    Submarine Submarine;
+    int Level_Of_Oxygen = 25;
 
 
     sf::RenderWindow window(sf::VideoMode(WIDTH, HEIGHT), "XY");
@@ -105,6 +101,7 @@ int main()
     textureManager.loadTexture("Pentagon", (folder / "coin_5.png").string());
     textureManager.loadTexture("Hexagon", (folder / "coin_6.png").string());
     textureManager.loadTexture("Player", (folder / "button_back.png").string());
+    textureManager.loadTexture("Invisible", (folder / "coin_4.png").string());
 
     textureManager.loadTexture("f1", (folder / "f1.png").string());
     textureManager.loadTexture("f2", (folder / "f2.png").string());
@@ -185,10 +182,10 @@ int main()
     Button button_rules=Button(WIDTH - WIDTH / 20 - WIDTH / 200, WIDTH / 200, WIDTH / 20, WIDTH / 20, "Close");
     int new_my_player_index=My_Player.get_Index(), new_other_player_index=Other_Player.get_Index();
     int step = 1, step_c=1;
-    int my_player_x = Coord[My_Player.get_Index()][0];
-    int my_player_y = Coord[My_Player.get_Index()][1];
-    int other_player_x = Coord[Other_Player.get_Index()][0];
-    int other_player_y = Coord[Other_Player.get_Index()][1];
+    int my_player_x = Coord[0][0];
+    int my_player_y = Coord[0][1];
+    int other_player_x = Coord[0][0];
+    int other_player_y = Coord[0][1];
     std::vector<Ripple> ripples;
 
     while (window.isOpen())
@@ -332,11 +329,10 @@ int main()
         else if (currentState == GameState::Game)
         {
             renderGame(window);
-            for (int i = 0; i < 32; i++)
+            for (int i = 0; i < 33; i++)
             {
                 drawImage(window, All_Coins[i].get_Type(), All_Coins[i].get_x(), All_Coins[i].get_y(), x / 2, x / 2, textureManager);
             }
-            
             for (auto& button : buttons_game) {
                 button.draw_button(window, textureManager);
                 button.get_pressed(event);
@@ -367,10 +363,16 @@ int main()
                     int roll_1 = Roll_Random(1, 3) + Roll_Random(1, 3);
                     new_my_player_index = Move_Player(roll_1, My_Player.get_Index(), Other_Player.get_Index(), My_Player.get_Direction());
                     int roll_2 = Roll_Random(1, 3) + Roll_Random(1, 3);
-                    new_other_player_index = Move_Player(roll_2, Other_Player.get_Index(), My_Player.get_Index(), Other_Player.get_Direction());
-
-                    // берет монетку
-                    
+                    new_other_player_index = Move_Player(roll_2, Other_Player.get_Index(), new_my_player_index, Other_Player.get_Direction());
+                    if (new_other_player_index == 0) { drawImage(window, "Triangle", 100, 100, 100, 100, textureManager); }
+                    if (My_Player.get_Number_Of_Coins() > 0 && My_Player.get_Index()>0)
+                    {
+                        Level_Of_Oxygen = Level_Of_Oxygen - My_Player.get_Number_Of_Coins();
+                    }
+                    if (Other_Player.get_Number_Of_Coins() > 0 && Other_Player.get_Index() > 0)
+                    {
+                        Level_Of_Oxygen = Level_Of_Oxygen - Other_Player.get_Number_Of_Coins();
+                    }
                     buttons_game[4].pressed = false;
             }
             if (buttons_game[5].pressed)
@@ -378,9 +380,10 @@ int main()
                 //БЕРЕМ МОНЕТКУ
                 int Type = Number_Of_Type(All_Coins[My_Player.get_Index()].get_Type());
                 Take_Coin(My_Player, My_Player.get_Index(), My_Coins_Coord[Type][0], My_Coins_Coord[Type][1], All_Coins);
+                Number_Of_Coins[Type] += 1;
                 buttons_game[5].pressed = false;
             }
-            if (My_Player.get_Index() < new_my_player_index) {
+            if (My_Player.get_Index() != new_my_player_index) {
                 fish.setAnimating(true);
                 int l = (Coord[My_Player.get_Index() + 1][0] - Coord[My_Player.get_Index()][0]) / 10;
                 int h = (Coord[My_Player.get_Index() + 1][1] - Coord[My_Player.get_Index()][1]) / 10;
@@ -401,7 +404,7 @@ int main()
                 fish.setAnimating(false);
                 fish.draw(window, my_player_x, my_player_y);
             }
-            if (Other_Player.get_Index() < new_other_player_index && My_Player.get_Index() == new_my_player_index) {
+            if (Other_Player.get_Index() != new_other_player_index && My_Player.get_Index() == new_my_player_index) {
                 crocodile.setAnimating(true);
                 int l = (Coord[Other_Player.get_Index() + 1][0] - Coord[Other_Player.get_Index()][0]) / 10;
                 int h = (Coord[Other_Player.get_Index() + 1][1] - Coord[Other_Player.get_Index()][1]) / 10;
@@ -419,18 +422,59 @@ int main()
                 crocodile.draw(window, other_player_x+10, other_player_y+5); // Отображаем анимацию в координатах (100, 100
             }
             else {
-                int Type = Number_Of_Type(All_Coins[Other_Player.get_Index()].get_Type());
-                Take_Coin(Other_Player, Other_Player.get_Index(), Other_Coins_Coord[Type][0], Other_Coins_Coord[Type][1], All_Coins);
+                /*
+                if (Possibility(2))
+                {
+                    int Type = Number_Of_Type(All_Coins[Other_Player.get_Index()].get_Type());
+                    Take_Coin(Other_Player, Other_Player.get_Index(), Other_Coins_Coord[Type][0], Other_Coins_Coord[Type][1], All_Coins);
+                    Number_Of_Coins[Type+4] += 1;
+                }
+                if (Possibility(4))
+                {
+                    Other_Player.set_Direction(1);
+                }
+                */
                 crocodile.setAnimating(false);
                 crocodile.draw(window, other_player_x+10, other_player_y+5);
             }
             //FIXME СОФА ФУНКЦИЯ КОТОРАЯ СЧИТАЕТ КОЛИЧЕСТВО МОНЕТ ПРИ СЕБЕ РАЗНЫХ ТИПОВ
+            //массив Number_Of_Coins
             drawNumbers(window, Numbers_of_coins, textRenderer, HEIGHT, 50);
             //FIXME CОФА МОНЕТКИ КЛИКАБЕЛЬНЫ ВСЕ ВРЕМЯ И ПЕРВАЯ МОНЕТКА КРОКОДИЛОМ ВСЕГДА ЗАБИРАЕТСЯ 
+            // пофиксил, есть нулевая координата
             //FIXME СКОЛЬКО КИСЛОРОДА 
+            // Level_Of_Oxygen
             std::string bulk = "10";
             textRenderer.drawText(window, bulk, WIDTH * 8 / 9, HEIGHT / 2, 69, sf::Color::White);
             //FIXME ЕСЛИ ПРОИГРАЛИ
+            // определение исхода игры
+            /*
+            int Result_Of_Game = -1;
+            if (Level_Of_Oxygen <= 0)
+            {
+                if (My_Player.get_Index() > 0 && Other_Player.get_Index() == 0) { Result_Of_Game = 0; } // проигрыш, если утонул
+                if (Other_Player.get_Index() > 0 && My_Player.get_Index() == 0) { Result_Of_Game = 1; } // выигрыш, если утонул соперник
+            }
+            else
+            {
+                if (My_Player.get_Index() == 0 && Other_Player.get_Index() == 0)
+                {
+                    int My_Result = 0;
+                    int Other_Result = 0;
+                    for (const auto& coin : My_Player.get_My_Coins())
+                    {
+                        My_Result += coin.get_Price();
+                    }
+                    for (const auto& coin : Other_Player.get_My_Coins())
+                    {
+                        Other_Result += coin.get_Price();
+                    }
+                    if (My_Result > Other_Result) { Result_Of_Game = 1; } // победа
+                    if (My_Result < Other_Result) { Result_Of_Game = 0; } // проигрыш
+                    if (My_Result == Other_Result) { Result_Of_Game = 2; } // ничья
+                }
+            }
+            */
             if (false) {
                 currentState = GameState::Final;
             }

@@ -23,17 +23,6 @@ public:
 
 };
 
-class Bunch_Of_Coins
-{
-private:
-    std::vector<Coin*> Coins;
-public:
-    Bunch_Of_Coins();
-    ~Bunch_Of_Coins();
-    void Add_Coin(Coin* coin);
-    void Print_Coins() const;
-};
-
 class Player
 {
 private:
@@ -54,17 +43,7 @@ public:
     std::vector<Coin>& get_My_Coins();
     void Leave_Coin(int coinIndex);
     int get_Direction();
-    void set_Direction(int new_Index);
-};
-
-class Submarine
-{
-private:
-    int Level_Of_Oxygen;
-
-public:
-    Submarine();
-    void Change_Level(int m);
+    void set_Direction(int new_Direction);
 };
 
 #endif // CLASS_H
