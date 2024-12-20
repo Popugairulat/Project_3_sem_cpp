@@ -177,7 +177,7 @@ int main()
 
     Button button_rules=Button(WIDTH - WIDTH / 20 - WIDTH / 200, WIDTH / 200, WIDTH / 20, WIDTH / 20, "Back");
     int new_my_player_index=My_Player.get_Index(), new_other_player_index=Other_Player.get_Index();
-    int step = 0, step_c=0;
+    int step = 1, step_c=1;
     int my_player_x = Coord[My_Player.get_Index()][0];
     int my_player_y = Coord[My_Player.get_Index()][1];
     int other_player_x = Coord[Other_Player.get_Index()][0];
@@ -372,7 +372,7 @@ int main()
                 fish.setAnimating(true);
                 int l = (Coord[My_Player.get_Index() + 1][0] - Coord[My_Player.get_Index()][0]) / 10;
                 int h = (Coord[My_Player.get_Index() + 1][1] - Coord[My_Player.get_Index()][1]) / 10;
-                if (step < 10) {
+                if (step <10) {
                     my_player_x +=  l;
                     my_player_y += h;
                     step += 1;
@@ -393,7 +393,7 @@ int main()
                 crocodile.setAnimating(true);
                 int l = (Coord[Other_Player.get_Index() + 1][0] - Coord[Other_Player.get_Index()][0]) / 10;
                 int h = (Coord[Other_Player.get_Index() + 1][1] - Coord[Other_Player.get_Index()][1]) / 10;
-                if (step_c < 10) {
+                if (step_c <= 10) {
                     other_player_x += l;
                     other_player_y += h;
                     step_c += 1;
