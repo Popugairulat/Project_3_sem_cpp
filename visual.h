@@ -47,7 +47,7 @@ private:
 
 
 void drawImage(sf::RenderWindow& window, const std::string& textureName, float x, float y, float width, float height, TextureManager& textureManager);
-void drawPopup(sf::RenderWindow& window, const std::string& message);
+void drawPopup(sf::RenderWindow& window, int WIDTH, const std::string& message);
 
 enum class GameState {
     Start,
@@ -66,9 +66,11 @@ void renderSettings(sf::RenderWindow& window);
 class TextRenderer {
 public:
     TextRenderer(const std::string& fontFile);
-    void drawText(sf::RenderWindow& window, const std::string& text, float x, float y, unsigned int size, sf::Color color);
+    void drawText(sf::RenderWindow& window, std::string& text, float x, float y, unsigned int size, sf::Color color);
 
 private:
     sf::Font font;
 };
+void drawNumbers(sf::RenderWindow& window, std::string numbers_of_coins[8], TextRenderer textRenderer, int HEIGHT, unsigned int size);
+
 #endif // VISUAL_H

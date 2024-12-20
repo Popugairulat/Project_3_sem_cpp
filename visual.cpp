@@ -207,17 +207,20 @@ void renderDefeat(sf::RenderWindow& window) {
     window.draw(backgroundSprite);
 }
 
-void drawPopup(sf::RenderWindow& window, const std::string& message) {
+void drawPopup(sf::RenderWindow& window, int WIDTH, const std::string& message) {
     // Создаем прямоугольник для всплывающего окна
-    sf::RectangleShape popup(sf::Vector2f(300.0f, 200.0f));
+    sf::RectangleShape popup(sf::Vector2f(WIDTH / 6*4, (WIDTH * 943 - WIDTH * 943 % 1880) / 1880));
     popup.setFillColor(sf::Color(100, 100, 100, 200)); // Полупрозрачный цвет
-    popup.setPosition(250.0f, 200.0f); // Позиция всплывающего окна
+    popup.setPosition( WIDTH/6 ,0); // Позиция всплывающего окна
 
     // Создаем текст для сообщения
     sf::Font font;
-    sf::Text text(message, font, 20);
+    font.loadFromFile("Roboto-Black.ttf");
+    sf::Text text(message, font, 50);
     text.setFillColor(sf::Color::White);
-    text.setPosition(260.0f, 250.0f); // Позиция текста
+    text.setString(message);
+
+    text.setPosition(WIDTH / 5, WIDTH / 5- WIDTH / 6); // Позиция текста
 
     // Рисуем всплывающее окно и текст
     window.draw(popup);
@@ -229,7 +232,7 @@ TextRenderer::TextRenderer(const std::string& fontFile) {
     }
 }
 
-void TextRenderer::drawText(sf::RenderWindow& window, const std::string& text, float x, float y, unsigned int size, sf::Color color) {
+void TextRenderer::drawText(sf::RenderWindow& window, std::string& text, float x, float y, unsigned int size, sf::Color color) {
     sf::Text sfText;
     sfText.setFont(font);
     sfText.setString(text);
@@ -237,4 +240,14 @@ void TextRenderer::drawText(sf::RenderWindow& window, const std::string& text, f
     sfText.setFillColor(color);
     sfText.setPosition(x, y);
     window.draw(sfText);
+}
+void drawNumbers(sf::RenderWindow& window, std::string numbers_of_coins[8], TextRenderer textRenderer, int HEIGHT, unsigned int size) {
+    for (int i = 0; i < 4; ++i) {
+        textRenderer.drawText(window, numbers_of_coins[i], HEIGHT / 4.5, i * HEIGHT / 9+ HEIGHT / 18, size, sf::Color::White);
+    }
+    for (int i = 5; i < 9; ++i) {
+        textRenderer.drawText(window, numbers_of_coins[i-1], HEIGHT / 4.5, i * HEIGHT / 9 + HEIGHT / 18, size, sf::Color::White);
+    }
+
+
 }

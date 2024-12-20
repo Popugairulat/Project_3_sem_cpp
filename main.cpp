@@ -35,6 +35,7 @@ int main()
 
     std::vector<Coin> My_Coins;
     std::vector<Coin> Other_Coins;
+    std::string Numbers_of_coins[8] = { {"0"},{"0"},{"0"},{"0"},{"0"},{"0"},{"0"},{"0"} };
 
 
     std::vector<int> Triangle = Generate_Random_Array(0, 3);
@@ -88,6 +89,12 @@ int main()
     textureManager.loadTexture("Stop", (folder / "button_stop.png").string());
     textureManager.loadTexture("Back", (folder / "button_back.png").string());
     textureManager.loadTexture("Question", (folder / "button_question.png").string());
+    textureManager.loadTexture("Go", (folder / "button_go.png").string());
+    textureManager.loadTexture("Get", (folder / "button_get.png").string());
+
+    textureManager.loadTexture("Return", (folder / "button_return.png").string());
+
+
 
     textureManager.loadTexture("Game", (folder / "game.png").string());
     textureManager.loadTexture("Game", (folder / "game.png").string());
@@ -164,9 +171,9 @@ int main()
     buttons_game.emplace_back(WIDTH - WIDTH / 20 - WIDTH / 200, WIDTH / 200, WIDTH / 20, WIDTH / 20, "Settings");
     buttons_game.emplace_back(WIDTH - 2 * (WIDTH / 20 + WIDTH / 200), WIDTH / 200, WIDTH / 20, WIDTH / 20, "Question");
     buttons_game.emplace_back(WIDTH - 3 * (WIDTH / 20 + WIDTH / 200), WIDTH / 200, WIDTH / 20, WIDTH / 20, "Back");
-    buttons_game.emplace_back(WIDTH / 2 - WIDTH / 40, HEIGHT * 3 / 4, WIDTH / 20, WIDTH / 20, "Back");
-    buttons_game.emplace_back(WIDTH / 2 + WIDTH / 40, HEIGHT * 3 / 4, WIDTH / 20, WIDTH / 20, "Back");
-    buttons_game.emplace_back(WIDTH * 4 / 5, HEIGHT * 3 / 4, WIDTH / 20, WIDTH / 20, "Back");
+    buttons_game.emplace_back(WIDTH - WIDTH / 20 - WIDTH / 200, HEIGHT -WIDTH / 19, WIDTH / 20, WIDTH / 20, "Return");
+    buttons_game.emplace_back(WIDTH - 2 * (WIDTH / 20 + WIDTH / 200), HEIGHT - WIDTH / 19, WIDTH / 20, WIDTH / 20, "Go");
+    buttons_game.emplace_back(WIDTH - 3 * (WIDTH / 20 + WIDTH / 200), HEIGHT - WIDTH / 19, WIDTH / 20, WIDTH / 20, "Get");
 
     std::vector<Button> buttons_level;
     buttons_level.emplace_back(WIDTH - WIDTH / 20 - WIDTH / 200, WIDTH / 200, WIDTH / 20, WIDTH / 20, "Settings");
@@ -175,7 +182,7 @@ int main()
     buttons_level.emplace_back(WIDTH / 2 - WIDTH / 20, HEIGHT * 3 / 4, WIDTH / 20, WIDTH / 20, "Back");
     buttons_level.emplace_back(WIDTH / 2 + WIDTH / 20, HEIGHT * 3 / 4, WIDTH / 20, WIDTH / 20, "Back");
 
-    Button button_rules=Button(WIDTH - WIDTH / 20 - WIDTH / 200, WIDTH / 200, WIDTH / 20, WIDTH / 20, "Back");
+    Button button_rules=Button(WIDTH - WIDTH / 20 - WIDTH / 200, WIDTH / 200, WIDTH / 20, WIDTH / 20, "Close");
     int new_my_player_index=My_Player.get_Index(), new_other_player_index=Other_Player.get_Index();
     int step = 1, step_c=1;
     int my_player_x = Coord[My_Player.get_Index()][0];
@@ -215,14 +222,17 @@ int main()
             }
             if (buttons_start[0].pressed)
             {
-                    currentState = GameState::Level;
-                    buttons_start[0].pressed = false;
+                currentState = GameState::Game;
+
+                buttons_start[0].pressed = false;
             }
             if (buttons_start[1].pressed)
             {
-                    currentState = GameState::Game;
-                    buttons_start[1].pressed = false;
+                currentState = GameState::Game;
+                buttons_start[1].pressed = false;
             }
+
+                    
             if (buttons_start[2].pressed)
             {
                     currentState = GameState::Settings;
@@ -231,7 +241,9 @@ int main()
             if (buttons_start[3].pressed)
             {
                     buttons_start[3].pressed = false;
-                }
+                    drawPopup(window, WIDTH, "text_JULIA_PLEASE");
+
+            }
             if (buttons_start[4].pressed)
             {
                     currentState = GameState::Start;
@@ -255,7 +267,7 @@ int main()
             }
             if (buttons_settings[1].pressed)
             {
-                    currentState = GameState::Game;
+                drawPopup(window,WIDTH, "text_JULIA_PLEASE");
                     buttons_settings[1].pressed = false;
             }
             if (buttons_settings[2].pressed)
@@ -331,13 +343,13 @@ int main()
             }
             if (buttons_game[0].pressed)
             {
-                    currentState = GameState::Settings;
+                    currentState = GameState::Game;
                     buttons_game[0].pressed = false;
             }
             if (buttons_game[1].pressed)
             {
-                    currentState = GameState::Settings;
-                    buttons_game[1].pressed = false;
+                drawPopup(window, WIDTH, "text_JULIA_PLEASE");
+                buttons_game[1].pressed = false;
             }
             if (buttons_game[2].pressed)
             {
@@ -412,23 +424,29 @@ int main()
                 crocodile.setAnimating(false);
                 crocodile.draw(window, other_player_x+10, other_player_y+5);
             }
-            //СОФА ФУНКЦИЯ КОТОРАЯ СЧИТАЕТ КОЛИЧЕСТВО МОНЕТ ПРИ СЕБЕ РАЗНЫХ ТИПОВ
-            textRenderer.drawText(window, "X0", WIDTH / 8, WIDTH / 6, 30, sf::Color::White);
-
-
+            //FIXME СОФА ФУНКЦИЯ КОТОРАЯ СЧИТАЕТ КОЛИЧЕСТВО МОНЕТ ПРИ СЕБЕ РАЗНЫХ ТИПОВ
+            drawNumbers(window, Numbers_of_coins, textRenderer, HEIGHT, 50);
+            //FIXME CОФА МОНЕТКИ КЛИКАБЕЛЬНЫ ВСЕ ВРЕМЯ И ПЕРВАЯ МОНЕТКА КРОКОДИЛОМ ВСЕГДА ЗАБИРАЕТСЯ 
+            //FIXME СКОЛЬКО КИСЛОРОДА 
+            std::string bulk = "10";
+            textRenderer.drawText(window, bulk, WIDTH * 8 / 9, HEIGHT / 2, 69, sf::Color::White);
+            //FIXME ЕСЛИ ПРОИГРАЛИ
+            if (false) {
+                currentState = GameState::Final;
+            }
         }
 
         else if (currentState == GameState::Final)
         {
             renderGame(window);
+            //FIXME Кнопка на стартовый экран
         }
+
 
         else if (currentState == GameState::Rating)
         {
             renderGame(window);
         }
-
-        
 
 
         for (auto& ripple : ripples) {
