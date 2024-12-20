@@ -5,7 +5,6 @@
 #include "functions.h"
 #include "class.h"
 #include <filesystem>
-//ввела Софа
 #include <chrono>
 #include <thread>
 
@@ -491,12 +490,9 @@ int main()
         {
             renderGame(window);
         }
-
-
         for (auto& ripple : ripples) {
             ripple.update();
         }
-
         // Удаляем завершенные ряды
         ripples.erase(std::remove_if(ripples.begin(), ripples.end(),
             [](const Ripple& ripple) { return ripple.isFinished(); }), ripples.end());
