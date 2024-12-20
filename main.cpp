@@ -87,12 +87,16 @@ int main()
     textureManager.loadTexture("Back", (folder / "button_back.png").string());
     textureManager.loadTexture("Question", (folder / "button_question.png").string());
 
+    textureManager.loadTexture("Game", (folder / "game.png").string());
+    textureManager.loadTexture("Game", (folder / "game.png").string());
+
+
     textureManager.loadTexture("Triangle", (folder / "coin_3.png").string());
     textureManager.loadTexture("Square", (folder / "coin_4.png").string());
     textureManager.loadTexture("Pentagon", (folder / "coin_5.png").string());
     textureManager.loadTexture("Hexagon", (folder / "coin_6.png").string());
-
     textureManager.loadTexture("Player", (folder / "button_back.png").string());
+
     textureManager.loadTexture("f1", (folder / "f1.png").string());
     textureManager.loadTexture("f2", (folder / "f2.png").string());
     textureManager.loadTexture("f3", (folder / "f3.png").string());
@@ -102,9 +106,39 @@ int main()
     textureManager.loadTexture("f7", (folder / "f7.png").string());
     textureManager.loadTexture("f8", (folder / "f8.png").string());
     textureManager.loadTexture("f9", (folder / "f9.png").string());
+    textureManager.loadTexture("f11", (folder / "f11.png").string());
+    textureManager.loadTexture("f12", (folder / "f12.png").string());
+    textureManager.loadTexture("f13", (folder / "f13.png").string());
+    textureManager.loadTexture("f14", (folder / "f14.png").string());
+    textureManager.loadTexture("f15", (folder / "f15.png").string());
+    textureManager.loadTexture("f16", (folder / "f16.png").string());
+    textureManager.loadTexture("f17", (folder / "f17.png").string());
+    textureManager.loadTexture("f18", (folder / "f18.png").string());
+    textureManager.loadTexture("f10", (folder / "f10.png").string());
+    std::vector<std::string> fish_go = { "f1", "f2", "f3", "f4", "f5", "f6", "f7", "f8", "f9", "f10", "f11", "f12", "f13", "f14", "f15", "f16", "f17", "f18" };
+    Animation fish(textureManager, fish_go, 0.1f);
 
-    std::vector<std::string> textureNames = { "f1", "f2", "f3", "f4", "f5", "f6", "f7", "f8", "f9" };
-    Animation animation(textureManager, textureNames, 0.1f);
+
+    textureManager.loadTexture("c1", (folder / "c1.png").string());
+    textureManager.loadTexture("c2", (folder / "c2.png").string());
+    textureManager.loadTexture("c3", (folder / "c3.png").string());
+    textureManager.loadTexture("c4", (folder / "c4.png").string());
+    textureManager.loadTexture("c5", (folder / "c5.png").string());
+    textureManager.loadTexture("c6", (folder / "c6.png").string());
+    textureManager.loadTexture("c7", (folder / "c7.png").string());
+    textureManager.loadTexture("c8", (folder / "c8.png").string());
+    textureManager.loadTexture("c9", (folder / "c9.png").string());
+    textureManager.loadTexture("c11", (folder / "c11.png").string());
+    textureManager.loadTexture("c12", (folder / "c12.png").string());
+    textureManager.loadTexture("c13", (folder / "c13.png").string());
+    textureManager.loadTexture("c14", (folder / "c14.png").string());
+    textureManager.loadTexture("c15", (folder / "c15.png").string());
+    textureManager.loadTexture("c16", (folder / "c16.png").string());
+    textureManager.loadTexture("c17", (folder / "c17.png").string());
+    textureManager.loadTexture("c18", (folder / "c18.png").string());
+    textureManager.loadTexture("c10", (folder / "c10.png").string());
+    std::vector<std::string> crocodile_go = { "c1", "c2", "c3", "c4", "c5", "c6", "c7", "c8", "c9", "c10", "c11", "c12", "c13", "c14", "c15", "c16", "c17", "c18"};
+    Animation crocodile(textureManager, crocodile_go, 0.1f);
 
 
 
@@ -140,6 +174,14 @@ int main()
     buttons_level.emplace_back(WIDTH / 2 + WIDTH / 20, HEIGHT * 3 / 4, WIDTH / 20, WIDTH / 20, "Back");
 
     Button button_rules=Button(WIDTH - WIDTH / 20 - WIDTH / 200, WIDTH / 200, WIDTH / 20, WIDTH / 20, "Back");
+    int new_my_player_index=My_Player.get_Index(), new_other_player_index=Other_Player.get_Index();
+    int step = 0, step_c=0;
+    int my_player_x = Coord[My_Player.get_Index()][0];
+    int my_player_y = Coord[My_Player.get_Index()][1];
+    int other_player_x = Coord[Other_Player.get_Index()][0];
+    int other_player_y = Coord[Other_Player.get_Index()][1];
+    std::vector<Ripple> ripples;
+
     while (window.isOpen())
     {
         sf::Event event;
@@ -152,11 +194,12 @@ int main()
             {
                 if (event.mouseButton.button == sf::Mouse::Left)
                 {
+                    ripples.emplace_back(sf::Vector2f(event.mouseButton.x, event.mouseButton.y));
+
                     // Добавляем новый Ripple на позицию курсора
                 }
             }
         }
-
         // Отрисовка в зависимости от текущего состояния
         if (currentState == GameState::Start)
         {
@@ -277,11 +320,8 @@ int main()
             renderGame(window);
             for (int i = 0; i < 32; i++)
             {
-
                 drawImage(window, All_Coins[i].get_Type(), All_Coins[i].get_x(), All_Coins[i].get_y(), x / 2, x / 2, textureManager);
             }
-            drawImage(window, "f1", Coord[My_Player.get_Index()][0], Coord[My_Player.get_Index()][1], x / 2, x / 2, textureManager);
-            drawImage(window, "f1", Coord[Other_Player.get_Index()][0], Coord[Other_Player.get_Index()][1], x/3, x/3, textureManager);
             
             for (auto& button : buttons_game) {
                 button.draw_button(window, textureManager);
@@ -311,18 +351,12 @@ int main()
             {
                     // анимация Штурвала Лера
                     int roll_1 = Roll_Random(1, 3) + Roll_Random(1, 3);
-                    My_Player.set_Index(Move_Player(roll_1, My_Player.get_Index(), Other_Player.get_Index(), My_Player.get_Direction()));
-                    
-                    // пауза
-                    sf::sleep(sf::milliseconds(1000));
-                    // Ход 2ого игрока
-                    // поворот с в-тью 0,25
+                    new_my_player_index = Move_Player(roll_1, My_Player.get_Index(), Other_Player.get_Index(), My_Player.get_Direction());
                     int roll_2 = Roll_Random(1, 3) + Roll_Random(1, 3);
-                    Other_Player.set_Index(Move_Player(roll_2, Other_Player.get_Index(), My_Player.get_Index(), Other_Player.get_Direction()));
-                    
+                    new_other_player_index = Move_Player(roll_2, Other_Player.get_Index(), My_Player.get_Index(), Other_Player.get_Direction());
+
                     // берет монетку
-                    int Type = Number_Of_Type(All_Coins[Other_Player.get_Index()].get_Type());
-                    Take_Coin(Other_Player, Other_Player.get_Index(), Other_Coins_Coord[Type][0], Other_Coins_Coord[Type][1], All_Coins);
+                    
                     buttons_game[4].pressed = false;
             }
             if (buttons_game[5].pressed)
@@ -332,6 +366,52 @@ int main()
                 Take_Coin(My_Player, My_Player.get_Index(), My_Coins_Coord[Type][0], My_Coins_Coord[Type][1], All_Coins);
                 buttons_game[5].pressed = false;
             }
+            if (My_Player.get_Index() < new_my_player_index) {
+                fish.setAnimating(true);
+                int l = (Coord[My_Player.get_Index() + 1][0] - Coord[My_Player.get_Index()][0]) / 10;
+                int h = (Coord[My_Player.get_Index() + 1][1] - Coord[My_Player.get_Index()][1]) / 10;
+                if (step < 10) {
+                    my_player_x +=  l;
+                    my_player_y += h;
+                    step += 1;
+                }
+                else {
+                    My_Player.set_Index(My_Player.get_Index() + 1);
+                    step = 1;
+
+                }
+                fish.update(200.0f); // Примерное время между кадрами (60 FPS)
+                fish.draw(window, my_player_x, my_player_y); // Отображаем анимацию в координатах (100, 100
+            }
+            else {
+                fish.setAnimating(false);
+                fish.draw(window, my_player_x, my_player_y);
+            }
+            if (Other_Player.get_Index() < new_other_player_index && My_Player.get_Index() == new_my_player_index) {
+                crocodile.setAnimating(true);
+                int l = (Coord[Other_Player.get_Index() + 1][0] - Coord[Other_Player.get_Index()][0]) / 10;
+                int h = (Coord[Other_Player.get_Index() + 1][1] - Coord[Other_Player.get_Index()][1]) / 10;
+                if (step_c < 10) {
+                    other_player_x += l;
+                    other_player_y += h;
+                    step_c += 1;
+                }
+                else {
+                    Other_Player.set_Index(Other_Player.get_Index() + 1);
+                    step_c = 1;
+
+                }
+                crocodile.update(200.0f); // Примерное время между кадрами (60 FPS)
+                crocodile.draw(window, other_player_x+10, other_player_y+5); // Отображаем анимацию в координатах (100, 100
+            }
+            else {
+                int Type = Number_Of_Type(All_Coins[Other_Player.get_Index()].get_Type());
+                Take_Coin(Other_Player, Other_Player.get_Index(), Other_Coins_Coord[Type][0], Other_Coins_Coord[Type][1], All_Coins);
+                crocodile.setAnimating(false);
+                crocodile.draw(window, other_player_x+10, other_player_y+5);
+            }
+
+
 
         }
 
@@ -345,20 +425,19 @@ int main()
             renderGame(window);
         }
 
-        animation.update(200.0f); // Примерное время между кадрами (60 FPS)
-        animation.draw(window, 100, 100); // Отображаем анимацию в координатах (100, 100)
+        
 
 
+        for (auto& ripple : ripples) {
+            ripple.update();
+        }
 
         // Удаляем завершенные ряды
-
-        // Отрисовка
-        for (int i = 0; i < 32; i++)
-        {
-            drawImage(window, All_Coins[i].get_Type(), All_Coins[i].get_x(), All_Coins[i].get_y(), x / 2, x / 2, textureManager);
+        ripples.erase(std::remove_if(ripples.begin(), ripples.end(),
+            [](const Ripple& ripple) { return ripple.isFinished(); }), ripples.end());
+        for (auto& ripple : ripples) {
+            ripple.draw(window);
         }
-        drawImage(window, "f1", Coord[My_Player.get_Index()][0], Coord[My_Player.get_Index()][1], x / 2, x / 2, textureManager);
-        drawImage(window, "f1", Coord[Other_Player.get_Index()][0], Coord[Other_Player.get_Index()][1], x / 3, x / 3, textureManager);
         
         window.display();
     }

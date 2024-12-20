@@ -40,6 +40,7 @@ void Animation::draw(sf::RenderWindow& window, float x, float y) {
     if (!textures.empty()) {
         sf::Sprite sprite;
         sprite.setTexture(*textures[currentFrame]); // Разыменовываем указатель
+        sprite.setScale(150 / sprite.getLocalBounds().width, 150 / sprite.getLocalBounds().height); // Масштабируем спрайт
         sprite.setPosition(x, y);
         window.draw(sprite);
     }
