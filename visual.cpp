@@ -165,7 +165,7 @@ void renderFinal(sf::RenderWindow& window) {
     std::filesystem::path folder = "Pictures";
     // Загружаем текстуру из файла
     sf::Texture backgroundTexture;
-    backgroundTexture.loadFromFile((folder / "final.png").string());
+    backgroundTexture.loadFromFile((folder / "victory.png").string());
 
     // Создаем спрайт и устанавливаем текстуру
     sf::Sprite backgroundSprite;
@@ -207,11 +207,34 @@ void renderDefeat(sf::RenderWindow& window) {
     // Рисуем фон
     window.draw(backgroundSprite);
 }
+void renderSettings(sf::RenderWindow& window) {
+    window.clear();
+    std::filesystem::path folder = "Pictures";
+    // Загружаем текстуру из файла
+    sf::Texture backgroundTexture;
+    backgroundTexture.loadFromFile((folder / "game.png").string());
+
+    // Создаем спрайт и устанавливаем текстуру
+    sf::Sprite backgroundSprite;
+    backgroundSprite.setTexture(backgroundTexture);
+
+    //Подгон картинки по размеру окна
+    float windowWidth = window.getSize().x;
+    float windowHeight = window.getSize().y;
+    float textureWidth = backgroundTexture.getSize().x;
+    float textureHeight = backgroundTexture.getSize().y;
+    float scaleX = windowWidth / textureWidth;
+    float scaleY = windowHeight / textureHeight;
+    backgroundSprite.setScale(scaleX, scaleY);
+
+    // Рисуем фон
+    window.draw(backgroundSprite);
+}
 
 void drawPopup(sf::RenderWindow& window, int WIDTH, const std::string& message) {
     // Создаем прямоугольник для всплывающего окна
     sf::RectangleShape popup(sf::Vector2f(WIDTH / 6*4, (WIDTH * 943 - WIDTH * 943 % 1880) / 1880));
-    popup.setFillColor(sf::Color(100, 100, 100, 200)); // Полупрозрачный цвет
+    popup.setFillColor(sf::Color(0, 0, 0, 200)); // Полупрозрачный цвет
     popup.setPosition( WIDTH/6 ,0); // Позиция всплывающего окна
 
     // Создаем текст для сообщения
@@ -245,10 +268,11 @@ void TextRenderer::drawText(sf::RenderWindow& window, std::string& text, float x
 }
 void drawNumbers(sf::RenderWindow& window, int numbers_of_coins[8], TextRenderer textRenderer, int HEIGHT, unsigned int size) {
     for (int i = 0; i < 4; ++i) {
-        textRenderer.drawText(window, std::to_string(numbers_of_coins[i]), HEIGHT / 4.5, i * HEIGHT / 9 + HEIGHT / 18, size, sf::Color::White);
+        textRenderer.drawText(window, std::to_string(numbers_of_coins[i]), HEIGHT / 4.5, i * HEIGHT / 10 + HEIGHT / 15, size, sf::Color(0, 164, 228));
+        ;
     }
     for (int i = 5; i < 9; ++i) {
-        textRenderer.drawText(window, std::to_string(numbers_of_coins[i-1]), HEIGHT / 4.5, i * HEIGHT / 9 + HEIGHT / 18, size, sf::Color::White);
+        textRenderer.drawText(window, std::to_string(numbers_of_coins[i-1]), HEIGHT / 4.5, i * HEIGHT / 10 + HEIGHT / 15, size, sf::Color(0, 164, 228));
     }
 
 
