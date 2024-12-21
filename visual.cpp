@@ -5,6 +5,7 @@
 #include <unordered_map>
 #include <filesystem>
 // Загрузка картинок
+
 bool TextureManager::loadTexture(const std::string& name, const std::string& filename) {
     sf::Texture texture;
     // Загружаем текстуру из файла
@@ -216,8 +217,9 @@ void drawPopup(sf::RenderWindow& window, int WIDTH, const std::string& message) 
     // Создаем текст для сообщения
     sf::Font font;
     font.loadFromFile("Roboto-Black.ttf");
-    sf::Text text(message, font, 50);
-    text.setFillColor(sf::Color::White);
+    sf::Text text(message, font, 42);
+    sf::Color lightBrown(195, 176, 145);
+    text.setFillColor(lightBrown);
     text.setString(message);
 
     text.setPosition(WIDTH / 5, WIDTH / 5- WIDTH / 6); // Позиция текста

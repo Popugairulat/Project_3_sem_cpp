@@ -237,7 +237,7 @@ int main()
             if (buttons_start[3].pressed)
             {
                     buttons_start[3].pressed = false;
-                    drawPopup(window, WIDTH, "text_JULIA_PLEASE");
+                    drawPopup(window, WIDTH, text_for_menu);
 
             }
             if (buttons_start[4].pressed)
@@ -263,7 +263,7 @@ int main()
             }
             if (buttons_settings[1].pressed)
             {
-                drawPopup(window,WIDTH, "text_JULIA_PLEASE");
+                drawPopup(window,WIDTH, text_for_menu);
                     buttons_settings[1].pressed = false;
             }
             if (buttons_settings[2].pressed)
@@ -343,7 +343,7 @@ int main()
             }
             if (buttons_game[1].pressed)
             {
-                drawPopup(window, WIDTH, "text_JULIA_PLEASE");
+                drawPopup(window, WIDTH, text_for_menu);
                 buttons_game[1].pressed = false;
             }
             if (buttons_game[2].pressed)
