@@ -441,8 +441,10 @@ int main()
             // пофиксил, есть нулевая координата
             //FIXME СКОЛЬКО КИСЛОРОДА 
             // Level_Of_Oxygen
-            std::string bulk = "10";
-            textRenderer.drawText(window, bulk, WIDTH * 8 / 9, HEIGHT / 2, 69, sf::Color::White);
+            textRenderer.drawText(window, std::to_string(Level_Of_Oxygen), WIDTH * 8 / 9, HEIGHT / 2, 69, sf::Color::White);
+            textRenderer.drawText(window, std::to_string(My_Player.get_Number_Of_Coins()), WIDTH * 8 / 9, HEIGHT / 2+100, 69, sf::Color::White);
+            textRenderer.drawText(window, std::to_string(Other_Player.get_Number_Of_Coins()), WIDTH * 8 / 9, HEIGHT / 2+200, 69, sf::Color::White);
+
             //FIXME ЕСЛИ ПРОИГРАЛИ
             // определение исхода игры
             
