@@ -93,9 +93,7 @@ int Move_Player(int roll, int My_Index, int Other_Index, int Direction)
 // Вызывается так: Take_Coin(My_Player, My_Player.get_Index(), newX, newY, All_Coins)
 void Take_Coin(Player& Player, int Coin_Index, int newX, int newY, std::vector<Coin>& All_Coins)
 {
-    Player.get_My_Coins().push_back(All_Coins[Coin_Index]); // Копируем монету из allCoins в My_Coins игрока
     Player.Take_Coin(All_Coins[Coin_Index]); // Добавляем цену и меняем кол-во монет
-    //Лера тебе сюда
     All_Coins[Coin_Index].set_x(newX); // Меняем координаты монетки в All_Coins
     All_Coins[Coin_Index].set_y(newY);
 }
