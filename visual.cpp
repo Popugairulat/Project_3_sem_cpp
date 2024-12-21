@@ -243,12 +243,12 @@ void TextRenderer::drawText(sf::RenderWindow& window, std::string& text, float x
     sfText.setPosition(x, y);
     window.draw(sfText);
 }
-void drawNumbers(sf::RenderWindow& window, std::string numbers_of_coins[8], TextRenderer textRenderer, int HEIGHT, unsigned int size) {
+void drawNumbers(sf::RenderWindow& window, int numbers_of_coins[8], TextRenderer textRenderer, int HEIGHT, unsigned int size) {
     for (int i = 0; i < 4; ++i) {
-        textRenderer.drawText(window, numbers_of_coins[i], HEIGHT / 4.5, i * HEIGHT / 9+ HEIGHT / 18, size, sf::Color::White);
+        textRenderer.drawText(window, std::to_string(numbers_of_coins[i]), HEIGHT / 4.5, i * HEIGHT / 9 + HEIGHT / 18, size, sf::Color::White);
     }
     for (int i = 5; i < 9; ++i) {
-        textRenderer.drawText(window, numbers_of_coins[i-1], HEIGHT / 4.5, i * HEIGHT / 9 + HEIGHT / 18, size, sf::Color::White);
+        textRenderer.drawText(window, std::to_string(numbers_of_coins[i-1]), HEIGHT / 4.5, i * HEIGHT / 9 + HEIGHT / 18, size, sf::Color::White);
     }
 
 

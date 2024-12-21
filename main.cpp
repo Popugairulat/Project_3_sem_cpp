@@ -379,7 +379,7 @@ int main()
                 //БЕРЕМ МОНЕТКУ
                 int Type = Number_Of_Type(All_Coins[My_Player.get_Index()].get_Type());
                 Take_Coin(My_Player, My_Player.get_Index(), My_Coins_Coord[Type][0], My_Coins_Coord[Type][1], All_Coins);
-                Number_Of_Coins[Type] += 1;
+                Number_Of_Coins[Type] =Number_Of_Coins[Type]+1;
                 buttons_game[5].pressed = false;
             }
             if (My_Player.get_Index() != new_my_player_index) {
@@ -436,7 +436,7 @@ int main()
             }
             //FIXME СОФА ФУНКЦИЯ КОТОРАЯ СЧИТАЕТ КОЛИЧЕСТВО МОНЕТ ПРИ СЕБЕ РАЗНЫХ ТИПОВ
             //массив Number_Of_Coins
-            drawNumbers(window, Numbers_of_coins, textRenderer, HEIGHT, 50);
+            drawNumbers(window, Number_Of_Coins, textRenderer, HEIGHT, 50);
             //FIXME CОФА МОНЕТКИ КЛИКАБЕЛЬНЫ ВСЕ ВРЕМЯ И ПЕРВАЯ МОНЕТКА КРОКОДИЛОМ ВСЕГДА ЗАБИРАЕТСЯ 
             // пофиксил, есть нулевая координата
             //FIXME СКОЛЬКО КИСЛОРОДА 
@@ -445,7 +445,7 @@ int main()
             textRenderer.drawText(window, bulk, WIDTH * 8 / 9, HEIGHT / 2, 69, sf::Color::White);
             //FIXME ЕСЛИ ПРОИГРАЛИ
             // определение исхода игры
-            /*
+            
             int Result_Of_Game = -1;
             if (Level_Of_Oxygen <= 0)
             {
@@ -471,7 +471,7 @@ int main()
                     if (My_Result == Other_Result) { Result_Of_Game = 2; } // ничья
                 }
             }
-            */
+            
             if (false) {
                 currentState = GameState::Final;
             }
