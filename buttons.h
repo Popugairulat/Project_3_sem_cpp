@@ -6,7 +6,7 @@
 // Здесь будут функции, связанные с кнопками
 class Button {
 public:
-    Button( float x, float y, float width, float height, const std::string& text);
+    Button(float x, float y, float width, float height, const std::string& text, bool show_text);
     //virtual ~Button();
     //Button(float x, float y, float width, float height, const std::string& text);
     //virtual ~Button();
@@ -16,5 +16,6 @@ public:
     float x, y, width, height;
     std::string text;
     bool pressed;
+    bool show_text;
 };
 #endif // BUTTONS_H
