@@ -71,6 +71,6 @@ public:
 private:
     sf::Font font;
 };
-void drawNumbers(sf::RenderWindow& window, std::string numbers_of_coins[8], TextRenderer textRenderer, int HEIGHT, unsigned int size);
+void drawNumbers(sf::RenderWindow& window, int numbers_of_coins[8], TextRenderer textRenderer, int HEIGHT, unsigned int size);
 
 #endif // VISUAL_H
