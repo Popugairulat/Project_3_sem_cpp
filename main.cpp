@@ -366,18 +366,17 @@ int main()
                     {
                         Level_Of_Oxygen = Level_Of_Oxygen - My_Player.get_Number_Of_Coins();
                     }
-                    if (Other_Player.get_Number_Of_Coins() > 0 && Other_Player.get_Index() > 0)
-                    {
-                        Level_Of_Oxygen = Level_Of_Oxygen - Other_Player.get_Number_Of_Coins();
-                    }
                     buttons_game[4].pressed = false;
             }
             if (buttons_game[5].pressed)
             {
                 //БЕРЕМ МОНЕТКУ
-                int Type = Number_Of_Type(All_Coins[My_Player.get_Index()].get_Type());
-                Take_Coin(My_Player, My_Player.get_Index(), My_Coins_Coord[Type][0], My_Coins_Coord[Type][1], All_Coins);
-                Number_Of_Coins[Type] =Number_Of_Coins[Type]+1;
+                if (All_Coins[My_Player.get_Index()].get_x() == Coord[My_Player.get_Index()][0])
+                {
+                    int Type = Number_Of_Type(All_Coins[My_Player.get_Index()].get_Type());
+                    Take_Coin(My_Player, My_Player.get_Index(), My_Coins_Coord[Type][0], My_Coins_Coord[Type][1], All_Coins);
+                    Number_Of_Coins[Type] = Number_Of_Coins[Type] + 1;
+                }
                 buttons_game[5].pressed = false;
             }
             if (My_Player.get_Index() != new_my_player_index) {
@@ -402,6 +401,10 @@ int main()
                 fish.draw(window, my_player_x, my_player_y);
             }
             if (Other_Player.get_Index() != new_other_player_index && My_Player.get_Index() == new_my_player_index) {
+                if (Other_Player.get_Number_Of_Coins() > 0 && Other_Player.get_Index() > 0)
+                {
+                    Level_Of_Oxygen = Level_Of_Oxygen - Other_Player.get_Number_Of_Coins();
+                }
                 crocodile.setAnimating(true);
                 int l = (Coord[Other_Player.get_Index() + 1][0] - Coord[Other_Player.get_Index()][0]) / 10;
                 int h = (Coord[Other_Player.get_Index() + 1][1] - Coord[Other_Player.get_Index()][1]) / 10;
@@ -419,7 +422,8 @@ int main()
                 crocodile.draw(window, other_player_x+10, other_player_y+5); // Отображаем анимацию в координатах (100, 100
             }
             else {
-                if (Other_Take_Coins(Other_Player.get_Number_Of_Coins(), Other_Player.get_Index()))
+
+                if (Other_Take_Coins(Other_Player))
                 {
                     if (All_Coins[Other_Player.get_Index()].get_x() == Coord[Other_Player.get_Index()][0])
                     {

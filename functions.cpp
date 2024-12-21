@@ -123,26 +123,19 @@ int Number_Of_Type(std::string Type)
     }
 }
  
-bool Other_Take_Coins(int Number, int Index)
+bool Other_Take_Coins(Player& Player)
 {
-    if (Index == 0) { return true; }
+    if (Player.get_Index() == 0) 
+    { 
+        return true; 
+    }
     else
     {
-        if (Number <=2)
-        {
-            if (Index >= 12)
-            {
-                return false;
-            }
-            else
-            {
-                return true;
-            }
-        }
+        if (Player.get_Number_Of_Coins() <= 2) { return true; }
         else
         {
 
-            if (Index >= 12)
+            if (Player.get_Index() >= 24)
             {
                 return true;
             }

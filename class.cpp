@@ -34,9 +34,8 @@ void Player::set_Direction(int new_Direction) { Direction = new_Direction; }
 
 void Player::Take_Coin(const Coin& Coin)
 {
-
     My_Coins.emplace_back(Coin.get_Type(), Coin.get_Price(), Coin.get_x(), Coin.get_y());
-    Number_Of_Coins++;
+    if (My_Index != 0){ Number_Of_Coins++; }
 }
 
 void Player::Leave_Coin(int Сoin_Index)
