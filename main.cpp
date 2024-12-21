@@ -358,12 +358,10 @@ int main()
             }
             if (buttons_game[4].pressed)
             {
-                    // анимация Штурвала Лера
                     int roll_1 = Roll_Random(1, 3) + Roll_Random(1, 3);
                     new_my_player_index = Move_Player(roll_1, My_Player.get_Index(), Other_Player.get_Index(), My_Player.get_Direction());
                     int roll_2 = Roll_Random(1, 3) + Roll_Random(1, 3);
                     new_other_player_index = Move_Player(roll_2, Other_Player.get_Index(), new_my_player_index, Other_Player.get_Direction());
-                    if (new_other_player_index == 0) { drawImage(window, "Triangle", 100, 100, 100, 100, textureManager); }
                     if (My_Player.get_Number_Of_Coins() > 0 && My_Player.get_Index()>0)
                     {
                         Level_Of_Oxygen = Level_Of_Oxygen - My_Player.get_Number_Of_Coins();
@@ -423,9 +421,12 @@ int main()
             else {
                 if (Other_Take_Coins(Other_Player.get_Number_Of_Coins(), Other_Player.get_Index()))
                 {
-                    int Type = Number_Of_Type(All_Coins[Other_Player.get_Index()].get_Type());
-                    Take_Coin(Other_Player, Other_Player.get_Index(), Other_Coins_Coord[Type][0], Other_Coins_Coord[Type][1], All_Coins);
-                    Number_Of_Coins[Type+4] += 1;
+                    if (All_Coins[Other_Player.get_Index()].get_x() == Coord[Other_Player.get_Index()][0])
+                    {
+                        int Type = Number_Of_Type(All_Coins[Other_Player.get_Index()].get_Type());
+                        Take_Coin(Other_Player, Other_Player.get_Index(), Other_Coins_Coord[Type][0], Other_Coins_Coord[Type][1], All_Coins);
+                        Number_Of_Coins[Type + 4] += 1;
+                    }
                 }
                 if (Other_Player.get_Number_Of_Coins() >= 3)
                 {

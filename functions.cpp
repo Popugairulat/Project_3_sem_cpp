@@ -123,13 +123,6 @@ int Number_Of_Type(std::string Type)
     }
 }
  
-bool Possibility(int Probability) 
-{
-    int Result = Roll_Random(1, Probability);
-
-    return Result < Probability;
-}
-
 bool Other_Take_Coins(int Number, int Index)
 {
     if (Index == 0) { return true; }
@@ -139,13 +132,11 @@ bool Other_Take_Coins(int Number, int Index)
         {
             if (Index >= 12)
             {
-                if (Roll_Random(1, 10) < 6) { return true; }
-                else { return false; }
+                return false;
             }
             else
             {
-                if (Roll_Random(1, 10) < 8) { return true; }
-                else { return false; }
+                return true;
             }
         }
         else
@@ -153,13 +144,11 @@ bool Other_Take_Coins(int Number, int Index)
 
             if (Index >= 12)
             {
-                if (Roll_Random(1, 10) < 5) { return true; }
-                else { return false; }
+                return true;
             }
             else
             {
-                if (Roll_Random(1, 10) < 2) { return true; }
-                else { return false; }
+                return false;
             }
         }
     }
