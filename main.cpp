@@ -8,6 +8,8 @@
 #include <chrono>
 #include <thread>
 
+bool Other_Change_oxygen = true;
+
 int main()
 {
     TextRenderer textRenderer("Roboto-Black.ttf"); // Убедитесь, что файл шрифта доступен
@@ -362,7 +364,8 @@ int main()
                     new_my_player_index = Move_Player(roll_1, My_Player.get_Index(), Other_Player.get_Index(), My_Player.get_Direction());
                     int roll_2 = Roll_Random(1, 3) + Roll_Random(1, 3);
                     new_other_player_index = Move_Player(roll_2, Other_Player.get_Index(), new_my_player_index, Other_Player.get_Direction());
-                    if (My_Player.get_Number_Of_Coins() > 0 && My_Player.get_Index()>0)
+                    bool My_Change_oxygen = true;  
+                    if (My_Player.get_Number_Of_Coins() > 0 && My_Player.get_Index()>0 && My_Change_oxygen)
                     {
                         Level_Of_Oxygen = Level_Of_Oxygen - My_Player.get_Number_Of_Coins();
                     }
@@ -401,9 +404,10 @@ int main()
                 fish.draw(window, my_player_x, my_player_y);
             }
             if (Other_Player.get_Index() != new_other_player_index && My_Player.get_Index() == new_my_player_index) {
-                if (Other_Player.get_Number_Of_Coins() > 0 && Other_Player.get_Index() > 0)
+                if (Other_Player.get_Number_Of_Coins() > 0 && Other_Player.get_Index() > 0 && Other_Change_oxygen)
                 {
                     Level_Of_Oxygen = Level_Of_Oxygen - Other_Player.get_Number_Of_Coins();
+                    Other_Change_oxygen = false;
                 }
                 crocodile.setAnimating(true);
                 int l = (Coord[Other_Player.get_Index() + 1][0] - Coord[Other_Player.get_Index()][0]) / 10;
@@ -422,7 +426,6 @@ int main()
                 crocodile.draw(window, other_player_x+10, other_player_y+5); // Отображаем анимацию в координатах (100, 100
             }
             else {
-
                 if (Other_Take_Coins(Other_Player))
                 {
                     if (All_Coins[Other_Player.get_Index()].get_x() == Coord[Other_Player.get_Index()][0])
@@ -432,6 +435,7 @@ int main()
                         Number_Of_Coins[Type + 4] += 1;
                     }
                 }
+                
                 if (Other_Player.get_Number_Of_Coins() >= 3)
                 {
                     Other_Player.set_Direction(1);
