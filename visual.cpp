@@ -89,130 +89,16 @@ void drawImage(sf::RenderWindow& window, const std::string& textureName, float x
 }
 
 //Отрисовка экранов
-void renderStart(sf::RenderWindow& window) {
-    std::filesystem::path folder = "Pictures";
-    // Загружаем текстуру из файла
-    sf::Texture backgroundTexture;
-    backgroundTexture.loadFromFile((folder / "start.png").string());
 
-    // Создаем спрайт и устанавливаем текстуру
-    sf::Sprite backgroundSprite;
-    backgroundSprite.setTexture(backgroundTexture);
 
-    //Подгон картинки по размеру окна
-    float windowWidth = window.getSize().x;
-    float windowHeight = window.getSize().y;
-    float textureWidth = backgroundTexture.getSize().x;
-    float textureHeight = backgroundTexture.getSize().y;
-    float scaleX = windowWidth / textureWidth;
-    float scaleY = windowHeight / textureHeight;
-    backgroundSprite.setScale(scaleX, scaleY);
 
-    // Рисуем фон
-    window.draw(backgroundSprite);
-}
 
-void renderLevel(sf::RenderWindow& window) {
+
+
+void renderSettings(sf::RenderWindow& window, const std::string& textureName, TextureManager& textureManager) {
     window.clear();
     // Загружаем текстуру из файла
-    sf::Texture backgroundTexture;
-    std::filesystem::path folder = "Pictures";
-    backgroundTexture.loadFromFile((folder / "level.png").string());
-
-    // Создаем спрайт и устанавливаем текстуру
-    sf::Sprite backgroundSprite;
-    backgroundSprite.setTexture(backgroundTexture);
-
-    //Подгон картинки по размеру окна
-    float windowWidth = window.getSize().x;
-    float windowHeight = window.getSize().y;
-    float textureWidth = backgroundTexture.getSize().x;
-    float textureHeight = backgroundTexture.getSize().y;
-    float scaleX = windowWidth / textureWidth;
-    float scaleY = windowHeight / textureHeight;
-    backgroundSprite.setScale(scaleX, scaleY);
-
-    // Рисуем фон
-    window.draw(backgroundSprite);
-}
-
-void renderGame(sf::RenderWindow& window) {
-    std::filesystem::path folder = "Pictures";
-    // Загружаем текстуру из файла
-    sf::Texture backgroundTexture;
-    backgroundTexture.loadFromFile((folder / "game.png").string());
-
-    // Создаем спрайт и устанавливаем текстуру
-    sf::Sprite backgroundSprite;
-    backgroundSprite.setTexture(backgroundTexture);
-
-    //Подгон картинки по размеру окна
-    float windowWidth = window.getSize().x;
-    float windowHeight = window.getSize().y;
-    float textureWidth = backgroundTexture.getSize().x;
-    float textureHeight = backgroundTexture.getSize().y;
-    float scaleX = windowWidth / textureWidth;
-    float scaleY = windowHeight / textureHeight;
-    backgroundSprite.setScale(scaleX, scaleY);
-
-    // Рисуем фон
-    window.draw(backgroundSprite);
-}
-
-
-void renderFinal(sf::RenderWindow& window) {
-    window.clear();
-    std::filesystem::path folder = "Pictures";
-    // Загружаем текстуру из файла
-    sf::Texture backgroundTexture;
-    backgroundTexture.loadFromFile((folder / "victory.png").string());
-
-    // Создаем спрайт и устанавливаем текстуру
-    sf::Sprite backgroundSprite;
-    backgroundSprite.setTexture(backgroundTexture);
-
-    //Подгон картинки по размеру окна
-    float windowWidth = window.getSize().x;
-    float windowHeight = window.getSize().y;
-    float textureWidth = backgroundTexture.getSize().x;
-    float textureHeight = backgroundTexture.getSize().y;
-    float scaleX = windowWidth / textureWidth;
-    float scaleY = windowHeight / textureHeight;
-    backgroundSprite.setScale(scaleX, scaleY);
-
-    // Рисуем фон
-    window.draw(backgroundSprite);
-}
-
-void renderDefeat(sf::RenderWindow& window) {
-    window.clear();
-    std::filesystem::path folder = "Pictures";
-    // Загружаем текстуру из файла
-    sf::Texture backgroundTexture;
-    backgroundTexture.loadFromFile((folder / "defeat.png").string());
-
-    // Создаем спрайт и устанавливаем текстуру
-    sf::Sprite backgroundSprite;
-    backgroundSprite.setTexture(backgroundTexture);
-
-    //Подгон картинки по размеру окна
-    float windowWidth = window.getSize().x;
-    float windowHeight = window.getSize().y;
-    float textureWidth = backgroundTexture.getSize().x;
-    float textureHeight = backgroundTexture.getSize().y;
-    float scaleX = windowWidth / textureWidth;
-    float scaleY = windowHeight / textureHeight;
-    backgroundSprite.setScale(scaleX, scaleY);
-
-    // Рисуем фон
-    window.draw(backgroundSprite);
-}
-void renderSettings(sf::RenderWindow& window) {
-    window.clear();
-    std::filesystem::path folder = "Pictures";
-    // Загружаем текстуру из файла
-    sf::Texture backgroundTexture;
-    backgroundTexture.loadFromFile((folder / "game.png").string());
+    sf::Texture backgroundTexture = textureManager.getTexture(textureName);
 
     // Создаем спрайт и устанавливаем текстуру
     sf::Sprite backgroundSprite;

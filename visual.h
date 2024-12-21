@@ -57,12 +57,8 @@ enum class GameState {
     Defeat,
     Settings
 };
-void renderStart(sf::RenderWindow& window);
-void renderLevel(sf::RenderWindow& window);
-void renderGame(sf::RenderWindow& window);
-void renderFinal(sf::RenderWindow& window);
-void renderDefeat(sf::RenderWindow& window);
-void renderSettings(sf::RenderWindow& window);
+
+void renderSettings(sf::RenderWindow& window, const std::string& textureName, TextureManager& textureManager);
 class TextRenderer {
 public:
     TextRenderer(const std::string& fontFile);

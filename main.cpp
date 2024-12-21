@@ -94,7 +94,10 @@ int main()
 
 
     textureManager.loadTexture("Game", (folder / "game.png").string());
-    textureManager.loadTexture("Game", (folder / "game.png").string());
+    textureManager.loadTexture("defeat", (folder / "defeat.png").string());
+    textureManager.loadTexture("victory", (folder / "victory.png").string());
+    textureManager.loadTexture("start", (folder / "start.png").string());
+    ;
 
 
     textureManager.loadTexture("Triangle", (folder / "coin_3.png").string());
@@ -207,8 +210,8 @@ int main()
         // Отрисовка в зависимости от текущего состояния
         if (currentState == GameState::Start)
         {
-            renderStart(window);
-            //std::filesystem::path folder = "Pictures";
+            renderSettings(window, "start", textureManager);
+                //std::filesystem::path folder = "Pictures";
             //drawImage(window, "Triangle", 100.0, 100.0, 50.0, 50.0, textureManager);
             for (auto& button : buttons_start)
             {
@@ -228,7 +231,7 @@ int main()
             }
         }
             else if (currentState == GameState::Settings) {
-                renderGame(window);
+            renderSettings(window, "Game", textureManager);
 
                 for (auto& button : buttons_settings)
                 {
@@ -270,46 +273,11 @@ int main()
 
         }
 
-        else if (currentState == GameState::Level)
-        {
-            renderGame(window);
-            for (auto& button : buttons_level) {
-                button.draw_button(window, textureManager);
-                button.get_pressed(event);
-            }
-            if (buttons_level[0].pressed)
-            {
-                currentState = GameState::Settings;
-                buttons_level[0].pressed = false;
-            }
-            if (buttons_level[1].pressed)
-            {
-
-                buttons_level[1].pressed = false;
-            }
-
-            if (buttons_level[2].pressed)
-            {
-                currentState = GameState::Start;
-                buttons_level[2].pressed = false;
-            }
-            if (buttons_level[3].pressed)
-            {
-                currentState = GameState::Game;
-                buttons_level[3].pressed = false;
-            }
-            if (buttons_level[4].pressed)
-            {
-                currentState = GameState::Game;
-                buttons_level[4].pressed = false;
-            }
-
-        }
-        */
+        
             else if (currentState == GameState::Game)
             {
-                renderGame(window);
-                for (int i = 0; i < 33; i++)
+            renderSettings(window, "Game", textureManager);
+            for (int i = 0; i < 33; i++)
                 {
                     drawImage(window, All_Coins[i].get_Type(), All_Coins[i].get_x(), All_Coins[i].get_y(), x / 2, x / 2, textureManager);
                 }
@@ -403,7 +371,7 @@ int main()
                 crocodile.draw(window, other_player_x+10, other_player_y+5); // Отображаем анимацию в координатах (100, 100
             }
             else {
-                if (Other_Take_Coins(Other_Player.get_Number_Of_Coins(), Other_Player.get_Index()))
+                if (Other_Take_Coins(Other_Player))
                 {
                     int Type = Number_Of_Type(All_Coins[Other_Player.get_Index()].get_Type());
                     Take_Coin(Other_Player, Other_Player.get_Index(), Other_Coins_Coord[Type][0], Other_Coins_Coord[Type][1], All_Coins);
@@ -479,14 +447,14 @@ int main()
 
         else if (currentState == GameState::Final)
         {
-            renderFinal(window);
+            renderSettings(window, "victory", textureManager);
             //FIXME Кнопка на стартовый экран
         }
 
 
         else if (currentState == GameState::Defeat)
         {
-            renderDefeat(window);
+            renderSettings(window, "defeat", textureManager);
         }
         for (auto& ripple : ripples) {
             ripple.update();
