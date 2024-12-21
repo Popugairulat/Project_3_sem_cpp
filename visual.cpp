@@ -217,7 +217,7 @@ void drawPopup(sf::RenderWindow& window, int WIDTH, const std::string& message) 
     // Создаем текст для сообщения
     sf::Font font;
     font.loadFromFile("Roboto-Black.ttf");
-    sf::Text text(message, font, 42);
+    sf::Text text(message, font, 40);
     sf::Color lightBrown(195, 176, 145);
     text.setFillColor(lightBrown);
     text.setString(message);

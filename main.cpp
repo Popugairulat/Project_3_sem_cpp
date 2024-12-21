@@ -11,7 +11,7 @@
 int main()
 {
     TextRenderer textRenderer("Roboto-Black.ttf"); // Убедитесь, что файл шрифта доступен
-
+    std::string text_for_menu = "Welcome aboard the submarine going for underwater \ntreasures! To lift them, you'll have to go scuba diving \ninto the open sea, and oxygen is available in strictly \nlimited quantities, so as soon as it runs out, everyone \nwill suffocate. Scuba divers take turns taking a random \nnumber of steps. When you arrive at the place, you can \neither pick up a coin or leave an extra one (if the place \nis free). Don't be greedy - every coin you carry is worth \none breath (you're not breathing yourself - the session \ngets in the way). Before each new turn, the player has \nthe opportunity to decide what is enough for him and \nturn back in time to get back to the submarine before \nthe oxygen tank is empty (remember that it is shared \nby all players). Good luck finding wealth and returning \nalive...";
     sf::VideoMode desktop = sf::VideoMode::getDesktopMode();
     int WIDTH = static_cast<const int>(desktop.width * 0.9);
     int HEIGHT = (WIDTH * 943 - WIDTH * 943 % 1880) / 1880;
