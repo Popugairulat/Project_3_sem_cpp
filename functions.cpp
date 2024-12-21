@@ -146,3 +146,28 @@ bool Other_Take_Coins(Player& Player)
         }
     }
 }
+void Leave_Coin(Player& Player, const std::string& Type, std::vector<Coin>& All_Coins, int(*Coord)[2], size_t Coord_Rows) 
+{
+    std::vector<Coin>& myCoins = Player.get_My_Coins();
+    int playerIndex = Player.get_Index();
+
+    for (size_t i = 0; i < myCoins.size(); ++i)
+    {
+        if (myCoins[i].get_Type() == Type)
+        {
+            // Ищем монету в All_Coins и изменяем координаты
+            for (size_t j = 0; j < All_Coins.size(); ++j)
+            {
+                if (myCoins[i].get_Type() == All_Coins[j].get_Type())
+                {
+                    All_Coins[j].set_x(Coord[playerIndex][0]);
+                    All_Coins[j].set_y(Coord[playerIndex][1]);
+
+                    return; // Выходим после изменения координат
+                }
+            }
+            return;
+        }
+    }
+    // Если монета заданного типа не найдена, ничего не делаем
+}

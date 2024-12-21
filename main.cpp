@@ -170,6 +170,12 @@ int main()
     buttons_game.emplace_back(WIDTH - 2 * (WIDTH / 20 + WIDTH / 200), HEIGHT - WIDTH / 19, WIDTH / 20, WIDTH / 20, "Go", false);
     buttons_game.emplace_back(WIDTH - 3 * (WIDTH / 20 + WIDTH / 200), HEIGHT - WIDTH / 19, WIDTH / 20, WIDTH / 20, "Get", false);
 
+    std::vector<Button> buttons_coins;
+    buttons_coins.emplace_back(WIDTH / 20, 3 * HEIGHT / 80, WIDTH / 20, HEIGHT / 20, "Back", false);
+    buttons_coins.emplace_back(WIDTH / 20, 7 * HEIGHT / 40, WIDTH / 20, HEIGHT / 20, "Back", false);
+    buttons_coins.emplace_back(WIDTH / 20, 11 * HEIGHT / 40, WIDTH / 20, HEIGHT / 20, "Back", false);
+    buttons_coins.emplace_back(WIDTH / 20, 15 * HEIGHT / 40, WIDTH / 20, HEIGHT / 20, "Back", false);
+
     // std::vector<Button> buttons_level;
     // buttons_level.emplace_back(WIDTH - WIDTH / 20 - WIDTH / 200, WIDTH / 200, WIDTH / 20, WIDTH / 20, "Settings", false);
     // buttons_level.emplace_back(WIDTH - 2 * (WIDTH / 20 + WIDTH / 200), WIDTH / 200, WIDTH / 20, WIDTH / 20, "Question", false);
@@ -303,6 +309,45 @@ int main()
                     button.draw_button(window, textureManager);
                     button.get_pressed(event);
                 }
+                for (auto& button : buttons_coins) {
+                    int i = 0;
+                    button.draw_button(window, textureManager);
+                    button.get_pressed(event);
+                    
+                }
+                if (buttons_coins[0].pressed) {
+                    buttons_coins[0].pressed = false;
+                        if (Number_Of_Coins[0] > 0 && (All_Coins[My_Player.get_Index()].get_x() != Coord[My_Player.get_Index()][0])) 
+                        {
+                            Leave_Coin(My_Player, std::string("Triangle"), All_Coins, Coord, 33);
+                            Number_Of_Coins[0]--;
+                        }
+                }
+                if (buttons_coins[1].pressed) {
+                    buttons_coins[1].pressed = false;
+                    if (Number_Of_Coins[1] > 0 && (All_Coins[My_Player.get_Index()].get_x() != Coord[My_Player.get_Index()][0])) 
+                    {
+                        Leave_Coin(My_Player, std::string("Square"), All_Coins, Coord, 33);
+                        Number_Of_Coins[1]--;
+                    }
+                }
+                if (buttons_coins[2].pressed) {
+                    buttons_coins[2].pressed = false;
+                    if (Number_Of_Coins[2] > 0 && (All_Coins[My_Player.get_Index()].get_x() != Coord[My_Player.get_Index()][0])) 
+                    {
+                        Leave_Coin(My_Player, std::string("Pentagon"), All_Coins, Coord, 33);
+                        Number_Of_Coins[2]--;
+                    }
+                }
+                if (buttons_coins[3].pressed) {
+                    buttons_coins[3].pressed = false;
+                    if (Number_Of_Coins[3] > 0 && (All_Coins[My_Player.get_Index()].get_x() != Coord[My_Player.get_Index()][0])) 
+                    {
+                        Leave_Coin(My_Player, std::string("Hexagon"), All_Coins, Coord, 33);
+                        Number_Of_Coins[3]--;
+                    }
+                }
+                
                 if (buttons_game[0].pressed)
                 {
                     currentState = GameState::Settings;
