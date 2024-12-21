@@ -252,7 +252,7 @@ int main()
 
                 if (buttons_settings[1].pressed)
                 {
-                    currentState = GameState::Game;
+                    currentState = GameState::Defeat;
                     //ЗАМЕНИТЬ GAME НА DEFEAT
 
                     buttons_settings[1].pressed = false;
@@ -437,12 +437,10 @@ int main()
             //FIXME СКОЛЬКО КИСЛОРОДА 
             // Level_Of_Oxygen
             std::string level = "  Level \n     of \noxygen";
-            textRenderer.drawText(window, level, WIDTH * 8.5 / 10, HEIGHT / 4, 60, sf::Color(0, 164, 228));
+            textRenderer.drawText(window, level, WIDTH * 8.5 / 10, HEIGHT * 0.3, 60, sf::Color(0, 164, 228));
 
             textRenderer.drawText(window, std::to_string(Level_Of_Oxygen), WIDTH * 8 / 9, HEIGHT / 2, 69, sf::Color(0, 164, 228));
-            textRenderer.drawText(window, std::to_string(My_Player.get_Number_Of_Coins()), WIDTH * 8 / 9, HEIGHT / 2+100, 69, sf::Color::White);
-            textRenderer.drawText(window, std::to_string(Other_Player.get_Number_Of_Coins()), WIDTH * 8 / 9, HEIGHT / 2+200, 69, sf::Color::White);
-
+            
             //FIXME ЕСЛИ ПРОИГРАЛИ
             // определение исхода игры
             
