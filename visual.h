@@ -54,15 +54,11 @@ enum class GameState {
     Level,
     Game,
     Final,
-    Rating,
+    Defeat,
     Settings
 };
-void renderStart(sf::RenderWindow& window);
-void renderLevel(sf::RenderWindow& window);
-void renderGame(sf::RenderWindow& window);
-void renderFinal(sf::RenderWindow& window);
-void renderRating(sf::RenderWindow& window);
-void renderSettings(sf::RenderWindow& window);
+
+void renderSettings(sf::RenderWindow& window, const std::string& textureName, TextureManager& textureManager);
 class TextRenderer {
 public:
     TextRenderer(const std::string& fontFile);

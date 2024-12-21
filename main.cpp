@@ -94,7 +94,10 @@ int main()
 
 
     textureManager.loadTexture("Game", (folder / "game.png").string());
-    textureManager.loadTexture("Game", (folder / "game.png").string());
+    textureManager.loadTexture("defeat", (folder / "defeat.png").string());
+    textureManager.loadTexture("victory", (folder / "victory.png").string());
+    textureManager.loadTexture("start", (folder / "start.png").string());
+    ;
 
 
     textureManager.loadTexture("Triangle", (folder / "coin_3.png").string());
@@ -213,8 +216,8 @@ int main()
         // Отрисовка в зависимости от текущего состояния
         if (currentState == GameState::Start)
         {
-            renderStart(window);
-            //std::filesystem::path folder = "Pictures";
+            renderSettings(window, "start", textureManager);
+                //std::filesystem::path folder = "Pictures";
             //drawImage(window, "Triangle", 100.0, 100.0, 50.0, 50.0, textureManager);
             for (auto& button : buttons_start)
             {
@@ -234,7 +237,7 @@ int main()
             }
         }
             else if (currentState == GameState::Settings) {
-                renderGame(window);
+            renderSettings(window, "Game", textureManager);
 
                 for (auto& button : buttons_settings)
                 {
@@ -258,50 +261,29 @@ int main()
                 {
                     currentState = GameState::Game;
                     buttons_settings[2].pressed = false;
-                }
-                
             }
-            /*
-        else if (currentState == GameState::Level)
-        {
-            renderGame(window);
-            for (auto& button : buttons_level) {
-                button.draw_button(window, textureManager);
-                button.get_pressed(event);
-            }
-            if (buttons_level[0].pressed)
+            if (buttons_settings[3].pressed)
             {
-                currentState = GameState::Settings;
-                buttons_level[0].pressed = false;
+                    currentState = GameState::Level;
+                    buttons_settings[3].pressed = false;
             }
-            if (buttons_level[1].pressed)
+            if (buttons_settings[4].pressed)
             {
-
-                buttons_level[1].pressed = false;
+                    buttons_settings[4].pressed = false;
             }
-
-            if (buttons_level[2].pressed)
+            if (buttons_settings[5].pressed)
             {
-                currentState = GameState::Start;
-                buttons_level[2].pressed = false;
-            }
-            if (buttons_level[3].pressed)
-            {
-                currentState = GameState::Game;
-                buttons_level[3].pressed = false;
-            }
-            if (buttons_level[4].pressed)
-            {
-                currentState = GameState::Game;
-                buttons_level[4].pressed = false;
+                    currentState = GameState::Game;
+                    buttons_settings[5].pressed = false;
             }
 
         }
-        */
+
+        
             else if (currentState == GameState::Game)
             {
-                renderGame(window);
-                for (int i = 0; i < 33; i++)
+            renderSettings(window, "Game", textureManager);
+            for (int i = 0; i < 33; i++)
                 {
                     drawImage(window, All_Coins[i].get_Type(), All_Coins[i].get_x(), All_Coins[i].get_y(), x / 2, x / 2, textureManager);
                 }
@@ -381,30 +363,27 @@ int main()
                         Level_Of_Oxygen = Level_Of_Oxygen - My_Player.get_Number_Of_Coins();
                     }
                     buttons_game[4].pressed = false;
+            }
+            if (buttons_game[5].pressed)
+            {
+                //БЕРЕМ МОНЕТКУ
+                int Type = Number_Of_Type(All_Coins[My_Player.get_Index()].get_Type());
+                Take_Coin(My_Player, My_Player.get_Index(), My_Coins_Coord[Type][0], My_Coins_Coord[Type][1], All_Coins);
+                Number_Of_Coins[Type] =Number_Of_Coins[Type]+1;
+                buttons_game[5].pressed = false;
+            }
+            if (My_Player.get_Index() != new_my_player_index) {
+                fish.setAnimating(true);
+                int l = (Coord[My_Player.get_Index() + 1][0] - Coord[My_Player.get_Index()][0]) / 10;
+                int h = (Coord[My_Player.get_Index() + 1][1] - Coord[My_Player.get_Index()][1]) / 10;
+                if (step <=10) {
+                    my_player_x +=  l;
+                    my_player_y += h;
+                    step += 1;
                 }
-                if (buttons_game[5].pressed)
-                {
-                    //БЕРЕМ МОНЕТКУ
-                    if (All_Coins[My_Player.get_Index()].get_x() == Coord[My_Player.get_Index()][0])
-                    {
-                        int Type = Number_Of_Type(All_Coins[My_Player.get_Index()].get_Type());
-                        Take_Coin(My_Player, My_Player.get_Index(), My_Coins_Coord[Type][0], My_Coins_Coord[Type][1], All_Coins);
-                        Number_Of_Coins[Type] = Number_Of_Coins[Type] + 1;
-                    }
-                    buttons_game[5].pressed = false;
-                }
-                if (My_Player.get_Index() != new_my_player_index) {
-                    fish.setAnimating(true);
-                    int l = (Coord[My_Player.get_Index() + 1][0] - Coord[My_Player.get_Index()][0]) / 10;
-                    int h = (Coord[My_Player.get_Index() + 1][1] - Coord[My_Player.get_Index()][1]) / 10;
-                    if (step < 10) {
-                        my_player_x += l;
-                        my_player_y += h;
-                        step += 1;
-                    }
-                    else {
-                        My_Player.set_Index(My_Player.get_Index() + 1);
-                        step = 1;
+                else {
+                    My_Player.set_Index(My_Player.get_Index() + 1);
+                    step = 1;
 
                     }
                     fish.update(200.0f); // Примерное время между кадрами (60 FPS)
@@ -432,95 +411,107 @@ int main()
                         Other_Player.set_Index(Other_Player.get_Index() + 1);
                         step_c = 1;
 
-                    }
-                    crocodile.update(200.0f); // Примерное время между кадрами (60 FPS)
-                    crocodile.draw(window, other_player_x + 10, other_player_y + 5); // Отображаем анимацию в координатах (100, 100
                 }
-                else {
-                    if (Other_Take_Coins(Other_Player))
-                    {
-                        if (All_Coins[Other_Player.get_Index()].get_x() == Coord[Other_Player.get_Index()][0])
-                        {
-                            int Type = Number_Of_Type(All_Coins[Other_Player.get_Index()].get_Type());
-                            Take_Coin(Other_Player, Other_Player.get_Index(), Other_Coins_Coord[Type][0], Other_Coins_Coord[Type][1], All_Coins);
-                            Number_Of_Coins[Type + 4] += 1;
-                        }
-                    }
-
-                    if (Other_Player.get_Number_Of_Coins() >= 3)
-                    {
-                        Other_Player.set_Direction(1);
-                    }
-                    crocodile.setAnimating(false);
-                    crocodile.draw(window, other_player_x + 10, other_player_y + 5);
-                }
-                //FIXME СОФА ФУНКЦИЯ КОТОРАЯ СЧИТАЕТ КОЛИЧЕСТВО МОНЕТ ПРИ СЕБЕ РАЗНЫХ ТИПОВ
-                //массив Number_Of_Coins
-                drawNumbers(window, Number_Of_Coins, textRenderer, HEIGHT, 50);
-                //FIXME CОФА МОНЕТКИ КЛИКАБЕЛЬНЫ ВСЕ ВРЕМЯ И ПЕРВАЯ МОНЕТКА КРОКОДИЛОМ ВСЕГДА ЗАБИРАЕТСЯ 
-                // пофиксил, есть нулевая координата
-                //FIXME СКОЛЬКО КИСЛОРОДА 
-                // Level_Of_Oxygen
-                textRenderer.drawText(window, std::to_string(Level_Of_Oxygen), WIDTH * 8 / 9, HEIGHT / 2, 69, sf::Color::White);
-                textRenderer.drawText(window, std::to_string(My_Player.get_Number_Of_Coins()), WIDTH * 8 / 9, HEIGHT / 2 + 100, 69, sf::Color::White);
-                textRenderer.drawText(window, std::to_string(Other_Player.get_Number_Of_Coins()), WIDTH * 8 / 9, HEIGHT / 2 + 200, 69, sf::Color::White);
-
-                //FIXME ЕСЛИ ПРОИГРАЛИ
-                // определение исхода игры
-
-                int Result_Of_Game = -1;
-                if (Level_Of_Oxygen <= 0)
+                crocodile.update(200.0f); // Примерное время между кадрами (60 FPS)
+                crocodile.draw(window, other_player_x+10, other_player_y+5); // Отображаем анимацию в координатах (100, 100
+            }
+            else {
+                if (Other_Take_Coins(Other_Player))
                 {
-                    if (My_Player.get_Index() > 0 && Other_Player.get_Index() == 0) { Result_Of_Game = 0; } // проигрыш, если утонул
-                    if (Other_Player.get_Index() > 0 && My_Player.get_Index() == 0) { Result_Of_Game = 1; } // выигрыш, если утонул соперник
+                    int Type = Number_Of_Type(All_Coins[Other_Player.get_Index()].get_Type());
+                    Take_Coin(Other_Player, Other_Player.get_Index(), Other_Coins_Coord[Type][0], Other_Coins_Coord[Type][1], All_Coins);
+                    Number_Of_Coins[Type+4] += 1;
                 }
-                else
+                if (Other_Player.get_Number_Of_Coins() >= 3)
                 {
-                    if (My_Player.get_Index() == 0 && Other_Player.get_Index() == 0)
+                    Other_Player.set_Direction(1);
+                }
+                crocodile.setAnimating(false);
+                crocodile.draw(window, other_player_x+10, other_player_y+5);
+            }
+            //FIXME СОФА ФУНКЦИЯ КОТОРАЯ СЧИТАЕТ КОЛИЧЕСТВО МОНЕТ ПРИ СЕБЕ РАЗНЫХ ТИПОВ
+            //массив Number_Of_Coins
+            drawNumbers(window, Number_Of_Coins, textRenderer, HEIGHT, 50);
+            //FIXME CОФА МОНЕТКИ КЛИКАБЕЛЬНЫ ВСЕ ВРЕМЯ И ПЕРВАЯ МОНЕТКА КРОКОДИЛОМ ВСЕГДА ЗАБИРАЕТСЯ 
+            // пофиксил, есть нулевая координата
+            //FIXME СКОЛЬКО КИСЛОРОДА 
+            // Level_Of_Oxygen
+            std::string level = "  Level \n     of \noxygen";
+            textRenderer.drawText(window, level, WIDTH * 8.5 / 10, HEIGHT / 4, 60, sf::Color(0, 164, 228));
+
+            textRenderer.drawText(window, std::to_string(Level_Of_Oxygen), WIDTH * 8 / 9, HEIGHT / 2, 69, sf::Color(0, 164, 228));
+            textRenderer.drawText(window, std::to_string(My_Player.get_Number_Of_Coins()), WIDTH * 8 / 9, HEIGHT / 2+100, 69, sf::Color::White);
+            textRenderer.drawText(window, std::to_string(Other_Player.get_Number_Of_Coins()), WIDTH * 8 / 9, HEIGHT / 2+200, 69, sf::Color::White);
+
+            //FIXME ЕСЛИ ПРОИГРАЛИ
+            // определение исхода игры
+            
+            int Result_Of_Game = -1;
+            if (Level_Of_Oxygen <= 0)
+            {
+                if (My_Player.get_Index() > 0 && Other_Player.get_Index() == 0) { 
+                    Result_Of_Game = 0;                 
+                    currentState = GameState::Defeat;
+                } // проигрыш, если утонул
+                if (Other_Player.get_Index() > 0 && My_Player.get_Index() == 0) { Result_Of_Game = 1; 
+                currentState = GameState::Final;
+                } // выигрыш, если утонул соперник
+            }
+            else
+            {
+                if (My_Player.get_Index() == 0 && Other_Player.get_Index() == 0)
+                {
+                    int My_Result = 0;
+                    int Other_Result = 0;
+                    for (const auto& coin : My_Player.get_My_Coins())
                     {
-                        int My_Result = 0;
-                        int Other_Result = 0;
-                        for (const auto& coin : My_Player.get_My_Coins())
-                        {
-                            My_Result += coin.get_Price();
-                        }
-                        for (const auto& coin : Other_Player.get_My_Coins())
-                        {
-                            Other_Result += coin.get_Price();
-                        }
-                        if (My_Result > Other_Result) { Result_Of_Game = 1; } // победа
-                        if (My_Result < Other_Result) { Result_Of_Game = 0; } // проигрыш
-                        if (My_Result == Other_Result) { Result_Of_Game = 2; } // ничья
+                        My_Result += coin.get_Price();
                     }
+                    for (const auto& coin : Other_Player.get_My_Coins())
+                    {
+                        Other_Result += coin.get_Price();
+                    }
+                    if (My_Result > Other_Result) { Result_Of_Game = 1;                     currentState = GameState::Final;
+                    } // победа
+                    if (My_Result < Other_Result) { Result_Of_Game = 0;                     currentState = GameState::Defeat;
+                    } // проигрыш
+                    if (My_Result == Other_Result && My_Result!=0) { Result_Of_Game = 2;                     currentState = GameState::Defeat;
+                    } // ничья
                 }
-
-                if (false) {
-                    currentState = GameState::Final;
-                }
             }
-
-            else if (currentState == GameState::Final)
+            
+            if (false) {
+                currentState = GameState::Final;
+            }
+            if (buttons_game[1].pressed)
             {
-                renderGame(window);
-                //FIXME Кнопка на стартовый экран
+                drawPopup(window, WIDTH, text_for_menu);
+                buttons_game[1].pressed = false;
             }
-
-
-            else if (currentState == GameState::Rating)
-            {
-                renderGame(window);
-            }
-            for (auto& ripple : ripples) {
-                ripple.update();
-            }
-            // Удаляем завершенные ряды
-            ripples.erase(std::remove_if(ripples.begin(), ripples.end(),
-                [](const Ripple& ripple) { return ripple.isFinished(); }), ripples.end());
-            for (auto& ripple : ripples) {
-                ripple.draw(window);
-            }
-            window.display();
         }
+
+        else if (currentState == GameState::Final)
+        {
+            renderSettings(window, "victory", textureManager);
+            //FIXME Кнопка на стартовый экран
+        }
+
+
+        else if (currentState == GameState::Defeat)
+        {
+            renderSettings(window, "defeat", textureManager);
+        }
+        for (auto& ripple : ripples) {
+            ripple.update();
+        }
+        // Удаляем завершенные ряды
+        ripples.erase(std::remove_if(ripples.begin(), ripples.end(),
+            [](const Ripple& ripple) { return ripple.isFinished(); }), ripples.end());
+        for (auto& ripple : ripples) {
+            ripple.draw(window);
+        }
+        window.display();
+    }
 
         return 0;
     
