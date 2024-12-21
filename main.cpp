@@ -421,18 +421,16 @@ int main()
                 crocodile.draw(window, other_player_x+10, other_player_y+5); // Отображаем анимацию в координатах (100, 100
             }
             else {
-                /*
-                if (Possibility(2))
+                if (Other_Take_Coins(Other_Player.get_Number_Of_Coins(), Other_Player.get_Index()))
                 {
                     int Type = Number_Of_Type(All_Coins[Other_Player.get_Index()].get_Type());
                     Take_Coin(Other_Player, Other_Player.get_Index(), Other_Coins_Coord[Type][0], Other_Coins_Coord[Type][1], All_Coins);
                     Number_Of_Coins[Type+4] += 1;
                 }
-                if (Possibility(4))
+                if (Other_Player.get_Number_Of_Coins() >= 3)
                 {
                     Other_Player.set_Direction(1);
                 }
-                */
                 crocodile.setAnimating(false);
                 crocodile.draw(window, other_player_x+10, other_player_y+5);
             }

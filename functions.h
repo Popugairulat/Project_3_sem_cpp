@@ -11,4 +11,5 @@ int Move_Player(int roll, int MyIndex, int OtherIndex, int Napravlenie);
 void Take_Coin(Player& Player, int Coin_Index, int newX, int newY, std::vector<Coin>& All_Coins);
 int Number_Of_Type(std::string Type);
 bool Possibility(int Probability);
+bool Other_Take_Coins(int Number, int Index)
 #endif // FUNCTIONS_H

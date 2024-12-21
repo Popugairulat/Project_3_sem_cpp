@@ -131,3 +131,38 @@ bool Possibility(int Probability)
 
     return Result < Probability;
 }
+
+bool Other_Take_Coins(int Number, int Index)
+{
+    if (Index == 0) { return true; }
+    else
+    {
+        if (Number <=2)
+        {
+            if (Index >= 12)
+            {
+                if (Roll_Random(1, 10) < 6) { return true; }
+                else { return false; }
+            }
+            else
+            {
+                if (Roll_Random(1, 10) < 8) { return true; }
+                else { return false; }
+            }
+        }
+        else
+        {
+
+            if (Index >= 12)
+            {
+                if (Roll_Random(1, 10) < 5) { return true; }
+                else { return false; }
+            }
+            else
+            {
+                if (Roll_Random(1, 10) < 2) { return true; }
+                else { return false; }
+            }
+        }
+    }
+}
